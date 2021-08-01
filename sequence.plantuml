@@ -18,12 +18,30 @@ title Chess App
 
 
 
+
 class Game {
     
 }
 
-class "Board" as Board {
+class Board {
+    -boardSquares: Square[][]
+}
 
+class Square {
+    -color: final SquareColor
+    -position: final Position
+    -occupied: bool
+
+    +Square()
+
+    +bool isOccupied()
+    +void unoccupy()
+}
+
+
+enum SquareColor{
+    LIGHT,
+    DARK
 }
 
 enum PieceType {
@@ -40,9 +58,10 @@ enum Player {
     BLACK;
 }
 
+
 class Position {
-    -x: short;
-    -y: short;
+    -x: short
+    -y: short
 
     +Position(short x, short y)
     
@@ -51,14 +70,14 @@ class Position {
 }
 
 abstract class Piece {
-    -m_player : final Player;
-    -m_type : PieceType;
-    -m_position : Position;
+    -m_player : final Player
+    -m_type : final PieceType
+    -m_position : Position
     
     +Piece()
     
-    +abstract bool isValidMove();
-    +abstract byte[][] Move();
+    +abstract bool isMoveValid();
+    +abstract Square[][] Move();
 
     +Type getType()
     +Player getPlayer()
