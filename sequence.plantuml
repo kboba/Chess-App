@@ -88,12 +88,13 @@ class King {
     
 }
 
-Pawn --> Piece
-Knight --> Piece
-Bishop --> Piece
-Rock --> Piece
-Queen --> Piece
-King --> Piece 
+
+Piece <|-- Pawn
+Piece <|-- Knight
+Piece <|-- Bishop
+Piece <|-- Rock
+Piece <|-- Queen
+Piece <|-- King
 
 
 
