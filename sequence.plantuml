@@ -18,102 +18,123 @@ title Chess App
 
 
 
+package Game {
+    class Game {
+        -board: Board
+    }
 
-class Game {
-    
-}
-
-class Board {
-    -boardSquares: Square[][]
-}
-
-class Square {
-    -color: final SquareColor
-    -position: final Position
-    -occupied: bool
-
-    +Square()
-
-    +bool isOccupied()
-    +void unoccupy()
-}
+    enum PlayerColor {
+        WHITE,
+        BLACK;
+    }
 
 
-enum SquareColor{
-    LIGHT,
-    DARK
-}
+    class Position {
+        -x: short
+        -y: short
 
-enum PieceType {
-    PAWN,
-    KNIGHT,
-    BISHOP,
-    ROCK,
-    QUEEN,
-    KING;
-}
-
-enum Player {
-    WHITE,
-    BLACK;
+        +Position(short x, short y)
+        
+        +void setPosition(short x, short y)
+        +Position getPosition()
+    }
 }
 
 
-class Position {
-    -x: short
-    -y: short
 
-    +Position(short x, short y)
-    
-    +setPosition()
-    +getPosition()
+package Board {
+    class Board {
+        -boardSquares: Square[][]
+
+        +Board()
+
+        -void initialize();
+    }
+
+    class Square {
+        -color: final SquareColor
+        -position: final Position
+        -occupied: bool
+        -piece: Piece
+
+        +Square(SquareColor, Position)
+
+        +void occupy()
+        +void unoccupy()
+
+        +bool isOccupied()
+        +Piece getPiece()
+        +void setPiece(Piece)
+    }
+
+
+    enum SquareColor{
+        LIGHT,
+        DARK
+    }
 }
 
-abstract class Piece {
-    -m_player : final Player
-    -m_type : final PieceType
-    -m_position : Position
-    
-    +Piece()
-    
-    +abstract bool isMoveValid();
-    +abstract Square[][] Move();
 
-    +Type getType()
-    +Player getPlayer()
-}
 
-class Pawn {
-
-}
-
-class Knight {
-
-}
-
-class Bishop {
-    
-}
-
-class Rock {
-
-}
-
-class Queen {
-
-}
-
-class King {
+package GUI {
     
 }
 
 
-Piece <|-- Pawn
-Piece <|-- Knight
-Piece <|-- Bishop
-Piece <|-- Rock
-Piece <|-- Queen
-Piece <|-- King
+
+package Pieces {
+    enum PieceType {
+        PAWN,
+        KNIGHT,
+        BISHOP,
+        ROCK,
+        QUEEN,
+        KING;
+    }
+
+    abstract class Piece implements Movable {
+        -m_player : final PlayerColor
+        -m_type : final PieceType
+        -m_position : Position
+        
+        +Piece()
+        
+        +abstract bool isMoveValid();
+        +abstract Position Move(Position newPosition);
+
+        +PieceType getType()
+        +PlayerColor getPlayer()
+    }
+
+    interface Movable {
+        void isMoveValid();
+        void Move(Position newPosition);
+    }
+
+    class Pawn extends Piece {
+
+    }
+
+    class Knight extends Piece {
+
+    }
+
+    class Bishop extends Piece {
+        
+    }
+
+    class Rock extends Piece {
+
+    }
+
+    class Queen extends Piece {
+
+    }
+
+    class King extends Piece {
+        
+    }
+}
 
 
 
