@@ -1,4 +1,4 @@
-package Game;
+package Pieces;
 
 public enum PlayerColor {
     WHITE,
