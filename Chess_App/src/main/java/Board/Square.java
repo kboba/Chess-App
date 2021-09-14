@@ -1,18 +1,18 @@
 package Board;
 
-import Game.Position;
 import Pieces.Piece;
 
 public class Square {
-    private final SquareColor color;
-    private final Position position;
     private boolean occupied;
     private Piece piece;
 
-    public Square(SquareColor squareColor, Position position) {
-        this.color = squareColor;
-        this.position = position;
+    public Square(Piece piece, boolean occupied) {
+        this.piece = piece;
+        this.occupied = occupied;
     }
+
+
+
 
     void occupy(){
         occupied = true;

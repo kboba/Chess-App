@@ -1,6 +1,5 @@
 package Pieces;
 
-import Game.PlayerColor;
 import Game.Position;
 
 abstract public class Piece implements Movable {
