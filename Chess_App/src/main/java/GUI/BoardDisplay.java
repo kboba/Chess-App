@@ -1,6 +1,8 @@
 package GUI;
 
 
+import Board.Square;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -10,29 +12,31 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class BoardDisplay {
-    public static final byte WIDTH = 64;
-    private static final byte HEIGHT = 64;
+    private final byte SQUARE_WIDTH = 64;
+    private final byte SQUARE_HEIGHT = 64;
+    private final byte xMove = 20;
+    private final byte yMove = 35;
+    final Color BLACK = new Color(255, 204, 153);
+    final Color WHITE = new Color(102, 51, 0);
 
     private JFrame m_frame;
     private JPanel m_panel;
     private HashMap<String, Image> m_images = new HashMap<>();
 
 
+
     public BoardDisplay() {
 
     }
 
-    public void initialize(){
+    public void initialize(Square[][] boardSquares){
         m_frame = new JFrame(){
             @Override
             public void paint(Graphics g) {
                 boolean isWhite;
 
-                final var BLACK = new Color(255, 204, 153);
-                final var WHITE = new Color(102, 51, 0);
-
                 g.setColor(Color.BLACK);
-                g.drawRect(19, 34, 8*BoardDisplay.WIDTH+1, 8*BoardDisplay.HEIGHT+1);
+                g.drawRect(xMove-1, yMove-1, 8*SQUARE_WIDTH+1, 8*SQUARE_HEIGHT+1);
 
                 for(int x=0; x<8; x++){
                     for(int y=0; y<8; y++){
@@ -45,11 +49,22 @@ public class BoardDisplay {
                             g.setColor(BLACK); // black
                         }
 
-                        g.fillRect(x*BoardDisplay.WIDTH+20, y*BoardDisplay.HEIGHT+35, BoardDisplay.WIDTH, BoardDisplay.HEIGHT);
+                        g.fillRect(x*SQUARE_WIDTH+xMove, y*SQUARE_HEIGHT+yMove, SQUARE_WIDTH, SQUARE_HEIGHT);
                     }
                 }
+
+                //for (int i=0; i<8; i++){
+                    //for (int j = 0; j < 8; j++) {
+                        //Square square = boardSquares[i][j];
+                        g.drawImage(m_images.get("wp"), SQUARE_WIDTH+xMove, SQUARE_HEIGHT+yMove, this);
+                    //}
+               // }
+
+
             }
         };
+
+
         readImages();
         m_frame.setBounds(0, 0, 555, 565);
         m_panel = new JPanel();
