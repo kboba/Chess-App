@@ -20,24 +20,31 @@ public class BoardDisplay {
             @Override
             public void paint(Graphics g) {
                 boolean isWhite;
+
+                final var BLACK = new Color(255, 204, 153);
+                final var WHITE = new Color(102, 51, 0);
+
+                g.setColor(Color.BLACK);
+                g.drawRect(19, 34, 8*BoardDisplay.WIDTH+1, 8*BoardDisplay.HEIGHT+1);
+
                 for(int x = 0; x < 8; x++){
                     for(int y = 0; y < 8; y++){
                         isWhite = (x+y)%2 == 0;
 
                         if(isWhite){
-                            g.setColor(Color.WHITE); // color white
+                            g.setColor(WHITE); // color white
                         }
                         else{
-                            g.setColor(Color.DARK_GRAY); // black
+                            g.setColor(BLACK); // black
                         }
 
-                        g.fillRect(x*BoardDisplay.WIDTH, y*BoardDisplay.HEIGHT, BoardDisplay.WIDTH, BoardDisplay.HEIGHT);
+                        g.fillRect(x*BoardDisplay.WIDTH+20, y*BoardDisplay.HEIGHT+35, BoardDisplay.WIDTH, BoardDisplay.HEIGHT);
                     }
                 }
             }
         };
 
-        frame.setBounds(100, 100, 512, 512);
+        frame.setBounds(0, 0, 555, 565);
         panel = new JPanel();
         frame.add(panel);
         frame.setVisible(true);
