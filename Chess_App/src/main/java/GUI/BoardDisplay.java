@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -33,37 +34,12 @@ public class BoardDisplay implements Displayable {
     }
 
     public void initialize(){
-        m_frame = new JFrame(){
+        m_frame = new JFrame("Chess Game"){
             @Override
             public void paint(Graphics g) {
-                boolean isWhite;
-
-                g.setColor(Color.BLACK);
-                g.drawRect(X_MOVE, Y_MOVE, COLUMNS_AMOUNT*SQUARE_WIDTH + BORDER_WIDTH, ROWS_AMOUNT*SQUARE_HEIGHT + BORDER_WIDTH);
-
-                for(int x=0; x<COLUMNS_AMOUNT; x++){
-                    for(int y=0; y<ROWS_AMOUNT; y++){
-                        isWhite = (x+y)%2 == 0;
-
-                        if(isWhite){
-                            g.setColor(WHITE); // color white
-                        }
-                        else{
-                            g.setColor(BLACK); // black
-                        }
-
-                        g.fillRect(x*SQUARE_WIDTH+ X_MOVE + BORDER_WIDTH, y*SQUARE_HEIGHT+ Y_MOVE + BORDER_WIDTH, SQUARE_WIDTH, SQUARE_HEIGHT);
-                    }
-                }
-
-                //for (int i=0; i<ROWS_AMOUNT; i++){
-                    //for (int j = 0; j < COLUMNS_AMOUNT; j++) {
-                        //Square square = boardSquares[i][j];
-                        g.drawImage(m_images.get("wp"), SQUARE_WIDTH+ X_MOVE, SQUARE_HEIGHT+ Y_MOVE, this);
-                    //}
-               // }
-
-
+                drawBorder(g);
+                drawBoard(g);
+                drawPieces(g, this);
             }
         };
 
@@ -114,5 +90,37 @@ public class BoardDisplay implements Displayable {
     @Override
     public void display() {
 
+    }
+
+    private void drawBorder(Graphics g) {
+        g.setColor(Color.BLACK);
+        g.drawRect(X_MOVE, Y_MOVE, COLUMNS_AMOUNT*SQUARE_WIDTH + BORDER_WIDTH, ROWS_AMOUNT*SQUARE_HEIGHT + BORDER_WIDTH);
+    }
+
+    private void drawBoard(Graphics g) {
+        boolean isWhite;
+        for(int x = 0; x<COLUMNS_AMOUNT; x++){
+            for(int y=0; y<ROWS_AMOUNT; y++){
+                isWhite = (x+y)%2 == 0;
+
+                if(isWhite){
+                    g.setColor(WHITE); // color white
+                }
+                else{
+                    g.setColor(BLACK); // black
+                }
+
+                g.fillRect(x*SQUARE_WIDTH+ X_MOVE + BORDER_WIDTH, y*SQUARE_HEIGHT+ Y_MOVE + BORDER_WIDTH, SQUARE_WIDTH, SQUARE_HEIGHT);
+            }
+        }
+    }
+
+    private void drawPieces(Graphics g, ImageObserver observer) {
+        //for (int i=0; i<ROWS_AMOUNT; i++){
+            //for (int j = 0; j < COLUMNS_AMOUNT; j++) {
+                //Square square = boardSquares[i][j];
+                g.drawImage(m_images.get("wp"), SQUARE_WIDTH+ X_MOVE, SQUARE_HEIGHT+ Y_MOVE, observer);
+            //}
+        // }
     }
 }
