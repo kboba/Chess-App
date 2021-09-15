@@ -39,10 +39,10 @@ public class BoardDisplay {
                 boolean isWhite;
 
                 g.setColor(Color.BLACK);
-                g.drawRect(X_MOVE, Y_MOVE, 8*SQUARE_WIDTH + BORDER_WIDTH, 8*SQUARE_HEIGHT + BORDER_WIDTH);
+                g.drawRect(X_MOVE, Y_MOVE, COLUMNS_AMOUNT*SQUARE_WIDTH + BORDER_WIDTH, ROWS_AMOUNT*SQUARE_HEIGHT + BORDER_WIDTH);
 
-                for(int x=0; x<ROWS_AMOUNT; x++){
-                    for(int y=0; y<COLUMNS_AMOUNT; y++){
+                for(int x=0; x<COLUMNS_AMOUNT; x++){
+                    for(int y=0; y<ROWS_AMOUNT; y++){
                         isWhite = (x+y)%2 == 0;
 
                         if(isWhite){
@@ -69,7 +69,7 @@ public class BoardDisplay {
 
 
         readImages();
-        m_frame.setBounds(0, 0, 555, 565);
+        m_frame.setBounds(0, 0, COLUMNS_AMOUNT*SQUARE_WIDTH +42, ROWS_AMOUNT*SQUARE_HEIGHT +54);
         m_panel = new JPanel();
         m_frame.add(m_panel);
         m_frame.setVisible(true);
@@ -89,7 +89,7 @@ public class BoardDisplay {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                images[i*2+j]=img.getSubimage(0, 0, 60, 60).getScaledInstance(64, 64, BufferedImage.SCALE_SMOOTH);
+                images[i*2+j]=img.getSubimage(0, 0, 60, 60).getScaledInstance(SQUARE_WIDTH, SQUARE_HEIGHT, BufferedImage.SCALE_SMOOTH);
             }
         }
 
