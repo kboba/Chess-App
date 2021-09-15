@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class BoardDisplay {
+    private final byte ROWS_AMOUNT = 8;
+    private final byte COLUMNS_AMOUNT = 8;
     private final byte SQUARE_WIDTH = 64;
     private final byte SQUARE_HEIGHT = 64;
     private final byte xMove = 20;
@@ -38,8 +40,8 @@ public class BoardDisplay {
                 g.setColor(Color.BLACK);
                 g.drawRect(xMove-1, yMove-1, 8*SQUARE_WIDTH+1, 8*SQUARE_HEIGHT+1);
 
-                for(int x=0; x<8; x++){
-                    for(int y=0; y<8; y++){
+                for(int x=0; x<ROWS_AMOUNT; x++){
+                    for(int y=0; y<COLUMNS_AMOUNT; y++){
                         isWhite = (x+y)%2 == 0;
 
                         if(isWhite){
@@ -53,8 +55,8 @@ public class BoardDisplay {
                     }
                 }
 
-                //for (int i=0; i<8; i++){
-                    //for (int j = 0; j < 8; j++) {
+                //for (int i=0; i<ROWS_AMOUNT; i++){
+                    //for (int j = 0; j < COLUMNS_AMOUNT; j++) {
                         //Square square = boardSquares[i][j];
                         g.drawImage(m_images.get("wp"), SQUARE_WIDTH+xMove, SQUARE_HEIGHT+yMove, this);
                     //}
