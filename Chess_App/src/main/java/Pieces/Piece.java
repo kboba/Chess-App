@@ -14,9 +14,6 @@ abstract public class Piece implements Movable {
         this.m_position = m_position;
     }
 
-    public abstract void isMoveValid();
-    public abstract void Move(Position newPosition);
-
     public PieceType getType() {
         return m_type;
     }
