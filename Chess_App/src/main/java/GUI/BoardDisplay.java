@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class BoardDisplay {
+public class BoardDisplay implements Displayable {
     private final byte ROWS_AMOUNT = 8;
     private final byte COLUMNS_AMOUNT = 8;
     private final byte SQUARE_WIDTH = 64;
@@ -109,5 +109,10 @@ public class BoardDisplay {
         m_images.put("bQ", images[9]);
         m_images.put("wK", images[10]);
         m_images.put("bK", images[11]);
+    }
+
+    @Override
+    public void display() {
+
     }
 }
