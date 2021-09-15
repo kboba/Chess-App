@@ -1,16 +1,11 @@
 package Board;
 
 import GUI.BoardDisplay;
-import Game.Position;
-import Pieces.Piece;
 
 public class Board {
     private Square[][] boardSquares;
-    private BoardDisplay boardDisplay;
 
-    public Board(BoardDisplay boardDisplay) {
-        this.boardDisplay = boardDisplay;
-        boardDisplay.initialize(boardSquares);
+    public Board() {
         initialize();
     }
 
