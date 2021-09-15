@@ -1,7 +1,7 @@
 package GUI;
 
 
-import Board.Square;
+import Board.Board;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -11,13 +11,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class BoardDisplay {
+public class BoardDisplay implements Displayable {
     private final byte ROWS_AMOUNT = 8;
     private final byte COLUMNS_AMOUNT = 8;
     private final byte SQUARE_WIDTH = 64;
     private final byte SQUARE_HEIGHT = 64;
-    private final byte xMove = 20;
-    private final byte yMove = 35;
+    private final byte X_MOVE = 20;
+    private final byte Y_MOVE = 35;
+    private final byte BORDER_WIDTH = 1;
     final Color BLACK = new Color(255, 204, 153);
     final Color WHITE = new Color(102, 51, 0);
 
@@ -25,23 +26,23 @@ public class BoardDisplay {
     private JPanel m_panel;
     private HashMap<String, Image> m_images = new HashMap<>();
 
-
-
-    public BoardDisplay() {
-
+    private Board board;
+    
+    public BoardDisplay(Board board) {
+        this.board = board;
     }
 
-    public void initialize(Square[][] boardSquares){
+    public void initialize(){
         m_frame = new JFrame(){
             @Override
             public void paint(Graphics g) {
                 boolean isWhite;
 
                 g.setColor(Color.BLACK);
-                g.drawRect(xMove-1, yMove-1, 8*SQUARE_WIDTH+1, 8*SQUARE_HEIGHT+1);
+                g.drawRect(X_MOVE, Y_MOVE, COLUMNS_AMOUNT*SQUARE_WIDTH + BORDER_WIDTH, ROWS_AMOUNT*SQUARE_HEIGHT + BORDER_WIDTH);
 
-                for(int x=0; x<ROWS_AMOUNT; x++){
-                    for(int y=0; y<COLUMNS_AMOUNT; y++){
+                for(int x=0; x<COLUMNS_AMOUNT; x++){
+                    for(int y=0; y<ROWS_AMOUNT; y++){
                         isWhite = (x+y)%2 == 0;
 
                         if(isWhite){
@@ -51,14 +52,14 @@ public class BoardDisplay {
                             g.setColor(BLACK); // black
                         }
 
-                        g.fillRect(x*SQUARE_WIDTH+xMove, y*SQUARE_HEIGHT+yMove, SQUARE_WIDTH, SQUARE_HEIGHT);
+                        g.fillRect(x*SQUARE_WIDTH+ X_MOVE + BORDER_WIDTH, y*SQUARE_HEIGHT+ Y_MOVE + BORDER_WIDTH, SQUARE_WIDTH, SQUARE_HEIGHT);
                     }
                 }
 
                 //for (int i=0; i<ROWS_AMOUNT; i++){
                     //for (int j = 0; j < COLUMNS_AMOUNT; j++) {
                         //Square square = boardSquares[i][j];
-                        g.drawImage(m_images.get("wp"), SQUARE_WIDTH+xMove, SQUARE_HEIGHT+yMove, this);
+                        g.drawImage(m_images.get("wp"), SQUARE_WIDTH+ X_MOVE, SQUARE_HEIGHT+ Y_MOVE, this);
                     //}
                // }
 
@@ -68,7 +69,7 @@ public class BoardDisplay {
 
 
         readImages();
-        m_frame.setBounds(0, 0, 555, 565);
+        m_frame.setBounds(0, 0, COLUMNS_AMOUNT*SQUARE_WIDTH +42, ROWS_AMOUNT*SQUARE_HEIGHT +54);
         m_panel = new JPanel();
         m_frame.add(m_panel);
         m_frame.setVisible(true);
@@ -88,7 +89,7 @@ public class BoardDisplay {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                images[i*2+j]=img.getSubimage(0, 0, 60, 60).getScaledInstance(64, 64, BufferedImage.SCALE_SMOOTH);
+                images[i*2+j]=img.getSubimage(0, 0, 60, 60).getScaledInstance(SQUARE_WIDTH, SQUARE_HEIGHT, BufferedImage.SCALE_SMOOTH);
             }
         }
 
@@ -108,5 +109,10 @@ public class BoardDisplay {
         m_images.put("bQ", images[9]);
         m_images.put("wK", images[10]);
         m_images.put("bK", images[11]);
+    }
+
+    @Override
+    public void display() {
+
     }
 }

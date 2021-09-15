@@ -8,8 +8,8 @@ public class ChessGame {
 //    private static Board board;
 
     public static void main(String[] args) {
-        var boardDisplay = new BoardDisplay();
-        var board = new Board(boardDisplay);
-
+        var board = new Board();
+        var boardDisplay = new BoardDisplay(board);
+        boardDisplay.initialize();
     }
 }
