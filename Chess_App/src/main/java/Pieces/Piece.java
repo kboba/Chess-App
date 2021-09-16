@@ -1,27 +1,32 @@
 package Pieces;
 
-import Game.Position;
+import Board.Position;
 
 abstract public class Piece implements Movable {
-    private final PlayerColor m_player;
-    private final PieceType m_type;
-    private Position m_position;
+    private final PlayerColor playerColor;
+    private final PieceType type;
+    private Position position;
 
 
-    public Piece(PlayerColor m_player, PieceType m_type, Position m_position) {
-        this.m_player = m_player;
-        this.m_type = m_type;
-        this.m_position = m_position;
+    public Piece(PlayerColor playerColor, PieceType type, Position position) {
+        this.playerColor = playerColor;
+        this.type = type;
+        this.position = position;
     }
 
-    public abstract void isMoveValid();
-    public abstract void Move(Position newPosition);
-
     public PieceType getType() {
-        return m_type;
+        return type;
     }
 
     public PlayerColor getPlayer() {
         return getPlayer();
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 }
