@@ -20,4 +20,8 @@ public class Board {
 //        boardSquares[0][7];
 
     }
+
+    public Square[][] getBoardSquares() {
+        return boardSquares;
+    }
 }
