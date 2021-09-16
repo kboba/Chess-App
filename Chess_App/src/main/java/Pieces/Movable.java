@@ -1,8 +1,9 @@
 package Pieces;
 
-import Game.Position;
+import Board.Board;
+import Board.Position;
 
 public interface Movable {
-    void isMoveValid();
-    void Move(Position newPosition);
+    boolean isMoveValid(Position newPosition, Board board);
+    void Move(Position newPosition, Board board);
 }
