@@ -5,8 +5,8 @@ import Board.Position;
 
 public class Pawn extends Piece {
 
-    public Pawn(PlayerColor m_player, Position m_position) {
-        super(m_player, PieceType.PAWN, m_position);
+    public Pawn(PlayerColor playerColor, Position position) {
+        super(playerColor, PieceType.PAWN, position);
     }
 
     @Override

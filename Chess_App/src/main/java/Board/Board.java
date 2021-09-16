@@ -1,7 +1,5 @@
 package Board;
 
-import GUI.BoardDisplay;
-
 public class Board {
     private Square[][] boardSquares;
 
@@ -23,5 +21,9 @@ public class Board {
 
     public Square[][] getBoardSquares() {
         return boardSquares;
+    }
+
+    public void setBoardSquares(Square[][] boardSquares) {
+        this.boardSquares = boardSquares;
     }
 }

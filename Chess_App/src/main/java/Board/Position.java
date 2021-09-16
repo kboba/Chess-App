@@ -16,4 +16,12 @@ public class Position {
     public Position getPosition() {
         return new Position(x, y);
     }
+
+    public short getX() {
+        return x;
+    }
+
+    public short getY() {
+        return y;
+    }
 }
