@@ -20,8 +20,9 @@ public class BoardDisplay implements Displayable {
     private final byte X_MOVE = 20;
     private final byte Y_MOVE = 35;
     private final byte BORDER_WIDTH = 1;
-    final Color BLACK = new Color(255, 204, 153);
-    final Color WHITE = new Color(102, 51, 0);
+    final Color BLACK_SQUARES_COLOR = new Color(102, 51, 0);
+    final Color WHITE_SQUARES_COLOR = new Color(255,204,153);
+    final Color BOARD_COLOR = new Color(68, 28, 0);
 
     private JFrame jFrame;
     private JPanel jPanel;
@@ -96,7 +97,7 @@ public class BoardDisplay implements Displayable {
     }
 
     private void drawBorder(Graphics g) {
-        g.setColor(Color.BLACK);
+        g.setColor(BOARD_COLOR);
         g.drawRect(X_MOVE, Y_MOVE, COLUMNS_AMOUNT*SQUARE_WIDTH + BORDER_WIDTH, ROWS_AMOUNT*SQUARE_HEIGHT + BORDER_WIDTH);
     }
 
@@ -107,10 +108,10 @@ public class BoardDisplay implements Displayable {
                 isWhite = (x+y)%2 == 0;
 
                 if(isWhite){
-                    g.setColor(WHITE); // color white
+                    g.setColor(WHITE_SQUARES_COLOR); // color white
                 }
                 else{
-                    g.setColor(BLACK); // black
+                    g.setColor(BLACK_SQUARES_COLOR); // black
                 }
 
                 g.fillRect(x*SQUARE_WIDTH+ X_MOVE + BORDER_WIDTH, y*SQUARE_HEIGHT+ Y_MOVE + BORDER_WIDTH, SQUARE_WIDTH, SQUARE_HEIGHT);
