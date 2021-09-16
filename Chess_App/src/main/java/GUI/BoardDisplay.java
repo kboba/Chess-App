@@ -23,9 +23,9 @@ public class BoardDisplay implements Displayable {
     final Color BLACK = new Color(255, 204, 153);
     final Color WHITE = new Color(102, 51, 0);
 
-    private JFrame m_frame;
-    private JPanel m_panel;
-    private HashMap<String, Image> m_images = new HashMap<>();
+    private JFrame jFrame;
+    private JPanel jPanel;
+    private HashMap<String, Image> stringToImage = new HashMap<>();
 
     private Board board;
     
@@ -34,7 +34,7 @@ public class BoardDisplay implements Displayable {
     }
 
     public void initialize(){
-        m_frame = new JFrame("Chess Game"){
+        jFrame = new JFrame("Chess Game"){
             @Override
             public void paint(Graphics g) {
                 drawBorder(g);
@@ -43,13 +43,16 @@ public class BoardDisplay implements Displayable {
             }
         };
 
-
         readImages();
-        m_frame.setBounds(0, 0, COLUMNS_AMOUNT*SQUARE_WIDTH +42, ROWS_AMOUNT*SQUARE_HEIGHT +54);
-        m_panel = new JPanel();
-        m_frame.add(m_panel);
-        m_frame.setVisible(true);
-        m_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setFrame();
+    }
+
+    private void setFrame() {
+        jFrame.setBounds(0, 0, COLUMNS_AMOUNT*SQUARE_WIDTH +42, ROWS_AMOUNT*SQUARE_HEIGHT +54);
+        jPanel = new JPanel();
+        jFrame.add(jPanel);
+        jFrame.setVisible(true);
+        jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     private void readImages() {
@@ -73,18 +76,18 @@ public class BoardDisplay implements Displayable {
     }
 
     private void mapImages(Image[] images){
-        m_images.put("wp", images[0]);
-        m_images.put("bp", images[1]);
-        m_images.put("wB", images[2]);
-        m_images.put("bB", images[3]);
-        m_images.put("wN", images[4]);
-        m_images.put("bN", images[5]);
-        m_images.put("wR", images[6]);
-        m_images.put("bR", images[7]);
-        m_images.put("wQ", images[8]);
-        m_images.put("bQ", images[9]);
-        m_images.put("wK", images[10]);
-        m_images.put("bK", images[11]);
+        stringToImage.put("wp", images[0]);
+        stringToImage.put("bp", images[1]);
+        stringToImage.put("wB", images[2]);
+        stringToImage.put("bB", images[3]);
+        stringToImage.put("wN", images[4]);
+        stringToImage.put("bN", images[5]);
+        stringToImage.put("wR", images[6]);
+        stringToImage.put("bR", images[7]);
+        stringToImage.put("wQ", images[8]);
+        stringToImage.put("bQ", images[9]);
+        stringToImage.put("wK", images[10]);
+        stringToImage.put("bK", images[11]);
     }
 
     @Override
@@ -119,7 +122,7 @@ public class BoardDisplay implements Displayable {
         //for (int i=0; i<ROWS_AMOUNT; i++){
             //for (int j = 0; j < COLUMNS_AMOUNT; j++) {
                 //Square square = boardSquares[i][j];
-                g.drawImage(m_images.get("wp"), SQUARE_WIDTH+ X_MOVE, SQUARE_HEIGHT+ Y_MOVE, observer);
+                g.drawImage(stringToImage.get("wp"), SQUARE_WIDTH+ X_MOVE, SQUARE_HEIGHT+ Y_MOVE, observer);
             //}
         // }
     }
