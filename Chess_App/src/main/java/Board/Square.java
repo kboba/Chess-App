@@ -12,14 +12,13 @@ public class Square {
     }
 
 
-
-
-    void occupy(){
+    private void occupy(){
         occupied = true;
     }
 
-    void unoccupy(){
+    public void unoccupy(){
         occupied = false;
+        piece = null;
     }
 
     public boolean isOccupied() {
@@ -32,5 +31,6 @@ public class Square {
 
     public void setPiece(Piece piece) {
         this.piece = piece;
+        occupy();
     }
 }
