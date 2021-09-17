@@ -1,5 +1,7 @@
 package GUI;
 
+import Board.Board;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -21,9 +23,11 @@ public class BoardGraphics extends JPanel {
     private final byte SQUARE_WIDTH = 64;
     private final byte SQUARE_HEIGHT = 64;
     private HashMap<String, Image> stringToImage = new HashMap<>();
+    Board board;
 
-    public BoardGraphics() {
+    public BoardGraphics(Board board) {
         readImages();
+        this.board = board;
     }
 
     @Override
@@ -58,10 +62,11 @@ public class BoardGraphics extends JPanel {
 
     private void drawPieces(Graphics g, ImageObserver observer) {
         //for (int i=0; i<ROWS_AMOUNT; i++){
-        //for (int j = 0; j < COLUMNS_AMOUNT; j++) {
-        //Square square = boardSquares[i][j];
-        //}
-        // }
+            //for (int j = 0; j < COLUMNS_AMOUNT; j++) {
+                //Square square = boardSquares[i][j];
+                g.drawImage(stringToImage.get("wp"), SQUARE_WIDTH+ X_MOVE, SQUARE_HEIGHT+ Y_MOVE, observer);
+            //}
+            // }
     }
 
     private void readImages() {

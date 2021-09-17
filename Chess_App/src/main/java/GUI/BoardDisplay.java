@@ -4,8 +4,6 @@ package GUI;
 import Board.Board;
 
 import javax.swing.*;
-import java.awt.*;
-import java.util.HashMap;
 
 public class BoardDisplay implements Displayable {
     private final byte ROWS_AMOUNT = 8;
@@ -16,9 +14,8 @@ public class BoardDisplay implements Displayable {
 
     private JFrame jFrame;
     private BoardGraphics boardGraphics; //private JPanel
-
     private Board board;
-    
+
     public BoardDisplay(Board board) {
         this.board = board;
     }
@@ -30,7 +27,7 @@ public class BoardDisplay implements Displayable {
     private void setFrame() {
         jFrame = new JFrame("Chess Game");
         jFrame.setBounds(0, 0, COLUMNS_AMOUNT*SQUARE_WIDTH +42, ROWS_AMOUNT*SQUARE_HEIGHT +54);
-        boardGraphics = new BoardGraphics();
+        boardGraphics = new BoardGraphics(board);
         jFrame.add(boardGraphics);
         jFrame.setVisible(true);
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
