@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class BoardGraphics extends JPanel {
+public class BoardUserInterface extends JPanel {
     private final byte X_MOVE = 20;
     private final byte Y_MOVE = 35;
     private final byte BORDER_WIDTH = 1;
@@ -25,7 +25,7 @@ public class BoardGraphics extends JPanel {
     private HashMap<String, Image> stringToImage = new HashMap<>();
     Board board;
 
-    public BoardGraphics(Board board) {
+    public BoardUserInterface(Board board) {
         readImages();
         this.board = board;
     }
