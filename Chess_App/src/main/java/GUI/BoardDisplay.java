@@ -17,12 +17,7 @@ public class BoardDisplay implements Displayable {
     private final byte COLUMNS_AMOUNT = 8;
     private final byte SQUARE_WIDTH = 64;
     private final byte SQUARE_HEIGHT = 64;
-    private final byte X_MOVE = 20;
-    private final byte Y_MOVE = 35;
-    private final byte BORDER_WIDTH = 1;
-    final Color BLACK_SQUARES_COLOR = new Color(102, 51, 0);
-    final Color WHITE_SQUARES_COLOR = new Color(255,204,153);
-    final Color BOARD_COLOR = new Color(68, 28, 0);
+
 
     private JFrame jFrame;
     private JPanel jPanel;
@@ -35,22 +30,14 @@ public class BoardDisplay implements Displayable {
     }
 
     public void initialize(){
-        jFrame = new JFrame("Chess Game"){
-            @Override
-            public void paint(Graphics g) {
-                drawBorder(g);
-                drawBoard(g);
-                drawPieces(g, this);
-            }
-        };
-
+        jFrame = new JFrame("Chess Game");
         readImages();
         setFrame();
     }
 
     private void setFrame() {
         jFrame.setBounds(0, 0, COLUMNS_AMOUNT*SQUARE_WIDTH +42, ROWS_AMOUNT*SQUARE_HEIGHT +54);
-        jPanel = new JPanel();
+        jPanel = new BoardGraphics();
         jFrame.add(jPanel);
         jFrame.setVisible(true);
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -96,35 +83,5 @@ public class BoardDisplay implements Displayable {
 
     }
 
-    private void drawBorder(Graphics g) {
-        g.setColor(BOARD_COLOR);
-        g.drawRect(X_MOVE, Y_MOVE, COLUMNS_AMOUNT*SQUARE_WIDTH + BORDER_WIDTH, ROWS_AMOUNT*SQUARE_HEIGHT + BORDER_WIDTH);
-    }
 
-    private void drawBoard(Graphics g) {
-        boolean isWhite;
-        for(int x = 0; x<COLUMNS_AMOUNT; x++){
-            for(int y=0; y<ROWS_AMOUNT; y++){
-                isWhite = (x+y)%2 == 0;
-
-                if(isWhite){
-                    g.setColor(WHITE_SQUARES_COLOR); // color white
-                }
-                else{
-                    g.setColor(BLACK_SQUARES_COLOR); // black
-                }
-
-                g.fillRect(x*SQUARE_WIDTH+ X_MOVE + BORDER_WIDTH, y*SQUARE_HEIGHT+ Y_MOVE + BORDER_WIDTH, SQUARE_WIDTH, SQUARE_HEIGHT);
-            }
-        }
-    }
-
-    private void drawPieces(Graphics g, ImageObserver observer) {
-        //for (int i=0; i<ROWS_AMOUNT; i++){
-            //for (int j = 0; j < COLUMNS_AMOUNT; j++) {
-                //Square square = boardSquares[i][j];
-                g.drawImage(stringToImage.get("wp"), SQUARE_WIDTH+ X_MOVE, SQUARE_HEIGHT+ Y_MOVE, observer);
-            //}
-        // }
-    }
 }
