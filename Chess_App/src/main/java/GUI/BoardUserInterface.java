@@ -103,4 +103,12 @@ public class BoardUserInterface extends JPanel {
         stringToImage.put("wK", images[10]);
         stringToImage.put("bK", images[11]);
     }
+
+    public int getBoardWidth(){
+        return COLUMNS_AMOUNT*SQUARE_WIDTH + 42;
+    }
+
+    public int getBoardHeight(){
+        return ROWS_AMOUNT*SQUARE_HEIGHT + 54;
+    }
 }
