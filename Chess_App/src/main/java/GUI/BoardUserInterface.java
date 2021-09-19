@@ -5,13 +5,16 @@ import Board.Board;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class BoardUserInterface extends JPanel {
+public class BoardUserInterface extends JPanel implements MouseListener, MouseMotionListener {
     private final byte X_MOVE = 13;
     private final byte Y_MOVE = 3;
     private final byte BORDER_WIDTH = 1;
@@ -35,6 +38,47 @@ public class BoardUserInterface extends JPanel {
         drawBorder(g);
         drawBoard(g);
         drawPieces(g, this);
+    }
+
+    /*
+     * MouseListener implementation
+     */
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    /*
+     * MouseMotionListener implementation
+     */
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+
     }
 
     private void drawBorder(Graphics g) {
