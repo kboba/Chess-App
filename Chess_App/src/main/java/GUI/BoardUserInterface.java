@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class BoardUserInterface extends JPanel {
-    private final byte X_MOVE = 20;
-    private final byte Y_MOVE = 35;
+    private final byte X_MOVE = 13;
+    private final byte Y_MOVE = 3;
     private final byte BORDER_WIDTH = 1;
     final Color BLACK_SQUARES_COLOR = new Color(102, 51, 0);
     final Color WHITE_SQUARES_COLOR = new Color(255,204,153);
@@ -64,7 +64,7 @@ public class BoardUserInterface extends JPanel {
         //for (int i=0; i<ROWS_AMOUNT; i++){
             //for (int j = 0; j < COLUMNS_AMOUNT; j++) {
                 //Square square = boardSquares[i][j];
-                g.drawImage(stringToImage.get("wp"), SQUARE_WIDTH+ X_MOVE, SQUARE_HEIGHT+ Y_MOVE, observer);
+                g.drawImage(stringToImage.get("wp"), SQUARE_WIDTH+ X_MOVE-BORDER_WIDTH, SQUARE_HEIGHT+ Y_MOVE-BORDER_WIDTH, observer);
             //}
             // }
     }
