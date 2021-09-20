@@ -34,6 +34,8 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         this.board = board;
         stringToImage  = new HashMap<>();
         readImages();
+        this.addMouseListener(this);
+        this.addMouseMotionListener(this);
     }
 
     @Override
