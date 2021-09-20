@@ -118,7 +118,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
                 var pieceColor = pieceOnSquare.getPlayerColor();
                 var type = pieceOnSquare.getType();
                 pieceInitials = getPieceInitials(pieceColor, type);
-                g.drawImage(stringToImage.get(pieceInitials), i*SQUARE_WIDTH+ X_MOVE-BORDER_WIDTH, j*SQUARE_HEIGHT+ Y_MOVE-BORDER_WIDTH, observer);
+                g.drawImage(stringToImage.get(pieceInitials), i*SQUARE_WIDTH+ X_MOVE+BORDER_WIDTH, j*SQUARE_HEIGHT+ Y_MOVE+BORDER_WIDTH, observer);
             }
         }
     }
