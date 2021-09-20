@@ -177,7 +177,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     private Image[] getCutImages(BufferedImage img) {
         final int IMAGE_WIDTH = 200;
         final int IMAGE_HEIGHT = 200;
-        Image images[] = new Image[12];
+        Image[] images = new Image[12];
 
         int i=0;
         for(int y = 0; y<2* IMAGE_HEIGHT; y+= IMAGE_HEIGHT){
