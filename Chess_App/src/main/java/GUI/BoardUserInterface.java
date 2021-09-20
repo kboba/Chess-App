@@ -1,8 +1,6 @@
 package GUI;
 
 import Board.Board;
-import Board.Square;
-import Pieces.Piece;
 import Pieces.PieceType;
 import Pieces.PlayerColor;
 
@@ -120,7 +118,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
                 var pieceColor = pieceOnSquare.getPlayerColor();
                 var type = pieceOnSquare.getType();
                 pieceInitials = getPieceInitials(pieceColor, type);
-                g.drawImage(stringToImage.get(pieceInitials), i*SQUARE_WIDTH+ X_MOVE-BORDER_WIDTH, j*SQUARE_HEIGHT+ Y_MOVE-BORDER_WIDTH, observer);
+                g.drawImage(stringToImage.get(pieceInitials), i*SQUARE_WIDTH+ X_MOVE+BORDER_WIDTH, j*SQUARE_HEIGHT+ Y_MOVE+BORDER_WIDTH, observer);
             }
         }
     }
@@ -150,38 +148,45 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     }
 
     private void readImages() {
-        Image images[] = new Image[12];
         BufferedImage img= null;
-        String pathName = "";
-        for(int i=0; i<6; i++){
-            // white:1  ; black:2
-            for(int j=0; j<2; j++){
-                pathName = "C:\\Users\\bobak\\CLOUD\\repos\\Chess_App\\Pieces\\"+(j+1)+(i+1)+".png"; // "(path)\(1;2)(1;6)"
-                try {
-                    img = ImageIO.read(new File(pathName));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                images[i*2+j]=img.getSubimage(0, 0, 60, 60).getScaledInstance(SQUARE_WIDTH, SQUARE_HEIGHT, BufferedImage.SCALE_SMOOTH);
-            }
+        String pathName = "C:\\Pieces\\Pieces.png";
+        try {
+            img = ImageIO.read(new File(pathName));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
+        Image[] images = getCutImages(img);
         mapImages(images);
     }
 
+    private Image[] getCutImages(BufferedImage img) {
+        final int IMAGE_WIDTH = 200;
+        final int IMAGE_HEIGHT = 200;
+        Image images[] = new Image[12];
+
+        int i=0;
+        for(int y = 0; y<2* IMAGE_HEIGHT; y+= IMAGE_HEIGHT){
+            for(int x = 0; x<6* IMAGE_WIDTH; x+= IMAGE_WIDTH){
+                images[i++]= img.getSubimage(x, y, IMAGE_WIDTH, IMAGE_HEIGHT).getScaledInstance(SQUARE_WIDTH, SQUARE_HEIGHT, BufferedImage.SCALE_SMOOTH);
+            }
+        }
+
+        return images;
+    }
+
     private void mapImages(Image[] images){
-        stringToImage.put("wp", images[0]);
-        stringToImage.put("bp", images[1]);
+        stringToImage.put("wK", images[0]);
+        stringToImage.put("wQ", images[1]);
         stringToImage.put("wB", images[2]);
-        stringToImage.put("bB", images[3]);
-        stringToImage.put("wN", images[4]);
-        stringToImage.put("bN", images[5]);
-        stringToImage.put("wR", images[6]);
-        stringToImage.put("bR", images[7]);
-        stringToImage.put("wQ", images[8]);
-        stringToImage.put("bQ", images[9]);
-        stringToImage.put("wK", images[10]);
-        stringToImage.put("bK", images[11]);
+        stringToImage.put("wN", images[3]);
+        stringToImage.put("wR", images[4]);
+        stringToImage.put("wp", images[5]);
+        stringToImage.put("bK", images[6]);
+        stringToImage.put("bQ", images[7]);
+        stringToImage.put("bB", images[8]);
+        stringToImage.put("bN", images[9]);
+        stringToImage.put("bR", images[10]);
+        stringToImage.put("bp", images[11]);
     }
 
     public int getBoardWidth(){
