@@ -25,12 +25,13 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     private final byte COLUMNS_AMOUNT = 8;
     private final byte SQUARE_WIDTH = 64;
     private final byte SQUARE_HEIGHT = 64;
-    private HashMap<String, Image> stringToImage = new HashMap<>();
+    private HashMap<String, Image> stringToImage;
     Board board;
 
     public BoardUserInterface(Board board) {
-        readImages();
         this.board = board;
+        stringToImage  = new HashMap<>();
+        readImages();
     }
 
     @Override
