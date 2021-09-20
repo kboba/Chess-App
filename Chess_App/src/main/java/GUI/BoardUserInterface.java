@@ -1,17 +1,24 @@
 package GUI;
 
 import Board.Board;
+import Board.Square;
+import Pieces.Piece;
+import Pieces.PieceType;
+import Pieces.PlayerColor;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class BoardUserInterface extends JPanel {
+public class BoardUserInterface extends JPanel implements MouseListener, MouseMotionListener {
     private final byte X_MOVE = 13;
     private final byte Y_MOVE = 3;
     private final byte BORDER_WIDTH = 1;
@@ -22,12 +29,13 @@ public class BoardUserInterface extends JPanel {
     private final byte COLUMNS_AMOUNT = 8;
     private final byte SQUARE_WIDTH = 64;
     private final byte SQUARE_HEIGHT = 64;
-    private HashMap<String, Image> stringToImage = new HashMap<>();
+    private HashMap<String, Image> stringToImage;
     Board board;
 
     public BoardUserInterface(Board board) {
-        readImages();
         this.board = board;
+        stringToImage  = new HashMap<>();
+        readImages();
     }
 
     @Override
@@ -35,6 +43,47 @@ public class BoardUserInterface extends JPanel {
         drawBorder(g);
         drawBoard(g);
         drawPieces(g, this);
+    }
+
+    /*
+     * MouseListener implementation
+     */
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    /*
+     * MouseMotionListener implementation
+     */
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+
     }
 
     private void drawBorder(Graphics g) {
@@ -61,12 +110,43 @@ public class BoardUserInterface extends JPanel {
     }
 
     private void drawPieces(Graphics g, ImageObserver observer) {
-        //for (int i=0; i<ROWS_AMOUNT; i++){
-            //for (int j = 0; j < COLUMNS_AMOUNT; j++) {
-                //Square square = boardSquares[i][j];
-                g.drawImage(stringToImage.get("wp"), SQUARE_WIDTH+ X_MOVE-BORDER_WIDTH, SQUARE_HEIGHT+ Y_MOVE-BORDER_WIDTH, observer);
-            //}
-            // }
+        var boardSquares = board.getBoardSquares();
+        String pieceInitials;
+        for (int i=0; i<ROWS_AMOUNT; i++){
+            for (int j = 0; j < COLUMNS_AMOUNT; j++) {
+                if(boardSquares[i][j].getPiece() == null)
+                    continue;
+                var pieceOnSquare = boardSquares[i][j].getPiece();
+                var pieceColor = pieceOnSquare.getPlayerColor();
+                var type = pieceOnSquare.getType();
+                pieceInitials = getPieceInitials(pieceColor, type);
+                g.drawImage(stringToImage.get(pieceInitials), i*SQUARE_WIDTH+ X_MOVE-BORDER_WIDTH, j*SQUARE_HEIGHT+ Y_MOVE-BORDER_WIDTH, observer);
+            }
+        }
+    }
+
+    private String getPieceInitials(PlayerColor pieceColor, PieceType type) {
+        String pieceInitials = pieceColor ==PlayerColor.WHITE ? "w" : "b";
+
+        if(type ==PieceType.PAWN) {
+            pieceInitials += "p";
+        }
+        else if(type ==PieceType.BISHOP) {
+            pieceInitials += "B";
+        }
+        else if(type ==PieceType.KNIGHT) {
+            pieceInitials += "N";
+        }
+        else if(type ==PieceType.ROCK) {
+            pieceInitials += "R";
+        }
+        else if(type ==PieceType.QUEEN) {
+            pieceInitials += "Q";
+        }
+        else if(type ==PieceType.KING) {
+            pieceInitials += "K";
+        }
+        return pieceInitials;
     }
 
     private void readImages() {

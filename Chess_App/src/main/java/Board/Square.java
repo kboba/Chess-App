@@ -6,6 +6,8 @@ public class Square {
     private boolean occupied;
     private Piece piece;
 
+    public Square(){}
+
     public Square(Piece piece, boolean occupied) {
         this.piece = piece;
         this.occupied = occupied;

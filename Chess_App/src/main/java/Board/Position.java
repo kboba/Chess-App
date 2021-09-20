@@ -1,14 +1,14 @@
 package Board;
 
 public class Position {
-    private short x;
-    private short y;
+    private int x;
+    private int y;
 
-    public Position(short x, short y) {
+    public Position(int x, int y) {
         setPosition(x, y);
     }
 
-    public void setPosition(short x, short y) {
+    public void setPosition(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -17,11 +17,11 @@ public class Position {
         return new Position(x, y);
     }
 
-    public short getX() {
+    public int getX() {
         return x;
     }
 
-    public short getY() {
+    public int getY() {
         return y;
     }
 }
