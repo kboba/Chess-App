@@ -1,6 +1,10 @@
 package GUI;
 
 import Board.Board;
+import Board.Square;
+import Pieces.Piece;
+import Pieces.PieceType;
+import Pieces.PlayerColor;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -106,12 +110,42 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     }
 
     private void drawPieces(Graphics g, ImageObserver observer) {
-        //for (int i=0; i<ROWS_AMOUNT; i++){
-            //for (int j = 0; j < COLUMNS_AMOUNT; j++) {
-                //Square square = boardSquares[i][j];
-                g.drawImage(stringToImage.get("wp"), SQUARE_WIDTH+ X_MOVE-BORDER_WIDTH, SQUARE_HEIGHT+ Y_MOVE-BORDER_WIDTH, observer);
-            //}
-            // }
+        var boardSquares = board.getBoardSquares();
+        String pieceInitials;
+        for (int i=0; i<ROWS_AMOUNT; i++){
+            for (int j = 0; j < COLUMNS_AMOUNT; j++) {
+                if(boardSquares[i][j].getPiece() == null)
+                    continue;
+                pieceInitials = "";
+
+                var pieceOnSquare = boardSquares[i][j].getPiece();
+                var pieceColor = pieceOnSquare.getPlayerColor();
+                var type = pieceOnSquare.getType();
+
+                pieceInitials += pieceColor==PlayerColor.WHITE ? "w" : "b";
+
+                if(type==PieceType.PAWN) {
+                    pieceInitials += "p";
+                }
+                else if(type==PieceType.BISHOP) {
+                    pieceInitials += "B";
+                }
+                else if(type==PieceType.KNIGHT) {
+                    pieceInitials += "N";
+                }
+                else if(type==PieceType.ROCK) {
+                    pieceInitials += "R";
+                }
+                else if(type==PieceType.QUEEN) {
+                    pieceInitials += "Q";
+                }
+                else if(type==PieceType.KING) {
+                    pieceInitials += "K";
+                }
+
+                g.drawImage(stringToImage.get(pieceInitials), i*SQUARE_WIDTH+ X_MOVE-BORDER_WIDTH, j*SQUARE_HEIGHT+ Y_MOVE-BORDER_WIDTH, observer);
+            }
+        }
     }
 
     private void readImages() {
