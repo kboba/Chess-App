@@ -7,10 +7,19 @@ public class Board {
     private Square[][] boardSquares;
 
     public Board() {
+        boardSquares = new Square[8][8];
         initialize();
     }
 
     private void initialize() {
+
+        for(int i=0; i<8; i++){
+            for (int j = 0; j < 8; j++) {
+                boardSquares[i][j] = new Square();
+            }
+        }
+//        boardSquares[0][1] = new Square(new Pawn(PlayerColor.WHITE, new Position(0, 1)), true);
+
         boardSquares[0][1].setPiece(new Pawn(PlayerColor.WHITE, new Position(0, 1)));
         boardSquares[1][1].setPiece(new Pawn(PlayerColor.WHITE, new Position(1, 1)));
         boardSquares[2][1].setPiece(new Pawn(PlayerColor.WHITE, new Position(2, 1)));
