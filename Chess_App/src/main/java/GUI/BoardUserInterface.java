@@ -29,6 +29,10 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     private final byte SQUARE_HEIGHT = 64;
     private HashMap<String, Image> stringToImage;
     Board board;
+    private int xMousePosition = 0;
+    private int yMousePosition = 0;
+    private int xSquare;
+    private int ySquare;
 
     public BoardUserInterface(Board board) {
         this.board = board;
@@ -55,7 +59,10 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        xMousePosition = e.getX()-X_MOVE;
+        yMousePosition = e.getY()-Y_MOVE;
+        xSquare = xMousePosition/64;
+        ySquare = yMousePosition/64;
     }
 
     @Override
