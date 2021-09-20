@@ -1,8 +1,6 @@
 package GUI;
 
 import Board.Board;
-import Board.Square;
-import Pieces.Piece;
 import Pieces.PieceType;
 import Pieces.PlayerColor;
 
@@ -150,24 +148,30 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     }
 
     private void readImages() {
-        Image images[] = new Image[12];
         BufferedImage img= null;
         String pathName = "C:\\Pieces\\Pieces.png";
-        final int IMAGE_WIDTH = 200;
-        final int IMAGE_HEIGHT = 200;
         try {
             img = ImageIO.read(new File(pathName));
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Image[] images = getCutImages(img);
+        mapImages(images);
+    }
+
+    private Image[] getCutImages(BufferedImage img) {
+        final int IMAGE_WIDTH = 200;
+        final int IMAGE_HEIGHT = 200;
+        Image images[] = new Image[12];
+
         int i=0;
-        for(int y=0; y<2*IMAGE_HEIGHT; y+=IMAGE_HEIGHT){
-            for(int x=0; x<6*IMAGE_WIDTH; x+=IMAGE_WIDTH){
-                images[i++]=img.getSubimage(x, y, IMAGE_WIDTH, IMAGE_HEIGHT).getScaledInstance(SQUARE_WIDTH, SQUARE_HEIGHT, BufferedImage.SCALE_SMOOTH);
+        for(int y = 0; y<2* IMAGE_HEIGHT; y+= IMAGE_HEIGHT){
+            for(int x = 0; x<6* IMAGE_WIDTH; x+= IMAGE_WIDTH){
+                images[i++]= img.getSubimage(x, y, IMAGE_WIDTH, IMAGE_HEIGHT).getScaledInstance(SQUARE_WIDTH, SQUARE_HEIGHT, BufferedImage.SCALE_SMOOTH);
             }
         }
 
-        mapImages(images);
+        return images;
     }
 
     private void mapImages(Image[] images){
