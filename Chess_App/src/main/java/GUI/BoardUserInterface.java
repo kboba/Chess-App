@@ -1,6 +1,8 @@
 package GUI;
 
 import Board.Board;
+import Board.Square;
+import Pieces.Piece;
 import Pieces.PieceType;
 import Pieces.PlayerColor;
 
@@ -29,12 +31,15 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     private final byte SQUARE_HEIGHT = 64;
     private HashMap<String, Image> stringToImage;
     Board board;
+    Square[][] boardSquares;
     private int xMousePosition = 0;
     private int yMousePosition = 0;
     private int xSquare;
     private int ySquare;
+    Piece selectedPiece;
 
     public BoardUserInterface(Board board) {
+        boardSquares = board.getBoardSquares();
         this.board = board;
         stringToImage  = new HashMap<>();
         readImages();
@@ -63,6 +68,8 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         yMousePosition = e.getY()-Y_MOVE;
         xSquare = xMousePosition/64;
         ySquare = yMousePosition/64;
+        
+        selectedPiece = boardSquares[xSquare][ySquare].getPiece();
     }
 
     @Override
@@ -117,7 +124,6 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     }
 
     private void drawPieces(Graphics g, ImageObserver observer) {
-        var boardSquares = board.getBoardSquares();
         String pieceInitials;
         for (int i=0; i<ROWS_AMOUNT; i++){
             for (int j = 0; j < COLUMNS_AMOUNT; j++) {
