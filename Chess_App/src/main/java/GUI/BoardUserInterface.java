@@ -175,18 +175,18 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     }
 
     private void mapImages(Image[] images){
-        stringToImage.put("wp", images[5]);
-        stringToImage.put("bp", images[11]);
-        stringToImage.put("wB", images[2]);
-        stringToImage.put("bB", images[8]);
-        stringToImage.put("wN", images[3]);
-        stringToImage.put("bN", images[9]);
-        stringToImage.put("wR", images[4]);
-        stringToImage.put("bR", images[10]);
-        stringToImage.put("wQ", images[1]);
-        stringToImage.put("bQ", images[7]);
         stringToImage.put("wK", images[0]);
+        stringToImage.put("wQ", images[1]);
+        stringToImage.put("wB", images[2]);
+        stringToImage.put("wN", images[3]);
+        stringToImage.put("wR", images[4]);
+        stringToImage.put("wp", images[5]);
         stringToImage.put("bK", images[6]);
+        stringToImage.put("bQ", images[7]);
+        stringToImage.put("bB", images[8]);
+        stringToImage.put("bN", images[9]);
+        stringToImage.put("bR", images[10]);
+        stringToImage.put("bp", images[11]);
     }
 
     public int getBoardWidth(){
