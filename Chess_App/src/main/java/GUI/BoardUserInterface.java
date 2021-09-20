@@ -116,36 +116,37 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
             for (int j = 0; j < COLUMNS_AMOUNT; j++) {
                 if(boardSquares[i][j].getPiece() == null)
                     continue;
-                pieceInitials = "";
-
                 var pieceOnSquare = boardSquares[i][j].getPiece();
                 var pieceColor = pieceOnSquare.getPlayerColor();
                 var type = pieceOnSquare.getType();
-
-                pieceInitials += pieceColor==PlayerColor.WHITE ? "w" : "b";
-
-                if(type==PieceType.PAWN) {
-                    pieceInitials += "p";
-                }
-                else if(type==PieceType.BISHOP) {
-                    pieceInitials += "B";
-                }
-                else if(type==PieceType.KNIGHT) {
-                    pieceInitials += "N";
-                }
-                else if(type==PieceType.ROCK) {
-                    pieceInitials += "R";
-                }
-                else if(type==PieceType.QUEEN) {
-                    pieceInitials += "Q";
-                }
-                else if(type==PieceType.KING) {
-                    pieceInitials += "K";
-                }
-
+                pieceInitials = getPieceInitials(pieceColor, type);
                 g.drawImage(stringToImage.get(pieceInitials), i*SQUARE_WIDTH+ X_MOVE-BORDER_WIDTH, j*SQUARE_HEIGHT+ Y_MOVE-BORDER_WIDTH, observer);
             }
         }
+    }
+
+    private String getPieceInitials(PlayerColor pieceColor, PieceType type) {
+        String pieceInitials = pieceColor ==PlayerColor.WHITE ? "w" : "b";
+
+        if(type ==PieceType.PAWN) {
+            pieceInitials += "p";
+        }
+        else if(type ==PieceType.BISHOP) {
+            pieceInitials += "B";
+        }
+        else if(type ==PieceType.KNIGHT) {
+            pieceInitials += "N";
+        }
+        else if(type ==PieceType.ROCK) {
+            pieceInitials += "R";
+        }
+        else if(type ==PieceType.QUEEN) {
+            pieceInitials += "Q";
+        }
+        else if(type ==PieceType.KING) {
+            pieceInitials += "K";
+        }
+        return pieceInitials;
     }
 
     private void readImages() {
