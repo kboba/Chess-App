@@ -26,6 +26,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     final Color BLACK_SQUARES_COLOR = new Color(102, 51, 0);
     final Color WHITE_SQUARES_COLOR = new Color(255,204,153);
     final Color BOARD_COLOR = new Color(68, 28, 0);
+    final Color SELECTED_SQUARE_COLOR = new Color(255, 40, 40);
     private final byte ROWS_AMOUNT = 8;
     private final byte COLUMNS_AMOUNT = 8;
     private final byte SQUARE_WIDTH = 64;
@@ -52,6 +53,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     public void paint(Graphics g) {
         drawBorder(g);
         drawBoard(g);
+        drawSelectedSquare(g);
         drawPieces(g, this);
     }
 
@@ -123,6 +125,15 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
 
                 g.fillRect(x*SQUARE_WIDTH+ X_MOVE + BORDER_WIDTH, y*SQUARE_HEIGHT+ Y_MOVE + BORDER_WIDTH, SQUARE_WIDTH, SQUARE_HEIGHT);
             }
+        }
+    }
+
+    private void drawSelectedSquare(Graphics g) {
+        if(selectedPiece!=null){
+            g.setColor(SELECTED_SQUARE_COLOR);
+            int selectedPieceX = selectedPiece.getPosition().getX();
+            int selectedPieceY = selectedPiece.getPosition().getY();
+            g.fillRect(selectedPieceX *SQUARE_WIDTH+ X_MOVE + BORDER_WIDTH, selectedPieceY *SQUARE_HEIGHT+ Y_MOVE + BORDER_WIDTH, SQUARE_WIDTH, SQUARE_HEIGHT);
         }
     }
 
