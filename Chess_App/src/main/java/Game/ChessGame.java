@@ -1,7 +1,7 @@
 package Game;
 
 import Board.Board;
-import GUI.BoardDisplay;
+import GUI.UserInterface;
 
 public class ChessGame {
 //    private static BoardDisplay gui;
@@ -9,7 +9,7 @@ public class ChessGame {
 
     public static void main(String[] args) {
         var board = new Board();
-        var boardDisplay = new BoardDisplay(board);
-        boardDisplay.initialize();
+        var userInterface = new UserInterface(board);
+        userInterface.initialize();
     }
 }

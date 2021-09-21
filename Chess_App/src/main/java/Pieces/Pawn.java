@@ -24,7 +24,7 @@ public class Pawn extends Piece {
      * 4. update board representation
      */
     @Override
-    public void Move(Position newPosition, Board board) {
+    public void move(Position newPosition, Board board) {
         var boardSquares = board.getBoardSquares();
         boardSquares[getPosition().getX()][getPosition().getY()].unoccupy();
         setPosition(newPosition);

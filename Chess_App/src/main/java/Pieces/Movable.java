@@ -5,5 +5,5 @@ import Board.Position;
 
 public interface Movable {
     boolean isMoveValid(Position newPosition, Board board);
-    void Move(Position newPosition, Board board);
+    void move(Position newPosition, Board board);
 }

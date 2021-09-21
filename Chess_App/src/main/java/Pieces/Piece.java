@@ -14,6 +14,10 @@ abstract public class Piece implements Movable {
         this.position = position;
     }
 
+    public PlayerColor getPlayerColor() {
+        return playerColor;
+    }
+
     public PieceType getType() {
         return type;
     }
