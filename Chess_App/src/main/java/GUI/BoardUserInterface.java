@@ -73,8 +73,13 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         Piece newSelectedPiece = boardSquares[xSquare][ySquare].getPiece();
 
         if(newSelectedPiece!=null) {
-            if (selectedPiece == null || selectedPiece.getPlayerColor() == newSelectedPiece.getPlayerColor())
+            if (selectedPiece == null || selectedPiece.getPlayerColor() == newSelectedPiece.getPlayerColor()) {
                 selectedPiece = newSelectedPiece;
+            }
+            else {
+                selectedPiece.move(new Position(xSquare, ySquare), board);
+                selectedPiece = null;
+            }
         }
         else if(selectedPiece!=null) {
             selectedPiece.move(new Position(xSquare, ySquare), board);
