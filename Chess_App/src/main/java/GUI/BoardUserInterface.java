@@ -1,6 +1,7 @@
 package GUI;
 
 import Board.Board;
+import Board.Position;
 import Board.Square;
 import Pieces.Piece;
 import Pieces.PieceType;
@@ -68,8 +69,18 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         yMousePosition = e.getY()-Y_MOVE;
         xSquare = xMousePosition/64;
         ySquare = yMousePosition/64;
-        
-        selectedPiece = boardSquares[xSquare][ySquare].getPiece();
+
+        Piece newSelectedPiece = boardSquares[xSquare][ySquare].getPiece();
+
+        if(newSelectedPiece!=null) {
+            if (selectedPiece == null || selectedPiece.getPlayerColor() == newSelectedPiece.getPlayerColor())
+                selectedPiece = newSelectedPiece;
+        }
+        else if(selectedPiece!=null) {
+            selectedPiece.move(new Position(xSquare, ySquare), board);
+            selectedPiece = null;
+        }
+        repaint();
     }
 
     @Override
