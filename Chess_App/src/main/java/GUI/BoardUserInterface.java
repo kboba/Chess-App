@@ -71,20 +71,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         ySquare = yMousePosition/64;
 
         Piece newSelectedPiece = boardSquares[xSquare][ySquare].getPiece();
-
-        if(newSelectedPiece!=null) {
-            if (selectedPiece == null || selectedPiece.getPlayerColor() == newSelectedPiece.getPlayerColor()) {
-                selectedPiece = newSelectedPiece;
-            }
-            else {
-                selectedPiece.move(new Position(xSquare, ySquare), board);
-                selectedPiece = null;
-            }
-        }
-        else if(selectedPiece!=null) {
-            selectedPiece.move(new Position(xSquare, ySquare), board);
-            selectedPiece = null;
-        }
+        moveOrSelectPiece(newSelectedPiece);
         repaint();
     }
 
@@ -151,6 +138,22 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
                 pieceInitials = getPieceInitials(pieceColor, type);
                 g.drawImage(stringToImage.get(pieceInitials), i*SQUARE_WIDTH+ X_MOVE+BORDER_WIDTH, j*SQUARE_HEIGHT+ Y_MOVE+BORDER_WIDTH, observer);
             }
+        }
+    }
+
+    private void moveOrSelectPiece(Piece newSelectedPiece) {
+        if(newSelectedPiece !=null) {
+            if (selectedPiece == null || selectedPiece.getPlayerColor() == newSelectedPiece.getPlayerColor()) {
+                selectedPiece = newSelectedPiece;
+            }
+            else {
+                selectedPiece.move(new Position(xSquare, ySquare), board);
+                selectedPiece = null;
+            }
+        }
+        else if(selectedPiece!=null) {
+            selectedPiece.move(new Position(xSquare, ySquare), board);
+            selectedPiece = null;
         }
     }
 
