@@ -5,7 +5,7 @@ import Board.Board;
 
 import javax.swing.*;
 
-public class UserInterface implements Displayable {
+public class UserInterface {
 
     private JFrame jFrame;
     private BoardUserInterface boardUserInterface; //private JPanel
@@ -28,12 +28,5 @@ public class UserInterface implements Displayable {
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-
-
-    @Override
-    public void display() {
-
-    }
-
-
+    
 }
