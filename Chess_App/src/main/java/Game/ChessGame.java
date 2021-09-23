@@ -9,7 +9,7 @@ public class ChessGame {
 
     public static void main(String[] args) {
         var board = new Board();
-        var boardDisplay = new UserInterface(board);
-        boardDisplay.initialize();
+        var userInterface = new UserInterface(board);
+        userInterface.initialize();
     }
 }

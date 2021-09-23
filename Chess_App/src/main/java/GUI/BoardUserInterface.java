@@ -1,6 +1,9 @@
 package GUI;
 
 import Board.Board;
+import Board.Position;
+import Board.Square;
+import Pieces.Piece;
 import Pieces.PieceType;
 import Pieces.PlayerColor;
 
@@ -23,23 +26,34 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     final Color BLACK_SQUARES_COLOR = new Color(102, 51, 0);
     final Color WHITE_SQUARES_COLOR = new Color(255,204,153);
     final Color BOARD_COLOR = new Color(68, 28, 0);
+    final Color SELECTED_SQUARE_COLOR = new Color(255, 40, 40);
     private final byte ROWS_AMOUNT = 8;
     private final byte COLUMNS_AMOUNT = 8;
     private final byte SQUARE_WIDTH = 64;
     private final byte SQUARE_HEIGHT = 64;
     private HashMap<String, Image> stringToImage;
     Board board;
+    Square[][] boardSquares;
+    private int xMousePosition = 0;
+    private int yMousePosition = 0;
+    private int xSquare;
+    private int ySquare;
+    Piece selectedPiece;
 
     public BoardUserInterface(Board board) {
+        boardSquares = board.getBoardSquares();
         this.board = board;
         stringToImage  = new HashMap<>();
         readImages();
+        this.addMouseListener(this);
+        this.addMouseMotionListener(this);
     }
 
     @Override
     public void paint(Graphics g) {
         drawBorder(g);
         drawBoard(g);
+        drawSelectedSquare(g);
         drawPieces(g, this);
     }
 
@@ -53,7 +67,14 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
 
     @Override
     public void mousePressed(MouseEvent e) {
+        xMousePosition = e.getX()-X_MOVE;
+        yMousePosition = e.getY()-Y_MOVE;
+        xSquare = xMousePosition/64;
+        ySquare = yMousePosition/64;
 
+        Piece newSelectedPiece = boardSquares[xSquare][ySquare].getPiece();
+        moveOrSelectPiece(newSelectedPiece);
+        repaint();
     }
 
     @Override
@@ -107,8 +128,16 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         }
     }
 
+    private void drawSelectedSquare(Graphics g) {
+        if(selectedPiece!=null){
+            g.setColor(SELECTED_SQUARE_COLOR);
+            int selectedPieceX = selectedPiece.getPosition().getX();
+            int selectedPieceY = selectedPiece.getPosition().getY();
+            g.fillRect(selectedPieceX *SQUARE_WIDTH+ X_MOVE + BORDER_WIDTH, selectedPieceY *SQUARE_HEIGHT+ Y_MOVE + BORDER_WIDTH, SQUARE_WIDTH, SQUARE_HEIGHT);
+        }
+    }
+
     private void drawPieces(Graphics g, ImageObserver observer) {
-        var boardSquares = board.getBoardSquares();
         String pieceInitials;
         for (int i=0; i<ROWS_AMOUNT; i++){
             for (int j = 0; j < COLUMNS_AMOUNT; j++) {
@@ -120,6 +149,25 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
                 pieceInitials = getPieceInitials(pieceColor, type);
                 g.drawImage(stringToImage.get(pieceInitials), i*SQUARE_WIDTH+ X_MOVE+BORDER_WIDTH, j*SQUARE_HEIGHT+ Y_MOVE+BORDER_WIDTH, observer);
             }
+        }
+    }
+
+    private void moveOrSelectPiece(Piece newSelectedPiece) {
+        if(newSelectedPiece !=null) {
+            if (selectedPiece == null || selectedPiece.getPlayerColor() == newSelectedPiece.getPlayerColor()) {
+                if(selectedPiece != newSelectedPiece)
+                    selectedPiece = newSelectedPiece;
+                else
+                    selectedPiece = null;
+            }
+            else {
+                selectedPiece.move(new Position(xSquare, ySquare), board);
+                selectedPiece = null;
+            }
+        }
+        else if(selectedPiece!=null) {
+            selectedPiece.move(new Position(xSquare, ySquare), board);
+            selectedPiece = null;
         }
     }
 
@@ -162,7 +210,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     private Image[] getCutImages(BufferedImage img) {
         final int IMAGE_WIDTH = 200;
         final int IMAGE_HEIGHT = 200;
-        Image images[] = new Image[12];
+        Image[] images = new Image[12];
 
         int i=0;
         for(int y = 0; y<2* IMAGE_HEIGHT; y+= IMAGE_HEIGHT){
