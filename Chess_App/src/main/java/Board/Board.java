@@ -1,5 +1,6 @@
 package Board;
 
+import Pieces.King;
 import Pieces.Pawn;
 import Pieces.PlayerColor;
 
@@ -20,6 +21,8 @@ public class Board {
         }
 //        boardSquares[0][1] = new Square(new Pawn(PlayerColor.WHITE, new Position(0, 1)), true);
 
+        boardSquares[3][0].setPiece(new King(PlayerColor.WHITE, new Position(4, 0)));
+
         boardSquares[0][1].setPiece(new Pawn(PlayerColor.WHITE, new Position(0, 1)));
         boardSquares[1][1].setPiece(new Pawn(PlayerColor.WHITE, new Position(1, 1)));
         boardSquares[2][1].setPiece(new Pawn(PlayerColor.WHITE, new Position(2, 1)));
@@ -28,6 +31,10 @@ public class Board {
         boardSquares[5][1].setPiece(new Pawn(PlayerColor.WHITE, new Position(5, 1)));
         boardSquares[6][1].setPiece(new Pawn(PlayerColor.WHITE, new Position(6, 1)));
         boardSquares[7][1].setPiece(new Pawn(PlayerColor.WHITE, new Position(7, 1)));
+
+
+
+        boardSquares[3][7].setPiece(new King(PlayerColor.BLACK, new Position(4, 7)));
 
         boardSquares[0][6].setPiece(new Pawn(PlayerColor.BLACK, new Position(0, 6)));
         boardSquares[1][6].setPiece(new Pawn(PlayerColor.BLACK, new Position(1, 6)));
