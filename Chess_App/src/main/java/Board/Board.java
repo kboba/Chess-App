@@ -6,10 +6,13 @@ import Pieces.PlayerColor;
 
 public class Board {
     private Square[][] boardSquares;
+    private Position blackKingPosition, whiteKingPosition;
 
     public Board() {
         boardSquares = new Square[8][8];
         initialize();
+        blackKingPosition = new Position (4, 0);
+        whiteKingPosition = new Position (4, 7);
     }
 
     private void initialize() {
