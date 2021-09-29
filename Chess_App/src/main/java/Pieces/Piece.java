@@ -41,6 +41,7 @@ abstract public class Piece implements Movable {
      * 2. set new position
      * 3. set piece on new position on board square
      * 4. update board representation
+     * 5. if Piece is King then set variable with his position
      */
     @Override
     public void move(Position newPosition, Board board) {
@@ -49,5 +50,13 @@ abstract public class Piece implements Movable {
         setPosition(newPosition);
         boardSquares[newPosition.getX()][newPosition.getY()].setPiece(this);
         board.setBoardSquares(boardSquares);
+
+        if (type == PieceType.KING) {
+            if (playerColor==PlayerColor.WHITE) {
+                board.setWhiteKingPosition(newPosition);
+            } else{
+                board.setBlackKingPosition(newPosition);
+            }
+        }
     }
 }
