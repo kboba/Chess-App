@@ -56,4 +56,20 @@ public class Board {
     public void setBoardSquares(Square[][] boardSquares) {
         this.boardSquares = boardSquares;
     }
+
+    public Position getBlackKingPosition() {
+        return blackKingPosition;
+    }
+
+    public void setBlackKingPosition(Position blackKingPosition) {
+        this.blackKingPosition = blackKingPosition;
+    }
+
+    public Position getWhiteKingPosition() {
+        return whiteKingPosition;
+    }
+
+    public void setWhiteKingPosition(Position whiteKingPosition) {
+        this.whiteKingPosition = whiteKingPosition;
+    }
 }
