@@ -32,13 +32,13 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     private final byte SQUARE_WIDTH = 64;
     private final byte SQUARE_HEIGHT = 64;
     private HashMap<String, Image> stringToImage;
-    Board board;
-    Square[][] boardSquares;
+    private Board board;
+    private Square[][] boardSquares;
     private int xMousePosition = 0;
     private int yMousePosition = 0;
-    private int xSquare;
-    private int ySquare;
-    Piece selectedPiece;
+    private int xSelectedSquare;
+    private int ySelectedSquare;
+    private Piece selectedPiece;
 
     public BoardUserInterface(Board board) {
         boardSquares = board.getBoardSquares();
@@ -69,10 +69,10 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     public void mousePressed(MouseEvent e) {
         xMousePosition = e.getX()-X_MOVE;
         yMousePosition = e.getY()-Y_MOVE;
-        xSquare = xMousePosition/64;
-        ySquare = yMousePosition/64;
+        xSelectedSquare = xMousePosition/64;
+        ySelectedSquare = yMousePosition/64;
 
-        Piece newSelectedPiece = boardSquares[xSquare][ySquare].getPiece();
+        Piece newSelectedPiece = boardSquares[xSelectedSquare][ySelectedSquare].getPiece();
         moveOrSelectPiece(newSelectedPiece);
         repaint();
     }
@@ -161,13 +161,13 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
                     selectedPiece = null;
             }
             else {
-                selectedPiece.move(new Position(xSquare, ySquare), board);
-                selectedPiece = null;
+                    selectedPiece.move(new Position(xSelectedSquare, ySelectedSquare), board);
+                    selectedPiece = null;
             }
         }
         else if(selectedPiece!=null) {
-            selectedPiece.move(new Position(xSquare, ySquare), board);
-            selectedPiece = null;
+                selectedPiece.move(new Position(xSelectedSquare, ySelectedSquare), board);
+                selectedPiece = null;
         }
     }
 
