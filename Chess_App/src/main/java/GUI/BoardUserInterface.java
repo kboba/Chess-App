@@ -161,13 +161,17 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
                     selectedPiece = null;
             }
             else {
+                if(selectedPiece.isMoveValid(new Position(xSelectedSquare, ySelectedSquare), board)){
                     selectedPiece.move(new Position(xSelectedSquare, ySelectedSquare), board);
                     selectedPiece = null;
+                }
             }
         }
         else if(selectedPiece!=null) {
+            if(selectedPiece.isMoveValid(new Position(xSelectedSquare, ySelectedSquare), board)){
                 selectedPiece.move(new Position(xSelectedSquare, ySelectedSquare), board);
                 selectedPiece = null;
+            }
         }
     }
 
