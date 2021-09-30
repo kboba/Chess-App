@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
+    private static final int COLUMNS_AMOUNT = 8;
+    private static final int ROWS_AMOUNT = 8;
     private Square[][] boardSquares;
     private Position blackKingPosition, whiteKingPosition;
     private List<Square> listOfSquaresWhitesControl = new ArrayList<>();
@@ -60,6 +62,24 @@ public class Board {
 
     public void setBoardSquares(Square[][] boardSquares) {
         this.boardSquares = boardSquares;
+        updateListsOfSquaresPlayersControl();
+    }
+
+    private void updateListsOfSquaresPlayersControl() {
+        boolean isWhite;
+        for(int x = 0; x<COLUMNS_AMOUNT; x++){
+            for(int y=0; y<ROWS_AMOUNT; y++){
+                if(boardSquares[x][y].getPiece() == null)
+                    continue;
+                var pieceOnSquare = boardSquares[x][y].getPiece();
+                // if it is white
+                //  add his valid moves to
+                //  listOfSquaresWhitesControl
+                // else
+                //  add his valid moves to
+                //  listOfSquaresBlacksControl
+            }
+        }
     }
 
     public Position getBlackKingPosition() {
