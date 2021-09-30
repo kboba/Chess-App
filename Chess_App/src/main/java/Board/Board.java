@@ -4,9 +4,14 @@ import Pieces.King;
 import Pieces.Pawn;
 import Pieces.PlayerColor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Board {
     private Square[][] boardSquares;
     private Position blackKingPosition, whiteKingPosition;
+    private List<Square> listOfSquaresWhitesControl = new ArrayList<>();
+    private List<Square> listOfSquaresBlacksControl = new ArrayList<>();
 
     public Board() {
         boardSquares = new Square[8][8];
