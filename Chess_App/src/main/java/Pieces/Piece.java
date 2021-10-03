@@ -42,7 +42,7 @@ abstract public class Piece implements Movable {
     @Override
     public void move(Position newPosition, Board board) {
         var boardSquares = board.getBoardSquares();
-        boardSquares[getPosition().getX()][getPosition().getY()].unoccupy();
+        boardSquares[getPosition().getX()][getPosition().getY()].setPiece(null);
         setPosition(newPosition);
         boardSquares[newPosition.getX()][newPosition.getY()].setPiece(this);
         board.setBoardSquares(boardSquares);
