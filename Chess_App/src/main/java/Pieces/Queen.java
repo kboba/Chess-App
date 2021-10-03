@@ -35,6 +35,21 @@ public class Queen extends Piece {
             return true;
         }
 
+        if(currentPositionY == newPositionY) {
+            if(currentPositionX < newPositionX)
+                for(int xPosition = currentPositionX+1; xPosition < newPositionX; xPosition++){
+                    if(boardSquares[xPosition][currentPositionY].getPiece()!=null)
+                        return false;
+                }
+            else if(currentPositionX > newPositionX)
+                for(int xPosition = currentPositionX-1; xPosition > newPositionX; xPosition--){
+                    if(boardSquares[xPosition][currentPositionY].getPiece()!=null)
+                        return false;
+                }
+
+            return true;
+        }
+
         return false;
     }
 }
