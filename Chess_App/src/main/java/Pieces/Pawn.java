@@ -34,7 +34,7 @@ public class Pawn extends Piece {
 
     private boolean canPawnTakeDiagonally(int currentPositionY, Square newPositionSquare, int newPositionY) {
         Piece pieceOnNewPositionSquare = newPositionSquare.getPiece();
-        if (pieceOnNewPositionSquare != null && pieceOnNewPositionSquare.getPlayerColor()!=getPlayerColor()){
+        if (pieceOnNewPositionSquare != null){
             if (getPlayerColor() == PlayerColor.WHITE) {
                 if (newPositionY == currentPositionY + 1) {
                     firstMoveDone = true;
