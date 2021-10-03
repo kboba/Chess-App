@@ -17,21 +17,28 @@ public class Pawn extends Piece {
         var newPositionX = newPosition.getX();
         var newPositionY = newPosition.getY();
 
+        if(currentPositionX==newPositionX)
+            return canPawnMoveForward(currentPositionY, newPositionY);
+        
+        return false;
+    }
+
+    private boolean canPawnMoveForward(int currentPositionY, int newPositionY) {
         if(getPlayerColor()==PlayerColor.WHITE){
-            if(newPositionY==currentPositionY+1) {
+            if(newPositionY == currentPositionY +1) {
                 firstMoveDone = true;
                 return true;
             }
-            if(newPositionY==currentPositionY+2 && !firstMoveDone) {
+            if(newPositionY == currentPositionY +2 && !firstMoveDone) {
                 firstMoveDone = true;
                 return true;
             }
         } else {
-            if(newPositionY==currentPositionY-1) {
+            if(newPositionY == currentPositionY -1) {
                 firstMoveDone = true;
                 return true;
             }
-            if(newPositionY==currentPositionY-2 && !firstMoveDone) {
+            if(newPositionY == currentPositionY -2 && !firstMoveDone) {
                 firstMoveDone = true;
                 return true;
             }
