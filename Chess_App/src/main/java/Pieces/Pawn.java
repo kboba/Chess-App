@@ -22,13 +22,37 @@ public class Pawn extends Piece {
         Square[][] boardSquares = board.getBoardSquares();
 
         if (currentPositionX == newPositionX)
-            return cavPawnMoveForward(currentPositionY, boardSquares[newPositionX], newPositionY);
+            return canPawnMoveForward(currentPositionY, boardSquares[newPositionX], newPositionY);
+
+        if (abs(currentPositionX-newPositionX)==1) {
+            return canPawnTakeDiagonally(currentPositionY, boardSquares[newPositionX][newPositionY], newPositionY);
+        }
 
         return false;
     }
 
-    private boolean cavPawnMoveForward(int currentPositionY, Square[] boardSquare, int newPositionY) {
-        Piece pieceOnNewPositionSquare = boardSquare[newPositionY].getPiece();
+
+    private boolean canPawnTakeDiagonally(int currentPositionY, Square newPositionSquare, int newPositionY) {
+        Piece pieceOnNewPositionSquare = newPositionSquare.getPiece();
+        if (pieceOnNewPositionSquare != null && pieceOnNewPositionSquare.getPlayerColor()!=getPlayerColor()){
+            if (getPlayerColor() == PlayerColor.WHITE) {
+                if (newPositionY == currentPositionY + 1) {
+                    firstMoveDone = true;
+                    return true;
+                }
+            } else {
+                if (newPositionY == currentPositionY - 1) {
+                    firstMoveDone = true;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    private boolean canPawnMoveForward(int currentPositionY, Square[] boardColumnSquares, int newPositionY) {
+        Piece pieceOnNewPositionSquare = boardColumnSquares[newPositionY].getPiece();
         if (pieceOnNewPositionSquare == null)
             if (getPlayerColor() == PlayerColor.WHITE) {
                 if (newPositionY == currentPositionY + 1) {
@@ -36,7 +60,7 @@ public class Pawn extends Piece {
                     return true;
                 }
                 if (newPositionY == currentPositionY + 2 && !firstMoveDone) {
-                    Piece pieceBetweenPositions = boardSquare[newPositionY - 1].getPiece();
+                    Piece pieceBetweenPositions = boardColumnSquares[newPositionY - 1].getPiece();
                     if (pieceBetweenPositions == null) {
                         firstMoveDone = true;
                         return true;
@@ -48,14 +72,13 @@ public class Pawn extends Piece {
                     return true;
                 }
                 if (newPositionY == currentPositionY - 2 && !firstMoveDone) {
-                    Piece pieceBetweenPositions = boardSquare[newPositionY + 1].getPiece();
+                    Piece pieceBetweenPositions = boardColumnSquares[newPositionY + 1].getPiece();
                     if (pieceBetweenPositions == null) {
                         firstMoveDone = true;
                         return true;
                     }
                 }
             }
-
         return false;
     }
 
