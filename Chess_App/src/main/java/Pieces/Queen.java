@@ -4,6 +4,8 @@ import Board.Board;
 import Board.Position;
 import Board.Square;
 
+import static java.lang.Math.abs;
+
 public class Queen extends Piece {
 
     public Queen(PlayerColor playerColor, Position position) {
@@ -18,38 +20,48 @@ public class Queen extends Piece {
         var newPositionY = newPosition.getY();
         var boardSquares = board.getBoardSquares();
 
-        if(currentPositionX == newPositionX) {
-            if(currentPositionY < newPositionY)
-                for(int yPosition = currentPositionY+1; yPosition < newPositionY; yPosition++){
-                    if(boardSquares[currentPositionX][yPosition].getPiece()!=null){
-                        return false;
-                    }
-                }
-            else if(currentPositionY > newPositionY)
-                for(int yPosition = currentPositionY-1; yPosition > newPositionY; yPosition--){
-                    if(boardSquares[currentPositionX][yPosition].getPiece()!=null){
-                        return false;
-                    }
-                }
+        if(currentPositionX == newPositionX)
+            return canMoveVertically(currentPositionX, currentPositionY, newPositionY, boardSquares);
 
-            return true;
-        }
+        if(currentPositionY == newPositionY)
+            return canMoveHorizontally(currentPositionX, currentPositionY, newPositionX, boardSquares);
 
-        if(currentPositionY == newPositionY) {
-            if(currentPositionX < newPositionX)
-                for(int xPosition = currentPositionX+1; xPosition < newPositionX; xPosition++){
-                    if(boardSquares[xPosition][currentPositionY].getPiece()!=null)
-                        return false;
-                }
-            else if(currentPositionX > newPositionX)
-                for(int xPosition = currentPositionX-1; xPosition > newPositionX; xPosition--){
-                    if(boardSquares[xPosition][currentPositionY].getPiece()!=null)
-                        return false;
-                }
-
+        if(abs(currentPositionX-newPositionX)==abs(currentPositionY-newPositionY)) {
             return true;
         }
 
         return false;
+    }
+
+    private boolean canMoveHorizontally(int currentPositionX, int currentPositionY, int newPositionX, Square[][] boardSquares) {
+        if(currentPositionX < newPositionX)
+            for(int xPosition = currentPositionX +1; xPosition < newPositionX; xPosition++){
+                if(boardSquares[xPosition][currentPositionY].getPiece()!=null)
+                    return false;
+            }
+        else if(currentPositionX > newPositionX)
+            for(int xPosition = currentPositionX -1; xPosition > newPositionX; xPosition--){
+                if(boardSquares[xPosition][currentPositionY].getPiece()!=null)
+                    return false;
+            }
+
+        return true;
+    }
+
+    private boolean canMoveVertically(int currentPositionX, int currentPositionY, int newPositionY, Square[][] boardSquares) {
+        if(currentPositionY < newPositionY)
+            for(int yPosition = currentPositionY +1; yPosition < newPositionY; yPosition++){
+                if(boardSquares[currentPositionX][yPosition].getPiece()!=null){
+                    return false;
+                }
+            }
+        else if(currentPositionY > newPositionY)
+            for(int yPosition = currentPositionY -1; yPosition > newPositionY; yPosition--){
+                if(boardSquares[currentPositionX][yPosition].getPiece()!=null){
+                    return false;
+                }
+            }
+
+        return true;
     }
 }

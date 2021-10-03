@@ -22,17 +22,17 @@ public class Pawn extends Piece {
         var boardSquares = board.getBoardSquares();
 
         if (currentPositionX == newPositionX)
-            return canPawnMoveForward(currentPositionY, boardSquares[newPositionX], newPositionY);
+            return canMoveForward(currentPositionY, boardSquares[newPositionX], newPositionY);
 
         if (abs(currentPositionX-newPositionX)==1) {
-            return canPawnTakeDiagonally(currentPositionY, boardSquares[newPositionX][newPositionY].getPiece(), newPositionY);
+            return canTakeDiagonally(currentPositionY, boardSquares[newPositionX][newPositionY].getPiece(), newPositionY);
         }
 
         return false;
     }
 
 
-    private boolean canPawnTakeDiagonally(int currentPositionY, Piece pieceOnNewPositionSquare, int newPositionY) {
+    private boolean canTakeDiagonally(int currentPositionY, Piece pieceOnNewPositionSquare, int newPositionY) {
         if (pieceOnNewPositionSquare != null){
             if (getPlayerColor() == PlayerColor.WHITE) {
                 if (newPositionY == currentPositionY + 1) {
@@ -50,7 +50,7 @@ public class Pawn extends Piece {
     }
 
 
-    private boolean canPawnMoveForward(int currentPositionY, Square[] boardColumnSquares, int newPositionY) {
+    private boolean canMoveForward(int currentPositionY, Square[] boardColumnSquares, int newPositionY) {
         Piece pieceOnNewPositionSquare = boardColumnSquares[newPositionY].getPiece();
         if (pieceOnNewPositionSquare == null)
             if (getPlayerColor() == PlayerColor.WHITE) {
