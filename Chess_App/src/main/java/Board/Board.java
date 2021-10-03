@@ -1,8 +1,6 @@
 package Board;
 
-import Pieces.King;
-import Pieces.Pawn;
-import Pieces.PlayerColor;
+import Pieces.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +27,14 @@ public class Board {
                 boardSquares[i][j] = new Square();
             }
         }
-//        boardSquares[0][1] = new Square(new Pawn(PlayerColor.WHITE, new Position(0, 1)), true);
-
+        boardSquares[0][0].setPiece(new Rock(PlayerColor.WHITE, new Position(0, 0)));
+        boardSquares[1][0].setPiece(new Knight(PlayerColor.WHITE, new Position(1, 0)));
+        boardSquares[2][0].setPiece(new Bishop(PlayerColor.WHITE, new Position(2, 0)));
         boardSquares[3][0].setPiece(new King(PlayerColor.WHITE, new Position(3, 0)));
+        boardSquares[4][0].setPiece(new Queen(PlayerColor.WHITE, new Position(4, 0)));
+        boardSquares[5][0].setPiece(new Bishop(PlayerColor.WHITE, new Position(5, 0)));
+        boardSquares[6][0].setPiece(new Knight(PlayerColor.WHITE, new Position(6, 0)));
+        boardSquares[7][0].setPiece(new Rock(PlayerColor.WHITE, new Position(7, 0)));
 
         boardSquares[0][1].setPiece(new Pawn(PlayerColor.WHITE, new Position(0, 1)));
         boardSquares[1][1].setPiece(new Pawn(PlayerColor.WHITE, new Position(1, 1)));
@@ -44,8 +47,6 @@ public class Board {
 
 
 
-        boardSquares[3][7].setPiece(new King(PlayerColor.BLACK, new Position(3, 7)));
-
         boardSquares[0][6].setPiece(new Pawn(PlayerColor.BLACK, new Position(0, 6)));
         boardSquares[1][6].setPiece(new Pawn(PlayerColor.BLACK, new Position(1, 6)));
         boardSquares[2][6].setPiece(new Pawn(PlayerColor.BLACK, new Position(2, 6)));
@@ -54,6 +55,15 @@ public class Board {
         boardSquares[5][6].setPiece(new Pawn(PlayerColor.BLACK, new Position(5, 6)));
         boardSquares[6][6].setPiece(new Pawn(PlayerColor.BLACK, new Position(6, 6)));
         boardSquares[7][6].setPiece(new Pawn(PlayerColor.BLACK, new Position(7, 6)));
+
+        boardSquares[0][7].setPiece(new Rock(PlayerColor.BLACK, new Position(0, 7)));
+        boardSquares[1][7].setPiece(new Knight(PlayerColor.BLACK, new Position(1, 7)));
+        boardSquares[2][7].setPiece(new Bishop(PlayerColor.BLACK, new Position(2, 7)));
+        boardSquares[3][7].setPiece(new King(PlayerColor.BLACK, new Position(3, 7)));
+        boardSquares[4][7].setPiece(new Queen(PlayerColor.BLACK, new Position(4, 7)));
+        boardSquares[5][7].setPiece(new Bishop(PlayerColor.BLACK, new Position(5, 7)));
+        boardSquares[6][7].setPiece(new Knight(PlayerColor.BLACK, new Position(6, 7)));
+        boardSquares[7][7].setPiece(new Rock(PlayerColor.BLACK, new Position(7, 7)));
     }
 
     public Square[][] getBoardSquares() {
