@@ -29,7 +29,7 @@ public class King extends Piece {
         var newPositionX = newPosition.getX();
         var newPositionY = newPosition.getY();
 
-        if(abs(currentPositionX-newPositionX)==1 || abs(currentPositionY-newPositionY)==1){
+        if(abs(currentPositionX-newPositionX)==1 && abs(currentPositionY-newPositionY)==1){
             if(getPlayerColor()==WHITE)
                 board.setWhiteKingPosition(newPositionX, newPositionY);
             else
