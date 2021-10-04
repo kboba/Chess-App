@@ -32,36 +32,6 @@ public class Queen extends Piece {
         return false;
     }
 
-    private boolean canMoveDiagonally(int currentPositionX, int currentPositionY, int newPositionX, int newPositionY, Square[][] boardSquares) {
-        int xPosition = currentPositionX;
-        int yPosition = currentPositionY;
-        byte xDirection = 0;
-        byte yDirection = 0;
-
-        if(currentPositionX < newPositionX)
-            xDirection = 1;
-        else
-            xDirection = -1;
-
-        if(currentPositionY < newPositionY)
-            yDirection = 1;
-        else
-            yDirection = -1;
-
-        xPosition+=xDirection;
-        yPosition+=yDirection;
-
-        while(xPosition != newPositionX && yPosition != newPositionY){
-            if(boardSquares[xPosition][yPosition].getPiece()!=null){
-                return false;
-            }
-            xPosition+=xDirection;
-            yPosition+=yDirection;
-        }
-
-        return true;
-    }
-
     private boolean canMoveHorizontally(int currentPositionX, int currentPositionY, int newPositionX, Square[][] boardSquares) {
         if(currentPositionX < newPositionX)
             for(int xPosition = currentPositionX +1; xPosition < newPositionX; xPosition++){
@@ -92,5 +62,34 @@ public class Queen extends Piece {
             }
 
         return true;
+    }
+
+    private boolean canMoveDiagonally(int currentPositionX, int currentPositionY, int newPositionX, int newPositionY, Square[][] boardSquares) {
+        int xPosition = currentPositionX;
+        int yPosition = currentPositionY;
+        byte xDirection = getDirection(currentPositionX, newPositionX);
+        byte yDirection = getDirection(currentPositionY, newPositionY);
+
+        xPosition+=xDirection;
+        yPosition+=yDirection;
+
+        while(xPosition != newPositionX && yPosition != newPositionY){
+            if(boardSquares[xPosition][yPosition].getPiece()!=null){
+                return false;
+            }
+            xPosition+=xDirection;
+            yPosition+=yDirection;
+        }
+
+        return true;
+    }
+
+    private byte getDirection(int currentPositionX, int newPositionX) {
+        byte xDirection;
+        if (currentPositionX < newPositionX)
+            xDirection = 1;
+        else
+            xDirection = -1;
+        return xDirection;
     }
 }

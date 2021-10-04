@@ -29,19 +29,8 @@ public class Bishop extends Piece {
     private boolean canMoveDiagonally(int currentPositionX, int currentPositionY, int newPositionX, int newPositionY, Square[][] boardSquares) {
         int xPosition = currentPositionX;
         int yPosition = currentPositionY;
-        byte xDirection = 0;
-        byte yDirection = 0;
-
-        if(currentPositionX < newPositionX)
-            xDirection = 1;
-        else
-            xDirection = -1;
-
-        if(currentPositionY < newPositionY)
-            yDirection = 1;
-        else
-            yDirection = -1;
-
+        byte xDirection = getDirection(currentPositionX, newPositionX);
+        byte yDirection = getDirection(currentPositionY, newPositionY);
 
         xPosition+=xDirection;
         yPosition+=yDirection;
@@ -57,4 +46,12 @@ public class Bishop extends Piece {
         return true;
     }
 
+    private byte getDirection(int currentPositionX, int newPositionX) {
+        byte xDirection;
+        if (currentPositionX < newPositionX)
+            xDirection = 1;
+        else
+            xDirection = -1;
+        return xDirection;
+    }
 }
