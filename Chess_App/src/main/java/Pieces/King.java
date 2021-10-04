@@ -3,6 +3,7 @@ package Pieces;
 import Board.Board;
 import Board.Position;
 
+import static Pieces.PlayerColor.WHITE;
 import static java.lang.Math.abs;
 
 public class King extends Piece {
@@ -28,8 +29,14 @@ public class King extends Piece {
         var newPositionX = newPosition.getX();
         var newPositionY = newPosition.getY();
 
-        if(abs(currentPositionX-newPositionX)==1 || abs(currentPositionY-newPositionY)==1)
+        if(abs(currentPositionX-newPositionX)==1 || abs(currentPositionY-newPositionY)==1){
+            if(getPlayerColor()==WHITE)
+                board.setWhiteKingPosition(newPositionX, newPositionY);
+            else
+                board.setBlackKingPosition(newPositionX, newPositionY);
+
             return true;
+        }
 
         return false;
     }

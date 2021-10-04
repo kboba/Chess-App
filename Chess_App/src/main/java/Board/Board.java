@@ -96,15 +96,24 @@ public class Board {
         return blackKingPosition;
     }
 
-    public void setBlackKingPosition(Position blackKingPosition) {
-        this.blackKingPosition = blackKingPosition;
+    public void setBlackKingPosition(Position newBlackKingPosition) {
+        blackKingPosition = newBlackKingPosition;
     }
+
+    public void setBlackKingPosition(int xPosition, int yPosition) {
+        blackKingPosition = new Position(xPosition, yPosition);
+    }
+
 
     public Position getWhiteKingPosition() {
         return whiteKingPosition;
     }
 
-    public void setWhiteKingPosition(Position whiteKingPosition) {
-        this.whiteKingPosition = whiteKingPosition;
+    public void setWhiteKingPosition(Position newWhiteKingPosition) {
+        newWhiteKingPosition = newWhiteKingPosition;
+    }
+
+    public void setWhiteKingPosition(int xPosition, int yPosition) {
+        whiteKingPosition = new Position(xPosition, yPosition);
     }
 }
