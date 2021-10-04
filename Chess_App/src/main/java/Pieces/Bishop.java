@@ -31,22 +31,17 @@ public class Bishop extends Piece {
         int yPosition = currentPositionY;
         byte xDirection = 0;
         byte yDirection = 0;
-        if(currentPositionX < newPositionX && currentPositionY < newPositionY) {
+
+        if(currentPositionX < newPositionX)
             xDirection = 1;
+        else
+            xDirection = -1;
+
+        if(currentPositionY < newPositionY)
             yDirection = 1;
-        }
-        else if(currentPositionX < newPositionX && currentPositionY > newPositionY){
-            xDirection = 1;
-            yDirection =-1;
-        }
-        else if(currentPositionX > newPositionX && currentPositionY > newPositionY){
-            xDirection =-1;
-            yDirection =-1;
-        }
-        else if(currentPositionX > newPositionX && currentPositionY < newPositionY){
-            xDirection =-1;
-            yDirection = 1;
-        }
+        else
+            yDirection = -1;
+
 
         xPosition+=xDirection;
         yPosition+=yDirection;
