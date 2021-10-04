@@ -27,6 +27,38 @@ public class Queen extends Piece {
             return canMoveHorizontally(currentPositionX, currentPositionY, newPositionX, boardSquares);
 
         if(abs(currentPositionX-newPositionX)==abs(currentPositionY-newPositionY)) {
+            int xPosition = currentPositionX;
+            int yPosition = currentPositionY;
+            byte xDirection = 0;
+            byte yDirection = 0;
+            if(currentPositionX < newPositionX && currentPositionY < newPositionY) {
+                xDirection = 1;
+                yDirection = 1;
+            }
+            else if(currentPositionX < newPositionX && currentPositionY > newPositionY){
+                xDirection = 1;
+                yDirection =-1;
+            }
+            else if(currentPositionX > newPositionX && currentPositionY > newPositionY){
+                xDirection =-1;
+                yDirection =-1;
+            }
+            else if(currentPositionX > newPositionX && currentPositionY < newPositionY){
+                xDirection =-1;
+                yDirection = 1;
+            }
+
+            xPosition+=xDirection;
+            yPosition+=yDirection;
+
+            while(xPosition != newPositionX && yPosition != newPositionY){
+                if(boardSquares[xPosition][yPosition].getPiece()!=null){
+                    return false;
+                }
+                xPosition+=xDirection;
+                yPosition+=yDirection;
+            }
+
             return true;
         }
 
