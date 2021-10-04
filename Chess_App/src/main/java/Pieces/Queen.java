@@ -21,7 +21,7 @@ public class Queen extends Piece {
         var boardSquares = board.getBoardSquares();
 
         if(currentPositionX == newPositionX)
-            return canMoveVertically(currentPositionX, currentPositionY, newPositionY, boardSquares);
+            return canMoveVertically(currentPositionX, currentPositionY, newPositionY, boardSquares[currentPositionX]);
 
         if(currentPositionY == newPositionY)
             return canMoveHorizontally(currentPositionX, currentPositionY, newPositionX, boardSquares);
@@ -47,16 +47,16 @@ public class Queen extends Piece {
         return true;
     }
 
-    private boolean canMoveVertically(int currentPositionX, int currentPositionY, int newPositionY, Square[][] boardSquares) {
+    private boolean canMoveVertically(int currentPositionX, int currentPositionY, int newPositionY, Square[] boardColumnSquares) {
         if(currentPositionY < newPositionY)
             for(int yPosition = currentPositionY +1; yPosition < newPositionY; yPosition++){
-                if(boardSquares[currentPositionX][yPosition].getPiece()!=null){
+                if(boardColumnSquares[yPosition].getPiece()!=null){
                     return false;
                 }
             }
         else if(currentPositionY > newPositionY)
             for(int yPosition = currentPositionY -1; yPosition > newPositionY; yPosition--){
-                if(boardSquares[currentPositionX][yPosition].getPiece()!=null){
+                if(boardColumnSquares[yPosition].getPiece()!=null){
                     return false;
                 }
             }
