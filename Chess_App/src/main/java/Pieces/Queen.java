@@ -3,10 +3,10 @@ package Pieces;
 import Board.Board;
 import Board.Position;
 
-public class Pawn extends Piece {
+public class Queen extends Piece {
 
-    public Pawn(PlayerColor playerColor, Position position) {
-        super(playerColor, PieceType.PAWN, position);
+    public Queen(PlayerColor playerColor, Position position) {
+        super(playerColor, PieceType.QUEEN, position);
     }
 
     @Override
