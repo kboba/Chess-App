@@ -24,14 +24,10 @@ public class King extends Piece {
 
     @Override
     public boolean isMoveValid(Position newPosition, Board board) {
-        var currentPositionX = getPosition().getX();
-        var currentPositionY = getPosition().getY();
         var newPositionX = newPosition.getX();
         var newPositionY = newPosition.getY();
 
-        if(abs(currentPositionX-newPositionX)==1 && abs(currentPositionY-newPositionY)==1
-                || abs(currentPositionX-newPositionX)==1 && abs(currentPositionY-newPositionY)==0
-                || abs(currentPositionX-newPositionX)==0 && abs(currentPositionY-newPositionY)==1){
+        if(canMoveToNeighborSquare(newPositionX, newPositionY)){
             if(getPlayerColor()==WHITE)
                 board.setWhiteKingPosition(newPositionX, newPositionY);
             else
@@ -41,5 +37,14 @@ public class King extends Piece {
         }
 
         return false;
+    }
+
+    private boolean canMoveToNeighborSquare(int newPositionX, int newPositionY) {
+        var currentPositionX = getPosition().getX();
+        var currentPositionY = getPosition().getY();
+
+        return abs(currentPositionX - newPositionX) == 1 && abs(currentPositionY - newPositionY) == 1
+                || abs(currentPositionX - newPositionX) == 1 && abs(currentPositionY - newPositionY) == 0
+                || abs(currentPositionX - newPositionX) == 0 && abs(currentPositionY - newPositionY) == 1;
     }
 }
