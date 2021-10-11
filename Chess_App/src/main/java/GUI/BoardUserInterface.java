@@ -139,15 +139,15 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
 
     private void drawPieces(Graphics g, ImageObserver observer) {
         String pieceInitials;
-        for (int i=0; i<ROWS_AMOUNT; i++){
-            for (int j = 0; j < COLUMNS_AMOUNT; j++) {
-                if(boardSquares[i][j].getPiece() == null)
+        for (int y=0; y<ROWS_AMOUNT; y++){
+            for (int x = 0; x < COLUMNS_AMOUNT; x++) {
+                if(boardSquares[y][x].getPiece() == null)
                     continue;
-                var pieceOnSquare = boardSquares[i][j].getPiece();
+                var pieceOnSquare = boardSquares[y][x].getPiece();
                 var pieceColor = pieceOnSquare.getPlayerColor();
                 var type = pieceOnSquare.getType();
                 pieceInitials = getPieceInitials(pieceColor, type);
-                g.drawImage(stringToImage.get(pieceInitials), i*SQUARE_WIDTH+ X_MOVE+BORDER_WIDTH, j*SQUARE_HEIGHT+ Y_MOVE+BORDER_WIDTH, observer);
+                g.drawImage(stringToImage.get(pieceInitials), y*SQUARE_WIDTH+ X_MOVE+BORDER_WIDTH, x*SQUARE_HEIGHT+ Y_MOVE+BORDER_WIDTH, observer);
             }
         }
     }
