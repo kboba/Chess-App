@@ -7,7 +7,7 @@ public class Square {
 
     public Square(){}
 
-    public Square(Piece piece, boolean occupied) {
+    public Square(Piece piece) {
         this.piece = piece;
     }
 
