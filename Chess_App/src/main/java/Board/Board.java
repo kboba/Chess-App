@@ -2,16 +2,16 @@ package Board;
 
 import Pieces.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Board {
     private static final int COLUMNS_AMOUNT = 8;
     private static final int ROWS_AMOUNT = 8;
     private Square[][] boardSquares;
     private Position blackKingPosition, whiteKingPosition;
-    private List<Square> listOfSquaresWhitesControl = new ArrayList<>();
-    private List<Square> listOfSquaresBlacksControl = new ArrayList<>();
+    private Set<Square> setOfSquaresWhitesControl = new HashSet<>();
+    private Set<Square> setOfSquaresBlacksControl = new HashSet<>();
 
     public Board() {
         boardSquares = new Square[8][8];
@@ -72,10 +72,10 @@ public class Board {
 
     public void setBoardSquares(Square[][] boardSquares) {
         this.boardSquares = boardSquares;
-        updateListsOfSquaresPlayersControl();
+        updateSetsOfSquaresPlayersControl();
     }
 
-    private void updateListsOfSquaresPlayersControl() {
+    private void updateSetsOfSquaresPlayersControl() {
         boolean isWhite;
         for(int x = 0; x<COLUMNS_AMOUNT; x++){
             for(int y=0; y<ROWS_AMOUNT; y++){
