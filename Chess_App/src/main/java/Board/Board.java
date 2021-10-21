@@ -85,19 +85,21 @@ public class Board {
 
                 for (int i = 0; i < COLUMNS_AMOUNT; i++) {
                     for (int j = 0; j < ROWS_AMOUNT; j++) {
-                        pieceOnSquare.isMoveValid(new Position(i, j), this);
+                        if(pieceOnSquare.isMoveValid(new Position(i, j), this))
+                            if(pieceOnSquare.getPlayerColor()==PlayerColor.WHITE){
+                                setOfSquaresPositionsWhitesControl.add(new Position(i, j));
+                                //  add his valid moves to
+                                //  listOfSquaresWhitesControl
+                            }
+                            else {
+                                setOfSquaresPositionsBlacksControl.add(new Position(i, j));
+                                //  add his valid moves to
+                                //  listOfSquaresBlacksControl
+                            }
                     }
                 }
 
-                if(pieceOnSquare.getPlayerColor()==PlayerColor.WHITE){
 
-                    //  add his valid moves to
-                    //  listOfSquaresWhitesControl
-                }
-                else {
-                    //  add his valid moves to
-                    //  listOfSquaresBlacksControl
-                }
 
 
             }
