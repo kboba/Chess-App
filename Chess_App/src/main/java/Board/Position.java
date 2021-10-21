@@ -24,4 +24,11 @@ public class Position {
     public int getY() {
         return y;
     }
+
+    public boolean equals(Object o) {
+        if (!(o instanceof Position)) {
+            return false;
+        }
+        return (x == ((Position) o).x && y == ((Position) o).y);
+    }
 }
