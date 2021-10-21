@@ -77,22 +77,22 @@ public class Board {
 
     private void updateSetsOfSquaresPlayersControl() {
         boolean isWhite;
-        for(int x = 0; x<COLUMNS_AMOUNT; x++){
-            for(int y = 0; y<ROWS_AMOUNT; y++){
-                if(boardSquares[x][y].getPiece() == null)
+        for(int xCurrent = 0; xCurrent<COLUMNS_AMOUNT; xCurrent++){
+            for(int yCurrent = 0; yCurrent<ROWS_AMOUNT; yCurrent++){
+                if(boardSquares[xCurrent][yCurrent].getPiece() == null)
                     continue;
-                var pieceOnSquare = boardSquares[x][y].getPiece();
+                var pieceOnSquare = boardSquares[xCurrent][yCurrent].getPiece();
 
-                for (int i = 0; i < COLUMNS_AMOUNT; i++) {
-                    for (int j = 0; j < ROWS_AMOUNT; j++) {
-                        if(pieceOnSquare.isMoveValid(new Position(i, j), this))
+                for (int xToMove = 0; xToMove < COLUMNS_AMOUNT; xToMove++) {
+                    for (int yToMove = 0; yToMove < ROWS_AMOUNT; yToMove++) {
+                        if(pieceOnSquare.isMoveValid(new Position(xToMove, yToMove), this))
                             if(pieceOnSquare.getPlayerColor()==PlayerColor.WHITE){
-                                setOfSquaresPositionsWhitesControl.add(new Position(i, j));
+                                setOfSquaresPositionsWhitesControl.add(new Position(xToMove, yToMove));
                                 //  add his valid moves to
                                 //  listOfSquaresWhitesControl
                             }
                             else {
-                                setOfSquaresPositionsBlacksControl.add(new Position(i, j));
+                                setOfSquaresPositionsBlacksControl.add(new Position(xToMove, yToMove));
                                 //  add his valid moves to
                                 //  listOfSquaresBlacksControl
                             }
