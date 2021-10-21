@@ -2,6 +2,7 @@ package Board;
 
 import Pieces.*;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -67,23 +68,13 @@ public class ChessBoard {
         boardSquares[7][7].setPiece(new Rock(PlayerColor.BLACK, new Position(7, 7)));
     }
 
-    public Square[][] getBoardSquares() {
-        return boardSquares;
-    }
-
-    public void setBoardSquares(Square[][] boardSquares) {
-        this.boardSquares = boardSquares;
-        updateSetsOfSquaresPlayersControl();
-    }
-
     private void updateSetsOfSquaresPlayersControl() {
         boolean isWhite;
-        Square[][] copyOfBoard = boardSquares;
         for(int xCurrent = 0; xCurrent<COLUMNS_AMOUNT; xCurrent++){
             for(int yCurrent = 0; yCurrent<ROWS_AMOUNT; yCurrent++){
-                if(copyOfBoard[xCurrent][yCurrent].getPiece() == null)
+                if(boardSquares[xCurrent][yCurrent].getPiece() == null)
                     continue;
-                var pieceOnSquare = copyOfBoard[xCurrent][yCurrent].getPiece();
+                var pieceOnSquare = boardSquares[xCurrent][yCurrent].getPiece();
 
                 for (int xToMove = 0; xToMove < COLUMNS_AMOUNT; xToMove++) {
                     for (int yToMove = 0; yToMove < ROWS_AMOUNT; yToMove++) {
@@ -98,6 +89,15 @@ public class ChessBoard {
                 }
             }
         }
+    }
+
+    public Square[][] getBoardSquares() {
+        return boardSquares;
+    }
+
+    public void setBoardSquares(Square[][] boardSquares) {
+        this.boardSquares = boardSquares;
+        updateSetsOfSquaresPlayersControl();
     }
 
     public Position getBlackKingPosition() {
