@@ -1,6 +1,6 @@
 package Pieces;
 
-import Board.Board;
+import Board.ChessBoard;
 import Board.Position;
 
 abstract public class Piece implements Movable {
@@ -40,23 +40,23 @@ abstract public class Piece implements Movable {
      * 5. if Piece is King then set variable with his position
      */
     @Override
-    public void move(Position newPosition, Board board) {
-        var boardSquares = board.getBoardSquares();
+    public void move(Position newPosition, ChessBoard chessBoard) {
+        var boardSquares = chessBoard.getBoardSquares();
         boardSquares[getPosition().getX()][getPosition().getY()].setPiece(null);
         setPosition(newPosition);
         boardSquares[newPosition.getX()][newPosition.getY()].setPiece(this);
-        board.setBoardSquares(boardSquares);
+        chessBoard.setBoardSquares(boardSquares);
 
         if (type == PieceType.KING) {
             if (playerColor==PlayerColor.WHITE) {
-                board.setWhiteKingPosition(newPosition);
+                chessBoard.setWhiteKingPosition(newPosition);
             } else{
-                board.setBlackKingPosition(newPosition);
+                chessBoard.setBlackKingPosition(newPosition);
             }
         }
 
     }
-    
+
     boolean isNewPositionSame(Position newPosition){
         return position.equals(newPosition);
     }

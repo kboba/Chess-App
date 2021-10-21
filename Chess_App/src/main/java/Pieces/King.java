@@ -1,6 +1,6 @@
 package Pieces;
 
-import Board.Board;
+import Board.ChessBoard;
 import Board.Position;
 
 import static Pieces.PlayerColor.WHITE;
@@ -23,7 +23,7 @@ public class King extends Piece {
     }
 
     @Override
-    public boolean isMoveValid(Position newPosition, Board board) {
+    public boolean isMoveValid(Position newPosition, ChessBoard chessBoard) {
         if(isNewPositionSame(newPosition))
             return false;
 
@@ -32,9 +32,9 @@ public class King extends Piece {
 
         if(canMoveToNeighborSquare(newPositionX, newPositionY)){
             if(getPlayerColor()==WHITE)
-                board.setWhiteKingPosition(newPositionX, newPositionY);
+                chessBoard.setWhiteKingPosition(newPositionX, newPositionY);
             else
-                board.setBlackKingPosition(newPositionX, newPositionY);
+                chessBoard.setBlackKingPosition(newPositionX, newPositionY);
 
             return true;
         }
