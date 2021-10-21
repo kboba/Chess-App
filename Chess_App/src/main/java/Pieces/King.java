@@ -7,19 +7,9 @@ import static Pieces.PlayerColor.WHITE;
 import static java.lang.Math.abs;
 
 public class King extends Piece {
-    private boolean castleDone;
 
     public King(PlayerColor playerColor, Position position) {
         super(playerColor, PieceType.KING, position);
-        castleDone = false;
-    }
-
-    public boolean isCastleDone() {
-        return castleDone;
-    }
-
-    public void setCastleDone() {
-        this.castleDone = true;
     }
 
     @Override
