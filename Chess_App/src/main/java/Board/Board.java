@@ -10,8 +10,8 @@ public class Board {
     private static final int ROWS_AMOUNT = 8;
     private Square[][] boardSquares;
     private Position blackKingPosition, whiteKingPosition;
-    private Set<Square> setOfSquaresWhitesControl = new HashSet<>();
-    private Set<Square> setOfSquaresBlacksControl = new HashSet<>();
+    private Set<Position> setOfSquaresPositionsWhitesControl = new HashSet<>();
+    private Set<Position> setOfSquaresPositionsBlacksControl = new HashSet<>();
 
     public Board() {
         boardSquares = new Square[8][8];
