@@ -5,11 +5,9 @@ import Board.Position;
 import Board.Square;
 
 public class Rock extends Piece {
-    private boolean castlePossible;
 
     public Rock(PlayerColor playerColor, Position position) {
         super(playerColor, PieceType.ROCK, position);
-        castlePossible = true;
     }
 
     @Override
@@ -62,13 +60,5 @@ public class Rock extends Piece {
             }
 
         return true;
-    }
-
-    public boolean isCastlePossible() {
-        return castlePossible;
-    }
-
-    public void setCastleImpossible() {
-        this.castlePossible = false;
     }
 }
