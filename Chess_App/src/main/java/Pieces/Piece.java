@@ -54,5 +54,10 @@ abstract public class Piece implements Movable {
                 board.setBlackKingPosition(newPosition);
             }
         }
+
+    }
+    
+    boolean isNewPositionSame(Position newPosition){
+        return position.equals(newPosition);
     }
 }
