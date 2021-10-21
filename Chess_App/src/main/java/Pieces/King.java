@@ -24,6 +24,9 @@ public class King extends Piece {
 
     @Override
     public boolean isMoveValid(Position newPosition, Board board) {
+        if(isNewPositionSame(newPosition))
+            return false;
+
         var newPositionX = newPosition.getX();
         var newPositionY = newPosition.getY();
 

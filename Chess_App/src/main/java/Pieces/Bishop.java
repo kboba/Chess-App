@@ -14,6 +14,9 @@ public class Bishop extends Piece {
 
     @Override
     public boolean isMoveValid(Position newPosition, Board board) {
+        if(isNewPositionSame(newPosition))
+            return false;
+
         var currentPositionX = getPosition().getX();
         var currentPositionY = getPosition().getY();
         var newPositionX = newPosition.getX();
