@@ -78,19 +78,27 @@ public class Board {
     private void updateSetsOfSquaresPlayersControl() {
         boolean isWhite;
         for(int x = 0; x<COLUMNS_AMOUNT; x++){
-            for(int y=0; y<ROWS_AMOUNT; y++){
+            for(int y = 0; y<ROWS_AMOUNT; y++){
                 if(boardSquares[x][y].getPiece() == null)
                     continue;
                 var pieceOnSquare = boardSquares[x][y].getPiece();
 
+                for (int i = 0; i < COLUMNS_AMOUNT; i++) {
+                    for (int j = 0; j < ROWS_AMOUNT; j++) {
+                        pieceOnSquare.isMoveValid(new Position(i, j), this);
+                    }
+                }
+
                 if(pieceOnSquare.getPlayerColor()==PlayerColor.WHITE){
+
                     //  add his valid moves to
                     //  listOfSquaresWhitesControl
                 }
-                else (pieceOnSquare.getPlayerColor()==PlayerColor.BLACK){
+                else {
                     //  add his valid moves to
                     //  listOfSquaresBlacksControl
                 }
+
 
             }
         }
