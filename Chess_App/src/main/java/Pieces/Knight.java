@@ -1,6 +1,6 @@
 package Pieces;
 
-import Board.Board;
+import Board.ChessBoard;
 import Board.Position;
 
 import static java.lang.Math.abs;
@@ -12,7 +12,10 @@ public class Knight extends Piece {
     }
 
     @Override
-    public boolean isMoveValid(Position newPosition, Board board) {
+    public boolean isMoveValid(Position newPosition, ChessBoard chessBoard) {
+        if(isNewPositionSame(newPosition))
+            return false;
+
         var currentPositionX = getPosition().getX();
         var currentPositionY = getPosition().getY();
         var newPositionX = newPosition.getX();

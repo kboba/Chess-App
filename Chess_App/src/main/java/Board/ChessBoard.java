@@ -2,18 +2,19 @@ package Board;
 
 import Pieces.*;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Board {
+public class ChessBoard {
     private static final int COLUMNS_AMOUNT = 8;
     private static final int ROWS_AMOUNT = 8;
     private Square[][] boardSquares;
     private Position blackKingPosition, whiteKingPosition;
-    private Set<Square> setOfSquaresWhitesControl = new HashSet<>();
-    private Set<Square> setOfSquaresBlacksControl = new HashSet<>();
+    private Set<Position> setOfSquaresPositionsWhitesControl = new HashSet<>();
+    private Set<Position> setOfSquaresPositionsBlacksControl = new HashSet<>();
 
-    public Board() {
+    public ChessBoard() {
         boardSquares = new Square[8][8];
         initialize();
         blackKingPosition = new Position (3, 0);
@@ -77,17 +78,24 @@ public class Board {
 
     private void updateSetsOfSquaresPlayersControl() {
         boolean isWhite;
-        for(int x = 0; x<COLUMNS_AMOUNT; x++){
-            for(int y=0; y<ROWS_AMOUNT; y++){
-                if(boardSquares[x][y].getPiece() == null)
+        Square[][] copyOfBoard = boardSquares;
+        for(int xCurrent = 0; xCurrent<COLUMNS_AMOUNT; xCurrent++){
+            for(int yCurrent = 0; yCurrent<ROWS_AMOUNT; yCurrent++){
+                if(copyOfBoard[xCurrent][yCurrent].getPiece() == null)
                     continue;
-                var pieceOnSquare = boardSquares[x][y].getPiece();
-                // if it is white
-                //  add his valid moves to
-                //  listOfSquaresWhitesControl
-                // else
-                //  add his valid moves to
-                //  listOfSquaresBlacksControl
+                var pieceOnSquare = copyOfBoard[xCurrent][yCurrent].getPiece();
+
+                for (int xToMove = 0; xToMove < COLUMNS_AMOUNT; xToMove++) {
+                    for (int yToMove = 0; yToMove < ROWS_AMOUNT; yToMove++) {
+                        if(pieceOnSquare.isMoveValid(new Position(xToMove, yToMove), this))
+                            if(pieceOnSquare.getPlayerColor()==PlayerColor.WHITE){
+                                setOfSquaresPositionsWhitesControl.add(new Position(xToMove, yToMove));
+                            }
+                            else {
+                                setOfSquaresPositionsBlacksControl.add(new Position(xToMove, yToMove));
+                            }
+                    }
+                }
             }
         }
     }

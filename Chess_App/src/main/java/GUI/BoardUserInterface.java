@@ -1,6 +1,6 @@
 package GUI;
 
-import Board.Board;
+import Board.ChessBoard;
 import Board.Position;
 import Board.Square;
 import Pieces.Piece;
@@ -32,7 +32,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     private final byte SQUARE_WIDTH = 64;
     private final byte SQUARE_HEIGHT = 64;
     private HashMap<String, Image> stringToImage;
-    private Board board;
+    private ChessBoard chessBoard;
     private Square[][] boardSquares;
     private int xMousePosition = 0;
     private int yMousePosition = 0;
@@ -40,9 +40,9 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     private int ySelectedSquare;
     private Piece selectedPiece;
 
-    public BoardUserInterface(Board board) {
-        boardSquares = board.getBoardSquares();
-        this.board = board;
+    public BoardUserInterface(ChessBoard chessBoard) {
+        boardSquares = chessBoard.getBoardSquares();
+        this.chessBoard = chessBoard;
         stringToImage  = new HashMap<>();
         readImages();
         this.addMouseListener(this);
@@ -161,15 +161,15 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
                     selectedPiece = null;
             }
             else {
-                if(selectedPiece.isMoveValid(new Position(xSelectedSquare, ySelectedSquare), board)){
-                    selectedPiece.move(new Position(xSelectedSquare, ySelectedSquare), board);
+                if(selectedPiece.isMoveValid(new Position(xSelectedSquare, ySelectedSquare), chessBoard)){
+                    selectedPiece.move(new Position(xSelectedSquare, ySelectedSquare), chessBoard);
                     selectedPiece = null;
                 }
             }
         }
         else if(selectedPiece!=null) {
-            if(selectedPiece.isMoveValid(new Position(xSelectedSquare, ySelectedSquare), board)){
-                selectedPiece.move(new Position(xSelectedSquare, ySelectedSquare), board);
+            if(selectedPiece.isMoveValid(new Position(xSelectedSquare, ySelectedSquare), chessBoard)){
+                selectedPiece.move(new Position(xSelectedSquare, ySelectedSquare), chessBoard);
                 selectedPiece = null;
             }
         }

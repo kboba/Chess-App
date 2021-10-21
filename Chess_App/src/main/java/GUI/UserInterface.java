@@ -1,7 +1,7 @@
 package GUI;
 
 
-import Board.Board;
+import Board.ChessBoard;
 
 import javax.swing.*;
 
@@ -9,11 +9,11 @@ public class UserInterface {
 
     private JFrame jFrame;
     private BoardUserInterface boardUserInterface; //private JPanel
-    private Board board;
+    private ChessBoard chessBoard;
 
-    public UserInterface(Board board) {
-        this.board = board;
-        boardUserInterface = new BoardUserInterface(board);
+    public UserInterface(ChessBoard chessBoard) {
+        this.chessBoard = chessBoard;
+        boardUserInterface = new BoardUserInterface(chessBoard);
     }
 
     public void initialize(){

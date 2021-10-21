@@ -1,6 +1,6 @@
 package Pieces;
 
-import Board.Board;
+import Board.ChessBoard;
 import Board.Position;
 import Board.Square;
 
@@ -14,12 +14,15 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public boolean isMoveValid(Position newPosition, Board board) {
+    public boolean isMoveValid(Position newPosition, ChessBoard chessBoard) {
+        if(isNewPositionSame(newPosition))
+            return false;
+
         var currentPositionX = getPosition().getX();
         var currentPositionY = getPosition().getY();
         var newPositionX = newPosition.getX();
         var newPositionY = newPosition.getY();
-        var boardSquares = board.getBoardSquares();
+        var boardSquares = chessBoard.getBoardSquares();
 
         if (currentPositionX == newPositionX)
             return canMoveForward(currentPositionY, boardSquares[newPositionX], newPositionY);
