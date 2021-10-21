@@ -7,11 +7,13 @@ abstract public class Piece implements Movable {
     private final PlayerColor playerColor;
     private final PieceType type;
     private Position position;
+    private boolean firstMoveDone;
 
     public Piece(PlayerColor playerColor, PieceType type, Position position) {
         this.playerColor = playerColor;
         this.type = type;
         this.position = position;
+        firstMoveDone = false;
     }
 
     public PlayerColor getPlayerColor() {
@@ -46,6 +48,7 @@ abstract public class Piece implements Movable {
         setPosition(newPosition);
         boardSquares[newPosition.getX()][newPosition.getY()].setPiece(this);
         chessBoard.setBoardSquares(boardSquares);
+        firstMoveDone = true;
 
         if (type == PieceType.KING) {
             if (playerColor==PlayerColor.WHITE) {
@@ -59,5 +62,9 @@ abstract public class Piece implements Movable {
 
     boolean isNewPositionSame(Position newPosition){
         return position.equals(newPosition);
+    }
+
+    public boolean isFirstMoveDone() {
+        return firstMoveDone;
     }
 }
