@@ -82,12 +82,16 @@ public class Board {
                 if(boardSquares[x][y].getPiece() == null)
                     continue;
                 var pieceOnSquare = boardSquares[x][y].getPiece();
-                // if it is white
-                //  add his valid moves to
-                //  listOfSquaresWhitesControl
-                // else
-                //  add his valid moves to
-                //  listOfSquaresBlacksControl
+
+                if(pieceOnSquare.getPlayerColor()==PlayerColor.WHITE){
+                    //  add his valid moves to
+                    //  listOfSquaresWhitesControl
+                }
+                else (pieceOnSquare.getPlayerColor()==PlayerColor.BLACK){
+                    //  add his valid moves to
+                    //  listOfSquaresBlacksControl
+                }
+
             }
         }
     }
