@@ -88,20 +88,12 @@ public class Board {
                         if(pieceOnSquare.isMoveValid(new Position(xToMove, yToMove), this))
                             if(pieceOnSquare.getPlayerColor()==PlayerColor.WHITE){
                                 setOfSquaresPositionsWhitesControl.add(new Position(xToMove, yToMove));
-                                //  add his valid moves to
-                                //  listOfSquaresWhitesControl
                             }
                             else {
                                 setOfSquaresPositionsBlacksControl.add(new Position(xToMove, yToMove));
-                                //  add his valid moves to
-                                //  listOfSquaresBlacksControl
                             }
                     }
                 }
-
-
-
-
             }
         }
     }
