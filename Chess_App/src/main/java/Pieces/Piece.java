@@ -60,7 +60,7 @@ abstract public class Piece implements Movable {
 
     }
 
-    public abstract boolean isTakePossible();
+    public abstract boolean isTakePossible(Position newPosition, ChessBoard chessBoard);
 
     public boolean isNewPositionSame(Position newPosition){
         return position.equals(newPosition);

@@ -32,6 +32,11 @@ public class King extends Piece {
         return false;
     }
 
+    @Override
+    public boolean isTakePossible(Position newPosition, ChessBoard chessBoard){
+        return isMoveValid(newPosition, chessBoard);
+    }
+
     private boolean canMoveToNeighborSquare(int newPositionX, int newPositionY) {
         var currentPositionX = getPosition().getX();
         var currentPositionY = getPosition().getY();

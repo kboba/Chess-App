@@ -29,6 +29,11 @@ public class Bishop extends Piece {
         return false;
     }
 
+    @Override
+    public boolean isTakePossible(Position newPosition, ChessBoard chessBoard){
+        return isMoveValid(newPosition, chessBoard);
+    }
+
     private boolean canMoveDiagonally(int currentPositionX, int currentPositionY, int newPositionX, int newPositionY, Square[][] boardSquares) {
         int xPosition = currentPositionX;
         int yPosition = currentPositionY;

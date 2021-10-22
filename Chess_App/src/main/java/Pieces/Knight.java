@@ -24,6 +24,11 @@ public class Knight extends Piece {
         return canJump(currentPositionX, currentPositionY, newPositionX, newPositionY);
     }
 
+    @Override
+    public boolean isTakePossible(Position newPosition, ChessBoard chessBoard){
+        return isMoveValid(newPosition, chessBoard);
+    }
+
     private boolean canJump(int currentPositionX, int currentPositionY, int newPositionX, int newPositionY) {
         if(abs(currentPositionX - newPositionX)==2 && abs(currentPositionY - newPositionY)==1)
             return true;
