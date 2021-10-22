@@ -129,7 +129,7 @@ public class ChessBoard {
 
     public boolean isWhiteKingSafe(){
         for (Position position:setOfSquaresPositionsBlacksControl) {
-            if(position == whiteKingPosition)
+            if(position.equals(whiteKingPosition))
                 return false;
         }
 
@@ -138,7 +138,7 @@ public class ChessBoard {
 
     public boolean isBlackKingSafe() {
         for (Position position:setOfSquaresPositionsWhitesControl) {
-            if(position == blackKingPosition)
+            if(position.equals(blackKingPosition))
                 return false;
         }
 
