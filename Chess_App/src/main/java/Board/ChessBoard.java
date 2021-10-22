@@ -126,4 +126,22 @@ public class ChessBoard {
     public void setWhiteKingPosition(int xPosition, int yPosition) {
         whiteKingPosition = new Position(xPosition, yPosition);
     }
+
+    public boolean isWhiteKingSafe(){
+        for (Position position:setOfSquaresPositionsBlacksControl) {
+            if(position == whiteKingPosition)
+                return false;
+        }
+
+        return true;
+    }
+
+    public boolean isBlackKingSafe() {
+        for (Position position:setOfSquaresPositionsWhitesControl) {
+            if(position == blackKingPosition)
+                return false;
+        }
+
+        return true;
+    }
 }
