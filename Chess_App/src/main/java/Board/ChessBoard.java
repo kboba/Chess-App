@@ -80,7 +80,7 @@ public class ChessBoard {
 
                 for (int xToMove = 0; xToMove < COLUMNS_AMOUNT; xToMove++) {
                     for (int yToMove = 0; yToMove < ROWS_AMOUNT; yToMove++) {
-                        if(pieceOnSquare.isMoveValid(new Position(xToMove, yToMove), this))
+                        if(pieceOnSquare.isTakePossible(new Position(xToMove, yToMove), this))
                             if(pieceOnSquare.getPlayerColor()==PlayerColor.WHITE){
                                 setOfSquaresPositionsWhitesControl.add(new Position(xToMove, yToMove));
                             }
