@@ -70,6 +70,8 @@ public class ChessBoard {
 
     private void updateSetsOfSquaresPlayersControl() {
         boolean isWhite;
+        setOfSquaresPositionsWhitesControl.clear();
+        setOfSquaresPositionsBlacksControl.clear();
         for(int xCurrent = 0; xCurrent<COLUMNS_AMOUNT; xCurrent++){
             for(int yCurrent = 0; yCurrent<ROWS_AMOUNT; yCurrent++){
                 if(boardSquares[xCurrent][yCurrent].getPiece() == null)
