@@ -25,10 +25,17 @@ public class Position {
         return y;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (!(o instanceof Position)) {
             return false;
         }
         return (x == ((Position) o).x && y == ((Position) o).y);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return (x + "," + y).hashCode();
     }
 }
