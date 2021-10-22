@@ -32,6 +32,16 @@ public class Pawn extends Piece {
         return false;
     }
 
+    @Override
+    public boolean isTakePossible(Position newPosition, ChessBoard chessBoard){
+        var currentPositionY = getPosition().getY();
+        var newPositionX = newPosition.getX();
+        var newPositionY = newPosition.getY();
+        var boardSquares = chessBoard.getBoardSquares();
+
+        return canTakeDiagonally(currentPositionY, boardSquares[newPositionX][newPositionY].getPiece(), newPositionY);
+    }
+
 
     private boolean canTakeDiagonally(int currentPositionY, Piece pieceOnNewPositionSquare, int newPositionY) {
         if (pieceOnNewPositionSquare != null){
