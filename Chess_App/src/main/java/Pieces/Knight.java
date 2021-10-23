@@ -20,7 +20,6 @@ public class Knight extends Piece {
         var currentPositionY = getPosition().getY();
         var newPositionX = newPosition.getX();
         var newPositionY = newPosition.getY();
-        
         return canJump(currentPositionX, currentPositionY, newPositionX, newPositionY);
     }
 

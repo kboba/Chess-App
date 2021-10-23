@@ -27,6 +27,4 @@ public class UserInterface {
         jFrame.setVisible(true);
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
-
-    
 }

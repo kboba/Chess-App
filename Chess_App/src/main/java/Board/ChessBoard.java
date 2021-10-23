@@ -108,21 +108,12 @@ public class ChessBoard {
         blackKingPosition = newBlackKingPosition;
     }
 
-    public void setBlackKingPosition(int xPosition, int yPosition) {
-        blackKingPosition = new Position(xPosition, yPosition);
-    }
-
-
     public Position getWhiteKingPosition() {
         return whiteKingPosition;
     }
 
     public void setWhiteKingPosition(Position newWhiteKingPosition) {
         whiteKingPosition = newWhiteKingPosition;
-    }
-
-    public void setWhiteKingPosition(int xPosition, int yPosition) {
-        whiteKingPosition = new Position(xPosition, yPosition);
     }
 
     public boolean isWhiteKingSafe(){
