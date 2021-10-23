@@ -26,7 +26,8 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     final Color BLACK_SQUARES_COLOR = new Color(102, 51, 0);
     final Color WHITE_SQUARES_COLOR = new Color(255,204,153);
     final Color BOARD_COLOR = new Color(68, 28, 0);
-    final Color SELECTED_SQUARE_COLOR = new Color(255, 40, 40);
+    final Color SELECTED_SQUARE_COLOR = new Color(175, 125, 75);
+    final Color KING_ATTACKED_SQUARE_COLOR = new Color(255, 0, 0);
     private final byte ROWS_AMOUNT = 8;
     private final byte COLUMNS_AMOUNT = 8;
     private final byte SQUARE_WIDTH = 64;
