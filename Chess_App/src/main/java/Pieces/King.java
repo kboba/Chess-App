@@ -20,14 +20,8 @@ public class King extends Piece {
         var newPositionX = newPosition.getX();
         var newPositionY = newPosition.getY();
 
-        if(canMoveToNeighborSquare(newPositionX, newPositionY)){
-            if(getPlayerColor()==WHITE)
-                chessBoard.setWhiteKingPosition(newPositionX, newPositionY);
-            else
-                chessBoard.setBlackKingPosition(newPositionX, newPositionY);
-
+        if(canMoveToNeighborSquare(newPositionX, newPositionY))
             return true;
-        }
 
         return false;
     }
