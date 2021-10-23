@@ -3,7 +3,6 @@ package Pieces;
 import Board.ChessBoard;
 import Board.Position;
 
-import static Pieces.PlayerColor.WHITE;
 import static java.lang.Math.abs;
 
 public class King extends Piece {
@@ -19,17 +18,14 @@ public class King extends Piece {
 
         var newPositionX = newPosition.getX();
         var newPositionY = newPosition.getY();
-
-        if(canMoveToNeighborSquare(newPositionX, newPositionY)){
-            if(getPlayerColor()==WHITE)
-                chessBoard.setWhiteKingPosition(newPositionX, newPositionY);
-            else
-                chessBoard.setBlackKingPosition(newPositionX, newPositionY);
-
+        if(canMoveToNeighborSquare(newPositionX, newPositionY))
             return true;
-        }
-
         return false;
+    }
+
+    @Override
+    public boolean isTakePossible(Position newPosition, ChessBoard chessBoard){
+        return isMoveValid(newPosition, chessBoard);
     }
 
     private boolean canMoveToNeighborSquare(int newPositionX, int newPositionY) {

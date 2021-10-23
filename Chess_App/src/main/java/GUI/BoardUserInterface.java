@@ -26,7 +26,8 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     final Color BLACK_SQUARES_COLOR = new Color(102, 51, 0);
     final Color WHITE_SQUARES_COLOR = new Color(255,204,153);
     final Color BOARD_COLOR = new Color(68, 28, 0);
-    final Color SELECTED_SQUARE_COLOR = new Color(255, 40, 40);
+    final Color SELECTED_SQUARE_COLOR = new Color(175, 125, 75);
+    final Color KING_ATTACKED_SQUARE_COLOR = new Color(255, 0, 0);
     private final byte ROWS_AMOUNT = 8;
     private final byte COLUMNS_AMOUNT = 8;
     private final byte SQUARE_WIDTH = 64;
@@ -53,6 +54,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     public void paint(Graphics g) {
         drawBorder(g);
         drawBoard(g);
+        drawAttackedKingSquare(g);
         drawSelectedSquare(g);
         drawPieces(g, this);
     }
@@ -125,6 +127,25 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
 
                 g.fillRect(x*SQUARE_WIDTH+ X_MOVE + BORDER_WIDTH, y*SQUARE_HEIGHT+ Y_MOVE + BORDER_WIDTH, SQUARE_WIDTH, SQUARE_HEIGHT);
             }
+        }
+    }
+
+    private void drawAttackedKingSquare(Graphics g) {
+        g.setColor(KING_ATTACKED_SQUARE_COLOR);
+
+        if(!chessBoard.isWhiteKingSafe()){
+            var attackedKingPosition = chessBoard.getWhiteKingPosition();
+
+            int xAttackedKing = attackedKingPosition.getPosition().getX();
+            int yAttackedKing = attackedKingPosition.getPosition().getY();
+            g.fillRect(xAttackedKing *SQUARE_WIDTH+ X_MOVE + BORDER_WIDTH, yAttackedKing *SQUARE_HEIGHT+ Y_MOVE + BORDER_WIDTH, SQUARE_WIDTH, SQUARE_HEIGHT);
+        }
+        else if (!chessBoard.isBlackKingSafe()){
+            var attackedKingPosition = chessBoard.getBlackKingPosition();
+
+            int xAttackedKing = attackedKingPosition.getPosition().getX();
+            int yAttackedKing = attackedKingPosition.getPosition().getY();
+            g.fillRect(xAttackedKing *SQUARE_WIDTH+ X_MOVE + BORDER_WIDTH, yAttackedKing *SQUARE_HEIGHT+ Y_MOVE + BORDER_WIDTH, SQUARE_WIDTH, SQUARE_HEIGHT);
         }
     }
 

@@ -20,8 +20,12 @@ public class Knight extends Piece {
         var currentPositionY = getPosition().getY();
         var newPositionX = newPosition.getX();
         var newPositionY = newPosition.getY();
-        
         return canJump(currentPositionX, currentPositionY, newPositionX, newPositionY);
+    }
+
+    @Override
+    public boolean isTakePossible(Position newPosition, ChessBoard chessBoard){
+        return isMoveValid(newPosition, chessBoard);
     }
 
     private boolean canJump(int currentPositionX, int currentPositionY, int newPositionX, int newPositionY) {

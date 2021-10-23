@@ -32,19 +32,27 @@ public class Pawn extends Piece {
         return false;
     }
 
+    @Override
+    public boolean isTakePossible(Position newPosition, ChessBoard chessBoard){
+        var currentPositionX = getPosition().getX();
+        var currentPositionY = getPosition().getY();
+        var newPositionX = newPosition.getX();
+        var newPositionY = newPosition.getY();
+        var boardSquares = chessBoard.getBoardSquares();
+
+        if (abs(currentPositionX-newPositionX)==1) {
+            return canMoveDiagonally(currentPositionY, newPositionY);
+        }
+
+        return false;
+    }
+
 
     private boolean canTakeDiagonally(int currentPositionY, Piece pieceOnNewPositionSquare, int newPositionY) {
-        if (pieceOnNewPositionSquare != null){
-            if (getPlayerColor() == PlayerColor.WHITE) {
-                if (newPositionY == currentPositionY + 1) {
-                    return true;
-                }
-            } else {
-                if (newPositionY == currentPositionY - 1) {
-                    return true;
-                }
-            }
-        }
+        if (pieceOnNewPositionSquare != null)
+            if (canMoveDiagonally(currentPositionY, newPositionY))
+                return true;
+
         return false;
     }
 
@@ -76,4 +84,16 @@ public class Pawn extends Piece {
         return false;
     }
 
+    private boolean canMoveDiagonally(int currentPositionY, int newPositionY) {
+        if (getPlayerColor() == PlayerColor.WHITE) {
+            if (newPositionY == currentPositionY + 1) {
+                return true;
+            }
+        } else {
+            if (newPositionY == currentPositionY - 1) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -2,8 +2,6 @@ package Board;
 
 import Pieces.*;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,8 +16,8 @@ public class ChessBoard {
     public ChessBoard() {
         boardSquares = new Square[8][8];
         initialize();
-        blackKingPosition = new Position (3, 0);
-        whiteKingPosition = new Position (3, 7);
+        blackKingPosition = new Position (3, 7);
+        whiteKingPosition = new Position (3, 0);
     }
 
     private void initialize() {
@@ -70,6 +68,8 @@ public class ChessBoard {
 
     private void updateSetsOfSquaresPlayersControl() {
         boolean isWhite;
+        setOfSquaresPositionsWhitesControl.clear();
+        setOfSquaresPositionsBlacksControl.clear();
         for(int xCurrent = 0; xCurrent<COLUMNS_AMOUNT; xCurrent++){
             for(int yCurrent = 0; yCurrent<ROWS_AMOUNT; yCurrent++){
                 if(boardSquares[xCurrent][yCurrent].getPiece() == null)
@@ -78,7 +78,7 @@ public class ChessBoard {
 
                 for (int xToMove = 0; xToMove < COLUMNS_AMOUNT; xToMove++) {
                     for (int yToMove = 0; yToMove < ROWS_AMOUNT; yToMove++) {
-                        if(pieceOnSquare.isMoveValid(new Position(xToMove, yToMove), this))
+                        if(pieceOnSquare.isTakePossible(new Position(xToMove, yToMove), this))
                             if(pieceOnSquare.getPlayerColor()==PlayerColor.WHITE){
                                 setOfSquaresPositionsWhitesControl.add(new Position(xToMove, yToMove));
                             }
@@ -108,20 +108,29 @@ public class ChessBoard {
         blackKingPosition = newBlackKingPosition;
     }
 
-    public void setBlackKingPosition(int xPosition, int yPosition) {
-        blackKingPosition = new Position(xPosition, yPosition);
-    }
-
-
     public Position getWhiteKingPosition() {
         return whiteKingPosition;
     }
 
     public void setWhiteKingPosition(Position newWhiteKingPosition) {
-        newWhiteKingPosition = newWhiteKingPosition;
+        whiteKingPosition = newWhiteKingPosition;
     }
 
-    public void setWhiteKingPosition(int xPosition, int yPosition) {
-        whiteKingPosition = new Position(xPosition, yPosition);
+    public boolean isWhiteKingSafe(){
+        for (Position position:setOfSquaresPositionsBlacksControl) {
+            if(position.equals(whiteKingPosition))
+                return false;
+        }
+
+        return true;
+    }
+
+    public boolean isBlackKingSafe() {
+        for (Position position:setOfSquaresPositionsWhitesControl) {
+            if(position.equals(blackKingPosition))
+                return false;
+        }
+
+        return true;
     }
 }

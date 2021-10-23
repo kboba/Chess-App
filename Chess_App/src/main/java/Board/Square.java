@@ -7,10 +7,6 @@ public class Square {
 
     public Square(){}
 
-    public Square(Piece piece) {
-        this.piece = piece;
-    }
-
     public Piece getPiece() {
         return piece;
     }

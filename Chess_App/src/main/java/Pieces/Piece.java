@@ -44,12 +44,17 @@ abstract public class Piece implements Movable {
     @Override
     public void move(Position newPosition, ChessBoard chessBoard) {
         var boardSquares = chessBoard.getBoardSquares();
-        boardSquares[getPosition().getX()][getPosition().getY()].setPiece(null);
-        setPosition(newPosition);
-        boardSquares[newPosition.getX()][newPosition.getY()].setPiece(this);
-        chessBoard.setBoardSquares(boardSquares);
-        firstMoveDone = true;
+        int xPositionBeforeMove = getPosition().getX();
+        int yPositionBeforeMove = getPosition().getY();
+        int xNewPosition = newPosition.getX();
+        int yNewPosition = newPosition.getY();
+        Position oldWhiteKingPosition = chessBoard.getWhiteKingPosition();
+        Position oldBlackKingPosition = chessBoard.getBlackKingPosition();
+        Piece pieceOnNewPosition = boardSquares[xNewPosition][yNewPosition].getPiece();
 
+        boardSquares[xPositionBeforeMove][yPositionBeforeMove].setPiece(null);
+        setPosition(newPosition);
+        boardSquares[xNewPosition][yNewPosition].setPiece(this);
         if (type == PieceType.KING) {
             if (playerColor==PlayerColor.WHITE) {
                 chessBoard.setWhiteKingPosition(newPosition);
@@ -57,10 +62,34 @@ abstract public class Piece implements Movable {
                 chessBoard.setBlackKingPosition(newPosition);
             }
         }
+        chessBoard.setBoardSquares(boardSquares);
 
+
+
+        if (allyKingAreNotSafe(chessBoard)) {
+            boardSquares[xNewPosition][yNewPosition].setPiece(pieceOnNewPosition);
+            setPosition(new Position(xPositionBeforeMove, yPositionBeforeMove));
+            boardSquares[xPositionBeforeMove][yPositionBeforeMove].setPiece(this);
+            if (type == PieceType.KING) {
+                if (playerColor==PlayerColor.WHITE) {
+                    chessBoard.setWhiteKingPosition(oldWhiteKingPosition);
+                } else{
+                    chessBoard.setBlackKingPosition(oldBlackKingPosition);
+                }
+            }
+            chessBoard.setBoardSquares(boardSquares);
+        }
+
+        firstMoveDone = true;
     }
 
-    boolean isNewPositionSame(Position newPosition){
+    public abstract boolean isTakePossible(Position newPosition, ChessBoard chessBoard);
+
+    private boolean allyKingAreNotSafe(ChessBoard chessBoard) {
+        return (playerColor == PlayerColor.WHITE && !chessBoard.isWhiteKingSafe()) || (playerColor == PlayerColor.BLACK && !chessBoard.isBlackKingSafe());
+    }
+
+    public boolean isNewPositionSame(Position newPosition){
         return position.equals(newPosition);
     }
 

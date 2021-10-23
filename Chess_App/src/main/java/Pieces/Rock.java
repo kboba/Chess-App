@@ -30,6 +30,11 @@ public class Rock extends Piece {
         return false;
     }
 
+    @Override
+    public boolean isTakePossible(Position newPosition, ChessBoard chessBoard){
+        return isMoveValid(newPosition, chessBoard);
+    }
+
     private boolean canMoveHorizontally(int currentPositionX, int currentPositionY, int newPositionX, Square[][] boardSquares) {
         if(currentPositionX < newPositionX)
             for(int xPosition = currentPositionX +1; xPosition < newPositionX; xPosition++){
