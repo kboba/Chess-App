@@ -14,7 +14,7 @@ public class ChessBoard {
     private Set<Position> setOfSquaresPositionsBlacksControl = new HashSet<>();
 
     public ChessBoard() {
-        boardSquares = new Square[8][8];
+        boardSquares = new Square[COLUMNS_AMOUNT][ROWS_AMOUNT];
         initialize();
         blackKingPosition = new Position (3, 7);
         whiteKingPosition = new Position (3, 0);
@@ -22,11 +22,15 @@ public class ChessBoard {
 
     private void initialize() {
 
-        for(int i=0; i<8; i++){
-            for (int j = 0; j < 8; j++) {
+        for(int i=0; i<COLUMNS_AMOUNT; i++){
+            for (int j = 0; j < ROWS_AMOUNT; j++) {
                 boardSquares[i][j] = new Square();
             }
         }
+        addPiecesToBoard();
+    }
+
+    private void addPiecesToBoard() {
         boardSquares[0][0].setPiece(new Rock(PlayerColor.WHITE, new Position(0, 0)));
         boardSquares[1][0].setPiece(new Knight(PlayerColor.WHITE, new Position(1, 0)));
         boardSquares[2][0].setPiece(new Bishop(PlayerColor.WHITE, new Position(2, 0)));
@@ -44,7 +48,6 @@ public class ChessBoard {
         boardSquares[5][1].setPiece(new Pawn(PlayerColor.WHITE, new Position(5, 1)));
         boardSquares[6][1].setPiece(new Pawn(PlayerColor.WHITE, new Position(6, 1)));
         boardSquares[7][1].setPiece(new Pawn(PlayerColor.WHITE, new Position(7, 1)));
-
 
 
         boardSquares[0][6].setPiece(new Pawn(PlayerColor.BLACK, new Position(0, 6)));
@@ -67,7 +70,6 @@ public class ChessBoard {
     }
 
     private void updateSetsOfSquaresPlayersControl() {
-        boolean isWhite;
         setOfSquaresPositionsWhitesControl.clear();
         setOfSquaresPositionsBlacksControl.clear();
         for(int xCurrent = 0; xCurrent<COLUMNS_AMOUNT; xCurrent++){
