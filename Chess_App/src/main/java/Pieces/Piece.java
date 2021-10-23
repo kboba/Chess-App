@@ -48,14 +48,13 @@ abstract public class Piece implements Movable {
         int yPositionBeforeMove = getPosition().getY();
         int xNewPosition = newPosition.getX();
         int yNewPosition = newPosition.getY();
+        Position oldWhiteKingPosition = chessBoard.getWhiteKingPosition();
+        Position oldBlackKingPosition = chessBoard.getBlackKingPosition();
         Piece pieceOnNewPosition = boardSquares[xNewPosition][yNewPosition].getPiece();
 
         boardSquares[xPositionBeforeMove][yPositionBeforeMove].setPiece(null);
         setPosition(newPosition);
         boardSquares[xNewPosition][yNewPosition].setPiece(this);
-        chessBoard.setBoardSquares(boardSquares);
-
-
         if (type == PieceType.KING) {
             if (playerColor==PlayerColor.WHITE) {
                 chessBoard.setWhiteKingPosition(newPosition);
@@ -63,11 +62,21 @@ abstract public class Piece implements Movable {
                 chessBoard.setBlackKingPosition(newPosition);
             }
         }
+        chessBoard.setBoardSquares(boardSquares);
 
-        if (kingsAreNotSafe(chessBoard)) {
+
+
+        if (allyKingAreNotSafe(chessBoard)) {
             boardSquares[xNewPosition][yNewPosition].setPiece(pieceOnNewPosition);
             setPosition(new Position(xPositionBeforeMove, yPositionBeforeMove));
             boardSquares[xPositionBeforeMove][yPositionBeforeMove].setPiece(this);
+            if (type == PieceType.KING) {
+                if (playerColor==PlayerColor.WHITE) {
+                    chessBoard.setWhiteKingPosition(oldWhiteKingPosition);
+                } else{
+                    chessBoard.setBlackKingPosition(oldBlackKingPosition);
+                }
+            }
             chessBoard.setBoardSquares(boardSquares);
         }
 
@@ -76,7 +85,7 @@ abstract public class Piece implements Movable {
 
     public abstract boolean isTakePossible(Position newPosition, ChessBoard chessBoard);
 
-    private boolean kingsAreNotSafe(ChessBoard chessBoard) {
+    private boolean allyKingAreNotSafe(ChessBoard chessBoard) {
         return (playerColor == PlayerColor.WHITE && !chessBoard.isWhiteKingSafe()) || (playerColor == PlayerColor.BLACK && !chessBoard.isBlackKingSafe());
     }
 
