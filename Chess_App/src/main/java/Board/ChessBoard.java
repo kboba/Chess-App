@@ -120,7 +120,7 @@ public class ChessBoard {
     }
 
     public void setWhiteKingPosition(Position newWhiteKingPosition) {
-        newWhiteKingPosition = newWhiteKingPosition;
+        whiteKingPosition = newWhiteKingPosition;
     }
 
     public void setWhiteKingPosition(int xPosition, int yPosition) {
