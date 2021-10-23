@@ -18,8 +18,8 @@ public class ChessBoard {
     public ChessBoard() {
         boardSquares = new Square[8][8];
         initialize();
-        blackKingPosition = new Position (3, 0);
-        whiteKingPosition = new Position (3, 7);
+        blackKingPosition = new Position (3, 7);
+        whiteKingPosition = new Position (3, 0);
     }
 
     private void initialize() {
