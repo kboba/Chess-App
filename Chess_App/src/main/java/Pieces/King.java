@@ -3,7 +3,6 @@ package Pieces;
 import Board.ChessBoard;
 import Board.Position;
 
-import static Pieces.PlayerColor.WHITE;
 import static java.lang.Math.abs;
 
 public class King extends Piece {
