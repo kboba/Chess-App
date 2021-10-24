@@ -31,7 +31,7 @@ public class King extends Piece {
     }
 
     public boolean isCastlePossible(Position newPosition, ChessBoard chessBoard){
-        if (isFirstMoveDone() && !allyKingAreNotSafe(chessBoard))
+        if (isFirstMoveDone() || allyKingAreNotSafe(chessBoard))
             return false;
 
         var currentPositionX = getPosition().getX();
