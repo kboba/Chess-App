@@ -90,7 +90,7 @@ abstract public class Piece implements Movable {
     }
 
     private boolean pawnOnLastSquare(ChessBoard chessBoard, int yNewPosition) {
-        return (playerColor == PlayerColor.WHITE && yNewPosition == chessBoard.ROWS_AMOUNT)
+        return (playerColor == PlayerColor.WHITE && yNewPosition == chessBoard.ROWS_AMOUNT-1)
                 || (playerColor == PlayerColor.BLACK && yNewPosition == 0);
     }
 
