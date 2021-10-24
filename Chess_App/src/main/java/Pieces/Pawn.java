@@ -38,7 +38,6 @@ public class Pawn extends Piece {
         var currentPositionY = getPosition().getY();
         var newPositionX = newPosition.getX();
         var newPositionY = newPosition.getY();
-        var boardSquares = chessBoard.getBoardSquares();
 
         if (abs(currentPositionX-newPositionX)==1) {
             return canMoveDiagonally(currentPositionY, newPositionY);
