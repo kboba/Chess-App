@@ -79,8 +79,10 @@ abstract public class Piece implements Movable {
             }
             chessBoard.setBoardSquares(boardSquares);
         }
+        else
+            firstMoveDone = true;
 
-        firstMoveDone = true;
+        
     }
 
     public abstract boolean isTakePossible(Position newPosition, ChessBoard chessBoard);
