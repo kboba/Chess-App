@@ -82,7 +82,16 @@ abstract public class Piece implements Movable {
         else
             firstMoveDone = true;
 
-        
+        if (this instanceof Pawn){
+            if (pawnOnLastSquare(chessBoard, yNewPosition)) {
+                boardSquares[xNewPosition][yNewPosition].setPiece(new Queen(playerColor, position));
+            }
+        }
+    }
+
+    private boolean pawnOnLastSquare(ChessBoard chessBoard, int yNewPosition) {
+        return (playerColor == PlayerColor.WHITE && yNewPosition == chessBoard.ROWS_AMOUNT)
+                || (playerColor == PlayerColor.BLACK && yNewPosition == 0);
     }
 
     public abstract boolean isTakePossible(Position newPosition, ChessBoard chessBoard);
