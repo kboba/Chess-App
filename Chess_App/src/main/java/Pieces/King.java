@@ -40,15 +40,22 @@ public class King extends Piece {
         var newPositionY = newPosition.getY();
         var boardSquares = chessBoard.getBoardSquares();
         Piece pieceOnNewPosition = boardSquares[newPositionX][newPositionY].getPiece();
+        // if piece on new position is not null
         if(pieceOnNewPosition != null){
+            // if piece on new position have not moved
+            // and is on same line with king then continue
+            // else return false
             if(!pieceOnNewPosition.isFirstMoveDone() && currentPositionY == newPositionY){
                 byte directionOfMove = (byte) (currentPositionX < newPositionX ? 1 : -1);
+                // if player is white get set of blacks control
+                // if player is black get set of whites control
                 Set<Position> setOfSquaresPositionsEnemyControl;
                 if(getPlayerColor()==PlayerColor.WHITE)
                     setOfSquaresPositionsEnemyControl = chessBoard.getSetOfSquaresPositionsBlacksControl();
                 else
                     setOfSquaresPositionsEnemyControl = chessBoard.getSetOfSquaresPositionsWhitesControl();
 
+                // check if positions between King and Rock are attacked
                 for (int x = currentPositionX; x <= abs(currentPositionX-newPositionX); x+=directionOfMove){
                     if (setOfSquaresPositionsEnemyControl.contains(newPosition))
                         return false;
