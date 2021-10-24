@@ -118,6 +118,14 @@ public class ChessBoard {
         whiteKingPosition = newWhiteKingPosition;
     }
 
+    public Set<Position> getSetOfSquaresPositionsWhitesControl() {
+        return setOfSquaresPositionsWhitesControl;
+    }
+
+    public Set<Position> getSetOfSquaresPositionsBlacksControl() {
+        return setOfSquaresPositionsBlacksControl;
+    }
+
     public boolean isWhiteKingSafe(){
         for (Position position:setOfSquaresPositionsBlacksControl) {
             if(position.equals(whiteKingPosition))

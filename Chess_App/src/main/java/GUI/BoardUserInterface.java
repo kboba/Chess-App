@@ -3,9 +3,7 @@ package GUI;
 import Board.ChessBoard;
 import Board.Position;
 import Board.Square;
-import Pieces.Piece;
-import Pieces.PieceType;
-import Pieces.PlayerColor;
+import Pieces.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -173,19 +171,39 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         }
     }
 
+    /*
+     * Method which:
+     * 1. Select or unselect selected piece
+     * 2. Check if move with selected piece is possible and then moves
+     * 3. Check if take with selected piece is possible and then takes
+     */
     private void moveOrSelectPiece(Piece newSelectedPiece) {
-        if(newSelectedPiece !=null) {
+        // Current selected piece which is a piece
+        if(newSelectedPiece != null) {
+            // Selecting piece when nothing is selected
             if (selectedPiece == null)
                     selectedPiece = newSelectedPiece;
             else {
+                // Unselecting piece when click twice on same piece
                 if(selectedPiece == newSelectedPiece)
                     selectedPiece = null;
+                // Check if take is possible and then move
                 else if(selectedPiece.isMoveValid(new Position(xSelectedSquare, ySelectedSquare), chessBoard) && selectedPiece.getPlayerColor() != newSelectedPiece.getPlayerColor()){
                     selectedPiece.move(new Position(xSelectedSquare, ySelectedSquare), chessBoard);
                     selectedPiece = null;
                 }
+                // Conditions for castle
+                else if(selectedPiece instanceof King && newSelectedPiece instanceof Rock && selectedPiece.getPlayerColor() == newSelectedPiece.getPlayerColor()) {
+                    // Castle if it is possible
+                    if (((King) selectedPiece).isCastlePossible(new Position(xSelectedSquare, ySelectedSquare), chessBoard)) {
+                        ((King) selectedPiece).castle(new Position(xSelectedSquare, ySelectedSquare), chessBoard);
+                        selectedPiece = null;
+                    }
+                }
             }
         }
+        // Current selected piece which is not a piece
+        // Check if is move possible and then move
         else if(selectedPiece!=null) {
             if(selectedPiece.isMoveValid(new Position(xSelectedSquare, ySelectedSquare), chessBoard)){
                 selectedPiece.move(new Position(xSelectedSquare, ySelectedSquare), chessBoard);

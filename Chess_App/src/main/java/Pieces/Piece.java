@@ -90,13 +90,13 @@ abstract public class Piece implements Movable {
     }
 
     private boolean pawnOnLastSquare(ChessBoard chessBoard, int yNewPosition) {
-        return (playerColor == PlayerColor.WHITE && yNewPosition == chessBoard.ROWS_AMOUNT)
+        return (playerColor == PlayerColor.WHITE && yNewPosition == chessBoard.ROWS_AMOUNT-1)
                 || (playerColor == PlayerColor.BLACK && yNewPosition == 0);
     }
 
     public abstract boolean isTakePossible(Position newPosition, ChessBoard chessBoard);
 
-    private boolean allyKingAreNotSafe(ChessBoard chessBoard) {
+    public boolean allyKingAreNotSafe(ChessBoard chessBoard) {
         return (playerColor == PlayerColor.WHITE && !chessBoard.isWhiteKingSafe()) || (playerColor == PlayerColor.BLACK && !chessBoard.isBlackKingSafe());
     }
 
