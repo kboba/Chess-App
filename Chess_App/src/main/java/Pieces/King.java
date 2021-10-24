@@ -3,6 +3,8 @@ package Pieces;
 import Board.ChessBoard;
 import Board.Position;
 
+import java.util.Set;
+
 import static java.lang.Math.abs;
 
 public class King extends Piece {
@@ -26,6 +28,35 @@ public class King extends Piece {
     @Override
     public boolean isTakePossible(Position newPosition, ChessBoard chessBoard){
         return isMoveValid(newPosition, chessBoard);
+    }
+
+    public boolean isCastlePossible(Position newPosition, ChessBoard chessBoard){
+        if (isFirstMoveDone() && !allyKingAreNotSafe(chessBoard))
+            return false;
+
+        var currentPositionX = getPosition().getX();
+        var currentPositionY = getPosition().getY();
+        var newPositionX = newPosition.getX();
+        var newPositionY = newPosition.getY();
+        var boardSquares = chessBoard.getBoardSquares();
+        Piece pieceOnNewPosition = boardSquares[newPositionX][newPositionY].getPiece();
+        if(pieceOnNewPosition != null){
+            if(!pieceOnNewPosition.isFirstMoveDone() && currentPositionY == newPositionY){
+                byte directionOfMove = (byte) (currentPositionX < newPositionX ? 1 : -1);
+                Set<Position> setOfSquaresPositionsEnemyControl;
+                if(getPlayerColor()==PlayerColor.WHITE)
+                    setOfSquaresPositionsEnemyControl = chessBoard.getSetOfSquaresPositionsBlacksControl();
+                else
+                    setOfSquaresPositionsEnemyControl = chessBoard.getSetOfSquaresPositionsWhitesControl();
+
+                for (int x = currentPositionX; x <= abs(currentPositionX-newPositionX); x+=directionOfMove){
+                    if (setOfSquaresPositionsEnemyControl.contains(newPosition))
+                        return false;
+                }
+            } else return false;
+        }
+
+        return false;
     }
 
     private boolean canMoveToNeighborSquare(int newPositionX, int newPositionY) {
