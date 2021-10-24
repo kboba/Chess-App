@@ -55,9 +55,11 @@ public class King extends Piece {
                 else
                     setOfSquaresPositionsEnemyControl = chessBoard.getSetOfSquaresPositionsWhitesControl();
 
-                // check if positions between King and Rock are attacked
+                // Check if:
+                // 1. Positions between King and Rock are attacked
+                // 2. There is nothing between King and Rock
                 for (int x = currentPositionX; x <= abs(currentPositionX-newPositionX); x+=directionOfMove){
-                    if (setOfSquaresPositionsEnemyControl.contains(newPosition))
+                    if (setOfSquaresPositionsEnemyControl.contains(newPosition) || boardSquares[x][currentPositionY].getPiece() != null)
                         return false;
                 }
             } else return false;
