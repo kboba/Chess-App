@@ -6,8 +6,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ChessBoard {
-    private static final int COLUMNS_AMOUNT = 8;
-    private static final int ROWS_AMOUNT = 8;
+    public static final int COLUMNS_AMOUNT = 8;
+    public static final int ROWS_AMOUNT = 8;
     private Square[][] boardSquares;
     private Position blackKingPosition, whiteKingPosition;
     private Set<Position> setOfSquaresPositionsWhitesControl = new HashSet<>();
