@@ -46,26 +46,50 @@ public class King extends Piece {
             // and is on same line with king then continue
             // else return false
             if(!pieceOnNewPosition.isFirstMoveDone() && currentPositionY == newPositionY){
-                byte directionOfMove = (byte) (currentPositionX < newPositionX ? 1 : -1);
                 // if player is white get set of blacks control
                 // if player is black get set of whites control
                 Set<Position> setOfSquaresPositionsEnemyControl;
-                if(getPlayerColor()==PlayerColor.WHITE)
+                if(getPlayerColor()==PlayerColor.WHITE) {
                     setOfSquaresPositionsEnemyControl = chessBoard.getSetOfSquaresPositionsBlacksControl();
-                else
+                }
+                else {
                     setOfSquaresPositionsEnemyControl = chessBoard.getSetOfSquaresPositionsWhitesControl();
+                }
 
                 // Check if:
                 // 1. Positions between King and Rock are attacked
                 // 2. There is nothing between King and Rock
-                for (int x = currentPositionX; x <= abs(currentPositionX-newPositionX); x+=directionOfMove){
-                    if (setOfSquaresPositionsEnemyControl.contains(newPosition) || boardSquares[x][currentPositionY].getPiece() != null)
+                byte directionOfMove = (byte) (currentPositionX < newPositionX ? 1 : -1);
+                for (int x = 0; x <= abs(currentPositionX-newPositionX); x++){
+                    if (setOfSquaresPositionsEnemyControl.contains(new Position[currentPositionX+x*directionOfMove][currentPositionY]))
                         return false;
                 }
-            } else return false;
+                for (int x = 1; x < abs(currentPositionX-newPositionX); x++){
+                    if (boardSquares[currentPositionX+x*directionOfMove][currentPositionY].getPiece() != null)
+                        return false;
+                }
+                return true;
+            }
         }
 
         return false;
+    }
+
+    public void castle(Position newPosition, ChessBoard chessBoard){
+        var currentPositionX = getPosition().getX();
+        var newPositionX = newPosition.getX();
+        var newPositionY = newPosition.getY();
+        var boardSquares = chessBoard.getBoardSquares();
+        Piece pieceOnNewPosition = boardSquares[newPositionX][newPositionY].getPiece();
+
+        byte directionOfMove = (byte) (currentPositionX < newPositionX ? 1 : -1);
+        boardSquares[currentPositionX+2*directionOfMove][newPositionY].setPiece(this);
+        boardSquares[currentPositionX+2*directionOfMove-directionOfMove][newPositionY].setPiece(pieceOnNewPosition);
+        if(getPlayerColor()==PlayerColor.WHITE)
+            chessBoard.setWhiteKingPosition(new Position(currentPositionX+2*directionOfMove, newPositionY));
+        else
+            chessBoard.setBlackKingPosition(new Position(currentPositionX+2*directionOfMove, newPositionY));
+        chessBoard.setBoardSquares(boardSquares);
     }
 
     private boolean canMoveToNeighborSquare(int newPositionX, int newPositionY) {
