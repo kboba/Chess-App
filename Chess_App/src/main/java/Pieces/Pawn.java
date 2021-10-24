@@ -7,8 +7,11 @@ import Board.Square;
 import static java.lang.Math.abs;
 
 public class Pawn extends Piece {
+    private boolean enPassantPossible;
+
     public Pawn(PlayerColor playerColor, Position position) {
         super(playerColor, PieceType.PAWN, position);
+        enPassantPossible = false;
     }
 
     @Override
