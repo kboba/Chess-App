@@ -84,15 +84,19 @@ public class King extends Piece {
         Piece pieceOnNewPosition = boardSquares[newPositionX][newPositionY].getPiece();
 
         byte directionOfMove = (byte) (currentPositionX < newPositionX ? 1 : -1);
-        boardSquares[currentPositionX+2*directionOfMove][newPositionY].setPiece(this);
-        boardSquares[currentPositionX+2*directionOfMove-directionOfMove][newPositionY].setPiece(pieceOnNewPosition);
-        if(getPlayerColor()==PlayerColor.WHITE)
-            chessBoard.setWhiteKingPosition(new Position(currentPositionX+2*directionOfMove, newPositionY));
-        else
-            chessBoard.setBlackKingPosition(new Position(currentPositionX+2*directionOfMove, newPositionY));
         boardSquares[currentPositionX][currentPositionY].setPiece(null);
         boardSquares[newPositionX][newPositionY].setPiece(null);
+        boardSquares[currentPositionX+2*directionOfMove][newPositionY].setPiece(this);
+        setPosition(new Position(currentPositionX+2*directionOfMove, newPositionY));
+        boardSquares[currentPositionX+2*directionOfMove-directionOfMove][newPositionY].setPiece(pieceOnNewPosition);
+        pieceOnNewPosition.setPosition(new Position(currentPositionX+2*directionOfMove-directionOfMove, newPositionY));
         chessBoard.setBoardSquares(boardSquares);
+        if(getPlayerColor()==PlayerColor.WHITE) {
+            chessBoard.setWhiteKingPosition(new Position(currentPositionX+2*directionOfMove, newPositionY));
+        }
+        else {
+            chessBoard.setBlackKingPosition(new Position(currentPositionX+2*directionOfMove, newPositionY));
+        }
     }
 
     private boolean canMoveToNeighborSquare(int newPositionX, int newPositionY) {
