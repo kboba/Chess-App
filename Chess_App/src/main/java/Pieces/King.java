@@ -77,6 +77,7 @@ public class King extends Piece {
 
     public void castle(Position newPosition, ChessBoard chessBoard){
         var currentPositionX = getPosition().getX();
+        var currentPositionY = getPosition().getY();
         var newPositionX = newPosition.getX();
         var newPositionY = newPosition.getY();
         var boardSquares = chessBoard.getBoardSquares();
@@ -89,6 +90,8 @@ public class King extends Piece {
             chessBoard.setWhiteKingPosition(new Position(currentPositionX+2*directionOfMove, newPositionY));
         else
             chessBoard.setBlackKingPosition(new Position(currentPositionX+2*directionOfMove, newPositionY));
+        boardSquares[currentPositionX][currentPositionY].setPiece(null);
+        boardSquares[newPositionX][newPositionY].setPiece(null);
         chessBoard.setBoardSquares(boardSquares);
     }
 
