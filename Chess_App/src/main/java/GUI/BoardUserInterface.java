@@ -198,7 +198,6 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
                     if (((King) selectedPiece).isCastlePossible(new Position(xSelectedSquare, ySelectedSquare), chessBoard)) {
                         ((King) selectedPiece).castle(new Position(xSelectedSquare, ySelectedSquare), chessBoard);
                         selectedPiece = null;
-                        System.out.println("Castle done");
                     }
                 }
             }
