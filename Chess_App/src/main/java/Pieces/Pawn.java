@@ -8,10 +8,12 @@ import static java.lang.Math.abs;
 
 public class Pawn extends Piece {
     private boolean enPassantPossible;
+    private boolean lastStateOfFirstMove;
 
     public Pawn(PlayerColor playerColor, Position position) {
         super(playerColor, PieceType.PAWN, position);
         enPassantPossible = false;
+        lastStateOfFirstMove = false;
     }
 
     @Override
@@ -118,5 +120,13 @@ public class Pawn extends Piece {
 
     public void setEnPassantPossible(boolean enPassantPossible) {
         this.enPassantPossible = enPassantPossible;
+    }
+
+    public boolean isLastStateOfFirstMove() {
+        return lastStateOfFirstMove;
+    }
+
+    public void setLastStateOfFirstMove(boolean lastStateOfFirstMove) {
+        this.lastStateOfFirstMove = lastStateOfFirstMove;
     }
 }

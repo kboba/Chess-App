@@ -83,6 +83,15 @@ abstract public class Piece implements Movable {
             firstMoveDone = true;
 
         if (this instanceof Pawn){
+            boolean lastStateOfFirstMove = ((Pawn) this).isLastStateOfFirstMove();
+            if(firstMoveDone == true && lastStateOfFirstMove == false) {
+                ((Pawn) this).setLastStateOfFirstMove(true);
+                ((Pawn) this).setEnPassantPossible(true);
+            }
+            else
+                ((Pawn) this).setEnPassantPossible(false);
+
+
             if (pawnOnLastSquare(chessBoard, yNewPosition)) {
                 boardSquares[xNewPosition][yNewPosition].setPiece(new Queen(playerColor, position));
             }
