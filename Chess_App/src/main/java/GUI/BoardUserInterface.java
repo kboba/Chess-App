@@ -3,9 +3,7 @@ package GUI;
 import Board.ChessBoard;
 import Board.Position;
 import Board.Square;
-import Pieces.Piece;
-import Pieces.PieceType;
-import Pieces.PlayerColor;
+import Pieces.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -184,6 +182,8 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
                     selectedPiece.move(new Position(xSelectedSquare, ySelectedSquare), chessBoard);
                     selectedPiece = null;
                 }
+                else if(selectedPiece instanceof King && newSelectedPiece instanceof Rock && selectedPiece.getPlayerColor() == newSelectedPiece.getPlayerColor())
+                    return ;
             }
         }
         else if(selectedPiece!=null) {
