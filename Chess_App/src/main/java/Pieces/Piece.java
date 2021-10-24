@@ -96,7 +96,7 @@ abstract public class Piece implements Movable {
 
     public abstract boolean isTakePossible(Position newPosition, ChessBoard chessBoard);
 
-    private boolean allyKingAreNotSafe(ChessBoard chessBoard) {
+    public boolean allyKingAreNotSafe(ChessBoard chessBoard) {
         return (playerColor == PlayerColor.WHITE && !chessBoard.isWhiteKingSafe()) || (playerColor == PlayerColor.BLACK && !chessBoard.isBlackKingSafe());
     }
 
