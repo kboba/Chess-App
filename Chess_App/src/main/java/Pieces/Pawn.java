@@ -7,8 +7,13 @@ import Board.Square;
 import static java.lang.Math.abs;
 
 public class Pawn extends Piece {
+    private boolean enPassantPossible;
+    private boolean lastStateOfFirstMove;
+
     public Pawn(PlayerColor playerColor, Position position) {
         super(playerColor, PieceType.PAWN, position);
+        enPassantPossible = false;
+        lastStateOfFirstMove = false;
     }
 
     @Override
@@ -21,12 +26,16 @@ public class Pawn extends Piece {
         var newPositionX = newPosition.getX();
         var newPositionY = newPosition.getY();
         var boardSquares = chessBoard.getBoardSquares();
+        Piece pieceOnNewPositionSquare = boardSquares[newPositionX][newPositionY].getPiece();
 
         if (currentPositionX == newPositionX)
             return canMoveForward(currentPositionY, boardSquares[newPositionX], newPositionY);
 
-        if (abs(currentPositionX-newPositionX)==1) {
-            return canTakeDiagonally(currentPositionY, boardSquares[newPositionX][newPositionY].getPiece(), newPositionY);
+        if (abs(currentPositionX-newPositionX)==1){
+            if(canTakeDiagonally(currentPositionY, pieceOnNewPositionSquare, newPositionY))
+                return true;
+            else if (canEnPassant(currentPositionY, newPositionX, newPositionY, boardSquares, pieceOnNewPositionSquare))
+                return true;
         }
 
         return false;
@@ -38,7 +47,6 @@ public class Pawn extends Piece {
         var currentPositionY = getPosition().getY();
         var newPositionX = newPosition.getX();
         var newPositionY = newPosition.getY();
-        var boardSquares = chessBoard.getBoardSquares();
 
         if (abs(currentPositionX-newPositionX)==1) {
             return canMoveDiagonally(currentPositionY, newPositionY);
@@ -56,6 +64,15 @@ public class Pawn extends Piece {
         return false;
     }
 
+    private boolean canEnPassant(int currentPositionY, int newPositionX, int newPositionY, Square[][] boardSquares, Piece pieceOnNewPositionSquare) {
+        if (pieceOnNewPositionSquare == null){
+            Piece pieceNextToPawn = boardSquares[newPositionX][currentPositionY].getPiece();
+            if (pieceNextToPawn instanceof Pawn && getPlayerColor() != pieceNextToPawn.getPlayerColor() && ((Pawn) pieceNextToPawn).isEnPassantPossible())
+                if (canMoveDiagonally(currentPositionY, newPositionY))
+                    return true;
+        }
+        return false;
+    }
 
     private boolean canMoveForward(int currentPositionY, Square[] boardColumnSquares, int newPositionY) {
         Piece pieceOnNewPositionSquare = boardColumnSquares[newPositionY].getPiece();
@@ -95,5 +112,21 @@ public class Pawn extends Piece {
             }
         }
         return false;
+    }
+
+    public boolean isEnPassantPossible() {
+        return enPassantPossible;
+    }
+
+    public void setEnPassantPossible(boolean enPassantPossible) {
+        this.enPassantPossible = enPassantPossible;
+    }
+
+    public boolean isLastStateOfFirstMove() {
+        return lastStateOfFirstMove;
+    }
+
+    public void setLastStateOfFirstMove(boolean lastStateOfFirstMove) {
+        this.lastStateOfFirstMove = lastStateOfFirstMove;
     }
 }
