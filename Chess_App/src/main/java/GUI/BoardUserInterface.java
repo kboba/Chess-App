@@ -241,7 +241,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
 
     private void readImages() {
         BufferedImage img= null;
-        String pathName = "C:\\Pieces\\Pieces.png";
+        String pathName = "C:\\ChessGame\\Pieces.png";
         try {
             img = ImageIO.read(new File(pathName));
         } catch (IOException e) {
@@ -281,6 +281,19 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         stringToImage.put("bp", images[11]);
     }
 
+    private void saveGame(){
+        try{
+            String path = "C:\\ChessGame\\SavedGame.csv)";
+            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
+            for (int xPosition = 0; xPosition < COLUMNS_AMOUNT; xPosition++) {
+                for (int yPosition = 0; yPosition < ROWS_AMOUNT; yPosition++) {
+                }
+            }
+            fileWriter.close();
+        } catch (Exception e){
+            return;
+        }
+    }
     public int getBoardWidth(){
         return COLUMNS_AMOUNT*SQUARE_WIDTH + 42;
     }
