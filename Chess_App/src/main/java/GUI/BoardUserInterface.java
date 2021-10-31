@@ -71,8 +71,12 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         xSelectedSquare = xMousePosition/64;
         ySelectedSquare = yMousePosition/64;
 
-        Piece newSelectedPiece = boardSquares[xSelectedSquare][ySelectedSquare].getPiece();
-        moveOrSelectPiece(newSelectedPiece);
+        try{
+            Piece newSelectedPiece = boardSquares[xSelectedSquare][ySelectedSquare].getPiece();
+            moveOrSelectPiece(newSelectedPiece);
+        } catch (ArrayIndexOutOfBoundsException error) {
+            return;
+        }
         repaint();
     }
 
