@@ -316,6 +316,11 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
             return;
         }
     }
+
+    private void newGame(){
+
+    }
+
     public int getBoardWidth(){
         return COLUMNS_AMOUNT*SQUARE_WIDTH + 42;
     }
