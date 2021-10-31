@@ -302,6 +302,20 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
             return;
         }
     }
+
+    private void loadGame(){
+        try{
+            String path = "C:\\ChessGame\\SavedGame.csv)";
+            BufferedReader fileReader = new BufferedReader(new FileReader(path));
+            for (int xPosition = 0; xPosition < COLUMNS_AMOUNT; xPosition++) {
+                for (int yPosition = 0; yPosition < ROWS_AMOUNT; yPosition++) {
+                }
+            }
+            fileReader.close();
+        } catch (Exception e){
+            return;
+        }
+    }
     public int getBoardWidth(){
         return COLUMNS_AMOUNT*SQUARE_WIDTH + 42;
     }
