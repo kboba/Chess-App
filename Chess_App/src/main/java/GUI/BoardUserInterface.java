@@ -291,14 +291,14 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
                     PlayerColor pieceColor = pieceOnPosition.getPlayerColor();
                     PieceType pieceType = pieceOnPosition.getType();
                     if (yPosition!=0)
-                        fileWriter.write(",")
+                        fileWriter.write(",");
                     String pieceInitials = getPieceInitials(pieceColor, pieceType);
                     fileWriter.write(pieceInitials);
                 }
                 fileWriter.write("\n");
             }
             fileWriter.close();
-        } catch (FileNotFoundException e){
+        } catch (Exception e){
             return;
         }
     }
@@ -309,10 +309,11 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
             BufferedReader fileReader = new BufferedReader(new FileReader(path));
             for (int xPosition = 0; xPosition < COLUMNS_AMOUNT; xPosition++) {
                 for (int yPosition = 0; yPosition < ROWS_AMOUNT; yPosition++) {
+
                 }
             }
             fileReader.close();
-        } catch (FileNotFoundException e){
+        } catch (Exception e){
             return;
         }
     }
