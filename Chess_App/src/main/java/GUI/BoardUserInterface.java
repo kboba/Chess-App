@@ -298,7 +298,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
                 fileWriter.write("\n");
             }
             fileWriter.close();
-        } catch (Exception e){
+        } catch (FileNotFoundException e){
             return;
         }
     }
@@ -312,7 +312,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
                 }
             }
             fileReader.close();
-        } catch (Exception e){
+        } catch (FileNotFoundException e){
             return;
         }
     }
