@@ -216,25 +216,24 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     }
 
     private String getPieceInitials(PlayerColor pieceColor, PieceType type) {
-        String pieceInitials = pieceColor ==PlayerColor.WHITE ? "w" : "b";
+        String pieceInitials = "  ";
+        if (pieceColor != null && type != null) {
+            pieceInitials = pieceColor == PlayerColor.WHITE ? "w" : "b";
 
-        if(type ==PieceType.PAWN) {
-            pieceInitials += "p";
-        }
-        else if(type ==PieceType.BISHOP) {
-            pieceInitials += "B";
-        }
-        else if(type ==PieceType.KNIGHT) {
-            pieceInitials += "N";
-        }
-        else if(type ==PieceType.ROCK) {
-            pieceInitials += "R";
-        }
-        else if(type ==PieceType.QUEEN) {
-            pieceInitials += "Q";
-        }
-        else if(type ==PieceType.KING) {
-            pieceInitials += "K";
+            if (type == PieceType.PAWN)
+                pieceInitials += "p";
+            else if (type == PieceType.BISHOP)
+                pieceInitials += "B";
+            else if (type == PieceType.KNIGHT)
+                pieceInitials += "N";
+            else if (type == PieceType.ROCK)
+                pieceInitials += "R";
+            else if (type == PieceType.QUEEN)
+                pieceInitials += "Q";
+            else if (type == PieceType.KING)
+                pieceInitials += "K";
+
+            return pieceInitials;
         }
         return pieceInitials;
     }
