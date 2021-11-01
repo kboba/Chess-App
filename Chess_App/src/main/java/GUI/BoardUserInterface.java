@@ -317,6 +317,32 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         }
     }
 
+    private Piece setPieceByInitials(String piecesInitial, Position position) {
+        String pieceInitial = piecesInitial;
+        PlayerColor playerColor;
+
+        if (pieceInitial.startsWith("w"))
+            playerColor = PlayerColor.WHITE;
+        else if (pieceInitial.startsWith("b"))
+            playerColor = PlayerColor.BLACK;
+        else
+            return null;
+
+        if (pieceInitial.endsWith("p"))
+            return new Pawn(playerColor, position);
+        else if (pieceInitial.endsWith("N"))
+            return new Knight(playerColor, position);
+        else if (pieceInitial.endsWith("B"))
+            return new Bishop(playerColor, position);
+        else if (pieceInitial.endsWith("R"))
+            return new Rock(playerColor, position);
+        else if (pieceInitial.endsWith("Q"))
+            return new Queen(playerColor, position);
+        else if (pieceInitial.endsWith("K"))
+            return new King(playerColor, position);
+
+        return null;
+    }
 
     private void newGame(){
         chessBoard.initialize();
