@@ -316,8 +316,10 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         }
     }
 
-    private void newGame(){
 
+    private void newGame(){
+        chessBoard.initialize();
+        boardSquares = chessBoard.getBoardSquares();
     }
 
     public int getBoardWidth(){
