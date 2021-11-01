@@ -20,8 +20,7 @@ public class ChessBoard {
         whiteKingPosition = new Position (3, 0);
     }
 
-    private void initialize() {
-
+    public void initialize() {
         for(int i=0; i<COLUMNS_AMOUNT; i++){
             for (int j = 0; j < ROWS_AMOUNT; j++) {
                 boardSquares[i][j] = new Square();

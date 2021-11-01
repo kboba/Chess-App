@@ -13,8 +13,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 
 public class BoardUserInterface extends JPanel implements MouseListener, MouseMotionListener {
@@ -40,8 +39,8 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     private Piece selectedPiece;
 
     public BoardUserInterface(ChessBoard chessBoard) {
-        boardSquares = chessBoard.getBoardSquares();
         this.chessBoard = chessBoard;
+        boardSquares = chessBoard.getBoardSquares();
         stringToImage  = new HashMap<>();
         readImages();
         this.addMouseListener(this);
@@ -72,8 +71,12 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         xSelectedSquare = xMousePosition/64;
         ySelectedSquare = yMousePosition/64;
 
-        Piece newSelectedPiece = boardSquares[xSelectedSquare][ySelectedSquare].getPiece();
-        moveOrSelectPiece(newSelectedPiece);
+        try{
+            Piece newSelectedPiece = boardSquares[xSelectedSquare][ySelectedSquare].getPiece();
+            moveOrSelectPiece(newSelectedPiece);
+        } catch (ArrayIndexOutOfBoundsException error) {
+            return;
+        }
         repaint();
     }
 
@@ -213,32 +216,31 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     }
 
     private String getPieceInitials(PlayerColor pieceColor, PieceType type) {
-        String pieceInitials = pieceColor ==PlayerColor.WHITE ? "w" : "b";
+        String pieceInitials = "  ";
+        if (pieceColor != null && type != null) {
+            pieceInitials = pieceColor == PlayerColor.WHITE ? "w" : "b";
 
-        if(type ==PieceType.PAWN) {
-            pieceInitials += "p";
-        }
-        else if(type ==PieceType.BISHOP) {
-            pieceInitials += "B";
-        }
-        else if(type ==PieceType.KNIGHT) {
-            pieceInitials += "N";
-        }
-        else if(type ==PieceType.ROCK) {
-            pieceInitials += "R";
-        }
-        else if(type ==PieceType.QUEEN) {
-            pieceInitials += "Q";
-        }
-        else if(type ==PieceType.KING) {
-            pieceInitials += "K";
+            if (type == PieceType.PAWN)
+                pieceInitials += "p";
+            else if (type == PieceType.BISHOP)
+                pieceInitials += "B";
+            else if (type == PieceType.KNIGHT)
+                pieceInitials += "N";
+            else if (type == PieceType.ROCK)
+                pieceInitials += "R";
+            else if (type == PieceType.QUEEN)
+                pieceInitials += "Q";
+            else if (type == PieceType.KING)
+                pieceInitials += "K";
+
+            return pieceInitials;
         }
         return pieceInitials;
     }
 
     private void readImages() {
         BufferedImage img= null;
-        String pathName = "C:\\Pieces\\Pieces.png";
+        String pathName = "C:\\ChessGame\\Pieces.png";
         try {
             img = ImageIO.read(new File(pathName));
         } catch (IOException e) {
@@ -276,6 +278,76 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         stringToImage.put("bN", images[9]);
         stringToImage.put("bR", images[10]);
         stringToImage.put("bp", images[11]);
+    }
+
+    private void saveGame(){
+        try{
+            String path = "C:\\ChessGame\\SavedGame.csv)";
+            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
+            for (int yPosition = 0; yPosition < COLUMNS_AMOUNT; yPosition++) {
+                for (int xPosition = 0; xPosition < ROWS_AMOUNT; xPosition++) {
+                    Piece pieceOnPosition = boardSquares[xPosition][yPosition].getPiece();
+                    PlayerColor pieceColor = pieceOnPosition.getPlayerColor();
+                    PieceType pieceType = pieceOnPosition.getType();
+                    if (xPosition!=0)
+                        fileWriter.write(",");
+                    String pieceInitials = getPieceInitials(pieceColor, pieceType);
+                    fileWriter.write(pieceInitials);
+                }
+                fileWriter.write("\n");
+            }
+            fileWriter.close();
+        } catch (Exception e){
+            return;
+        }
+    }
+
+    private void loadGame(){
+        try{
+            String path = "C:\\ChessGame\\SavedGame.csv)";
+            BufferedReader fileReader = new BufferedReader(new FileReader(path));
+            for (int yPosition = 0; yPosition < COLUMNS_AMOUNT; yPosition++) {
+                String[] piecesInitials = fileReader.readLine().split(",");
+                for (int xPosition = 0; xPosition < ROWS_AMOUNT; xPosition++) {
+                    boardSquares[xPosition][yPosition].setPiece(setPieceByInitials(piecesInitials[xPosition], new Position(xPosition, yPosition)));
+                }
+            }
+            fileReader.close();
+        } catch (Exception e){
+            return;
+        }
+    }
+
+    private Piece setPieceByInitials(String piecesInitial, Position position) {
+        String pieceInitial = piecesInitial;
+        PlayerColor playerColor;
+
+        if (pieceInitial.startsWith("w"))
+            playerColor = PlayerColor.WHITE;
+        else if (pieceInitial.startsWith("b"))
+            playerColor = PlayerColor.BLACK;
+        else
+            return null;
+
+        if (pieceInitial.endsWith("p"))
+            return new Pawn(playerColor, position);
+        else if (pieceInitial.endsWith("N"))
+            return new Knight(playerColor, position);
+        else if (pieceInitial.endsWith("B"))
+            return new Bishop(playerColor, position);
+        else if (pieceInitial.endsWith("R"))
+            return new Rock(playerColor, position);
+        else if (pieceInitial.endsWith("Q"))
+            return new Queen(playerColor, position);
+        else if (pieceInitial.endsWith("K"))
+            return new King(playerColor, position);
+
+        return null;
+    }
+
+    private void newGame(){
+        chessBoard.initialize();
+        boardSquares = chessBoard.getBoardSquares();
     }
 
     public int getBoardWidth(){
