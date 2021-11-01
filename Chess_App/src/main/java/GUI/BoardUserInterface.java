@@ -284,12 +284,12 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         try{
             String path = "C:\\ChessGame\\SavedGame.csv)";
             BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
-            for (int xPosition = 0; xPosition < COLUMNS_AMOUNT; xPosition++) {
-                for (int yPosition = 0; yPosition < ROWS_AMOUNT; yPosition++) {
+            for (int yPosition = 0; yPosition < COLUMNS_AMOUNT; yPosition++) {
+                for (int xPosition = 0; xPosition < ROWS_AMOUNT; xPosition++) {
                     Piece pieceOnPosition = boardSquares[xPosition][yPosition].getPiece();
                     PlayerColor pieceColor = pieceOnPosition.getPlayerColor();
                     PieceType pieceType = pieceOnPosition.getType();
-                    if (yPosition!=0)
+                    if (xPosition!=0)
                         fileWriter.write(",");
                     String pieceInitials = getPieceInitials(pieceColor, pieceType);
                     fileWriter.write(pieceInitials);
@@ -306,9 +306,8 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         try{
             String path = "C:\\ChessGame\\SavedGame.csv)";
             BufferedReader fileReader = new BufferedReader(new FileReader(path));
-            for (int xPosition = 0; xPosition < COLUMNS_AMOUNT; xPosition++) {
-                for (int yPosition = 0; yPosition < ROWS_AMOUNT; yPosition++) {
-
+            for (int yPosition = 0; yPosition < COLUMNS_AMOUNT; yPosition++) {
+                for (int xPosition = 0; xPosition < ROWS_AMOUNT; xPosition++) {
                 }
             }
             fileReader.close();
