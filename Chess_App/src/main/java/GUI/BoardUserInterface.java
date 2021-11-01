@@ -39,8 +39,8 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     private Piece selectedPiece;
 
     public BoardUserInterface(ChessBoard chessBoard) {
-        boardSquares = chessBoard.getBoardSquares();
         this.chessBoard = chessBoard;
+        boardSquares = chessBoard.getBoardSquares();
         stringToImage  = new HashMap<>();
         readImages();
         this.addMouseListener(this);
