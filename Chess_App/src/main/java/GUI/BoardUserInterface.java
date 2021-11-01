@@ -309,6 +309,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
             for (int yPosition = 0; yPosition < COLUMNS_AMOUNT; yPosition++) {
                 String[] piecesInitials = fileReader.readLine().split(",");
                 for (int xPosition = 0; xPosition < ROWS_AMOUNT; xPosition++) {
+                    boardSquares[xPosition][yPosition].setPiece(setPieceByInitials(piecesInitials[xPosition], new Position(xPosition, yPosition)));
                 }
             }
             fileReader.close();
