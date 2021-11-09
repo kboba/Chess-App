@@ -282,7 +282,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
 
     private void saveGame(){
         try{
-            String path = "C:\\ChessGame\\SavedGame.csv)";
+            String path = "C:\\ChessGame\\SavedGame.csv";
             BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
             for (int yPosition = 0; yPosition < COLUMNS_AMOUNT; yPosition++) {
                 for (int xPosition = 0; xPosition < ROWS_AMOUNT; xPosition++) {
