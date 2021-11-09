@@ -286,13 +286,19 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
             BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
             for (int yPosition = 0; yPosition < COLUMNS_AMOUNT; yPosition++) {
                 for (int xPosition = 0; xPosition < ROWS_AMOUNT; xPosition++) {
-                    Piece pieceOnPosition = boardSquares[xPosition][yPosition].getPiece();
-                    PlayerColor pieceColor = pieceOnPosition.getPlayerColor();
-                    PieceType pieceType = pieceOnPosition.getType();
                     if (xPosition!=0)
                         fileWriter.write(",");
-                    String pieceInitials = getPieceInitials(pieceColor, pieceType);
-                    fileWriter.write(pieceInitials);
+
+                    Piece pieceOnPosition = boardSquares[xPosition][yPosition].getPiece();
+                    if (pieceOnPosition==null){
+                        fileWriter.write("  ");
+                    }
+                    else {
+                        PlayerColor pieceColor = pieceOnPosition.getPlayerColor();
+                        PieceType pieceType = pieceOnPosition.getType();
+                        String pieceInitials = getPieceInitials(pieceColor, pieceType);
+                        fileWriter.write(pieceInitials);
+                    }
                 }
                 fileWriter.write("\n");
             }
