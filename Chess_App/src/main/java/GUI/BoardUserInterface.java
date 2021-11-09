@@ -194,6 +194,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
                 else if(selectedPiece.isMoveValid(new Position(xSelectedSquare, ySelectedSquare), chessBoard) && selectedPiece.getPlayerColor() != newSelectedPiece.getPlayerColor()){
                     selectedPiece.move(new Position(xSelectedSquare, ySelectedSquare), chessBoard);
                     selectedPiece = null;
+                    saveGame();
                 }
                 // Conditions for castle
                 else if(selectedPiece instanceof King && newSelectedPiece instanceof Rock && selectedPiece.getPlayerColor() == newSelectedPiece.getPlayerColor()) {
@@ -201,6 +202,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
                     if (((King) selectedPiece).isCastlePossible(new Position(xSelectedSquare, ySelectedSquare), chessBoard)) {
                         ((King) selectedPiece).castle(new Position(xSelectedSquare, ySelectedSquare), chessBoard);
                         selectedPiece = null;
+                        saveGame();
                     }
                 }
             }
@@ -211,6 +213,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
             if(selectedPiece.isMoveValid(new Position(xSelectedSquare, ySelectedSquare), chessBoard)){
                 selectedPiece.move(new Position(xSelectedSquare, ySelectedSquare), chessBoard);
                 selectedPiece = null;
+                saveGame();
             }
         }
     }
@@ -282,17 +285,23 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
 
     private void saveGame(){
         try{
-            String path = "C:\\ChessGame\\SavedGame.csv)";
+            String path = "C:\\ChessGame\\SavedGame.csv";
             BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
             for (int yPosition = 0; yPosition < COLUMNS_AMOUNT; yPosition++) {
                 for (int xPosition = 0; xPosition < ROWS_AMOUNT; xPosition++) {
-                    Piece pieceOnPosition = boardSquares[xPosition][yPosition].getPiece();
-                    PlayerColor pieceColor = pieceOnPosition.getPlayerColor();
-                    PieceType pieceType = pieceOnPosition.getType();
                     if (xPosition!=0)
                         fileWriter.write(",");
-                    String pieceInitials = getPieceInitials(pieceColor, pieceType);
-                    fileWriter.write(pieceInitials);
+
+                    Piece pieceOnPosition = boardSquares[xPosition][yPosition].getPiece();
+                    if (pieceOnPosition==null){
+                        fileWriter.write("  ");
+                    }
+                    else {
+                        PlayerColor pieceColor = pieceOnPosition.getPlayerColor();
+                        PieceType pieceType = pieceOnPosition.getType();
+                        String pieceInitials = getPieceInitials(pieceColor, pieceType);
+                        fileWriter.write(pieceInitials);
+                    }
                 }
                 fileWriter.write("\n");
             }
