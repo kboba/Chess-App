@@ -68,8 +68,8 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     public void mousePressed(MouseEvent e) {
         xMousePosition = e.getX()-X_MOVE;
         yMousePosition = e.getY()-Y_MOVE;
-        xSelectedSquare = xMousePosition/64;
-        ySelectedSquare = yMousePosition/64;
+        xSelectedSquare = xMousePosition/SQUARE_WIDTH;
+        ySelectedSquare = yMousePosition/SQUARE_HEIGHT;
 
         try{
             Piece newSelectedPiece = boardSquares[xSelectedSquare][ySelectedSquare].getPiece();
