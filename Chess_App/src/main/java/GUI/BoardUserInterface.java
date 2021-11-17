@@ -29,6 +29,8 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     private final byte COLUMNS_AMOUNT = 8;
     private final byte SQUARE_WIDTH = 64;
     private final byte SQUARE_HEIGHT = 64;
+    private final byte BUTTON_HEIGHT = 30;
+    private final byte BUTTON_MARGIN_HEIGHT = 16;
     private HashMap<String, Image> stringToImage;
     private ChessBoard chessBoard;
     private Square[][] boardSquares;
@@ -364,6 +366,6 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     }
 
     public int getBoardHeight(){
-        return ROWS_AMOUNT*SQUARE_HEIGHT + 54;
+        return ROWS_AMOUNT*SQUARE_HEIGHT + BUTTON_HEIGHT + BUTTON_MARGIN_HEIGHT + 54;
     }
 }
