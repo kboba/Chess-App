@@ -42,7 +42,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         this.chessBoard = chessBoard;
         boardSquares = chessBoard.getBoardSquares();
         stringToImage  = new HashMap<>();
-        readImages();
+        readPiecesImages();
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
     }
@@ -241,7 +241,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         return pieceInitials;
     }
 
-    private void readImages() {
+    private void readPiecesImages() {
         BufferedImage img= null;
         String pathName = "C:\\ChessGame\\Pieces.png";
         try {
