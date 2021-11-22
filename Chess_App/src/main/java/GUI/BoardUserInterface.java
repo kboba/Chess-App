@@ -45,6 +45,19 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         boardSquares = chessBoard.getBoardSquares();
         stringToPieceImage  = new HashMap<>();
         readPiecesImages();
+
+        BufferedImage imgNew = null;
+        BufferedImage imgSave = null;
+        BufferedImage imgLoad = null;
+        String pathName = "C:\\ChessGame\\";
+        try{
+            imgNew = ImageIO.read(new File(pathName+"NewGame.png"));
+            imgSave = ImageIO.read(new File(pathName+"SaveGame.png"));
+            imgLoad = ImageIO.read(new File(pathName+"LoadGame.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
     }
