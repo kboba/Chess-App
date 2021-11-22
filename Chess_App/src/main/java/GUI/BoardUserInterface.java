@@ -45,6 +45,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         this.chessBoard = chessBoard;
         boardSquares = chessBoard.getBoardSquares();
         stringToPieceImage  = new HashMap<>();
+        stringToButtonImage = new HashMap<>();
         readPiecesImages();
         readButtonsImages();
         this.addMouseListener(this);
@@ -255,20 +256,20 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     }
 
     private void readButtonsImages() {
-        BufferedImage imgNew = null;
-        BufferedImage imgSave = null;
-        BufferedImage imgLoad = null;
         String pathName = "C:\\ChessGame\\";
+        readAndMapImage(pathName+"NewGame.png", "newGame");
+        readAndMapImage(pathName+"SaveGame.png", "saveGame");
+        readAndMapImage(pathName+"LoadGame.png", "loadGame");
+    }
+
+    private void readAndMapImage(String pathName, String key){
+        BufferedImage img = null;
         try{
-            imgNew = ImageIO.read(new File(pathName+"NewGame.png"));
-            imgSave = ImageIO.read(new File(pathName+"SaveGame.png"));
-            imgLoad = ImageIO.read(new File(pathName+"LoadGame.png"));
+            img = ImageIO.read(new File(pathName));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        stringToButtonImage.put("newGame", imgNew);
-        stringToButtonImage.put("saveGame", imgSave);
-        stringToButtonImage.put("loadGame", imgLoad);
+        stringToButtonImage.put(key, img);
     }
 
     private Image[] getCutImages(BufferedImage img) {
