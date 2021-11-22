@@ -32,6 +32,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     private final byte BUTTON_HEIGHT = 30;
     private final byte BUTTON_MARGIN_HEIGHT = 16;
     private HashMap<String, Image> stringToPieceImage;
+    private HashMap<String, Image> stringToButtonImage;
     private ChessBoard chessBoard;
     private Square[][] boardSquares;
     private int xMousePosition = 0;
@@ -57,6 +58,9 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         } catch (IOException e) {
             e.printStackTrace();
         }
+        stringToButtonImage.put("newGame", imgNew);
+        stringToButtonImage.put("saveGame", imgSave);
+        stringToButtonImage.put("loadGame", imgLoad);
 
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
