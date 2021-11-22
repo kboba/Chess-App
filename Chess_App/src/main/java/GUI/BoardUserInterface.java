@@ -46,22 +46,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         boardSquares = chessBoard.getBoardSquares();
         stringToPieceImage  = new HashMap<>();
         readPiecesImages();
-
-        BufferedImage imgNew = null;
-        BufferedImage imgSave = null;
-        BufferedImage imgLoad = null;
-        String pathName = "C:\\ChessGame\\";
-        try{
-            imgNew = ImageIO.read(new File(pathName+"NewGame.png"));
-            imgSave = ImageIO.read(new File(pathName+"SaveGame.png"));
-            imgLoad = ImageIO.read(new File(pathName+"LoadGame.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        stringToButtonImage.put("newGame", imgNew);
-        stringToButtonImage.put("saveGame", imgSave);
-        stringToButtonImage.put("loadGame", imgLoad);
-
+        readButtonsImages();
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
     }
@@ -267,6 +252,23 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         }
         Image[] images = getCutImages(img);
         mapImages(images);
+    }
+
+    private void readButtonsImages() {
+        BufferedImage imgNew = null;
+        BufferedImage imgSave = null;
+        BufferedImage imgLoad = null;
+        String pathName = "C:\\ChessGame\\";
+        try{
+            imgNew = ImageIO.read(new File(pathName+"NewGame.png"));
+            imgSave = ImageIO.read(new File(pathName+"SaveGame.png"));
+            imgLoad = ImageIO.read(new File(pathName+"LoadGame.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stringToButtonImage.put("newGame", imgNew);
+        stringToButtonImage.put("saveGame", imgSave);
+        stringToButtonImage.put("loadGame", imgLoad);
     }
 
     private Image[] getCutImages(BufferedImage img) {
