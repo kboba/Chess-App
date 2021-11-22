@@ -196,7 +196,6 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
                 else if(selectedPiece.isMoveValid(new Position(xSelectedSquare, ySelectedSquare), chessBoard) && selectedPiece.getPlayerColor() != newSelectedPiece.getPlayerColor()){
                     selectedPiece.move(new Position(xSelectedSquare, ySelectedSquare), chessBoard);
                     selectedPiece = null;
-                    saveGame();
                 }
                 // Conditions for castle
                 else if(selectedPiece instanceof King && newSelectedPiece instanceof Rock && selectedPiece.getPlayerColor() == newSelectedPiece.getPlayerColor()) {
@@ -204,7 +203,6 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
                     if (((King) selectedPiece).isCastlePossible(new Position(xSelectedSquare, ySelectedSquare), chessBoard)) {
                         ((King) selectedPiece).castle(new Position(xSelectedSquare, ySelectedSquare), chessBoard);
                         selectedPiece = null;
-                        saveGame();
                     }
                 }
             }
@@ -215,7 +213,6 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
             if(selectedPiece.isMoveValid(new Position(xSelectedSquare, ySelectedSquare), chessBoard)){
                 selectedPiece.move(new Position(xSelectedSquare, ySelectedSquare), chessBoard);
                 selectedPiece = null;
-                saveGame();
             }
         }
     }
