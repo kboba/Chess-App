@@ -31,7 +31,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     private final byte SQUARE_HEIGHT = 64;
     private final byte BUTTON_HEIGHT = 30;
     private final byte BUTTON_MARGIN_HEIGHT = 16;
-    private HashMap<String, Image> stringToImage;
+    private HashMap<String, Image> stringToPieceImage;
     private ChessBoard chessBoard;
     private Square[][] boardSquares;
     private int xMousePosition = 0;
@@ -43,7 +43,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     public BoardUserInterface(ChessBoard chessBoard) {
         this.chessBoard = chessBoard;
         boardSquares = chessBoard.getBoardSquares();
-        stringToImage  = new HashMap<>();
+        stringToPieceImage  = new HashMap<>();
         readPiecesImages();
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
@@ -171,7 +171,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
                 var pieceColor = pieceOnSquare.getPlayerColor();
                 var type = pieceOnSquare.getType();
                 pieceInitials = getPieceInitials(pieceColor, type);
-                g.drawImage(stringToImage.get(pieceInitials), y*SQUARE_WIDTH+ X_MOVE+BORDER_WIDTH, x*SQUARE_HEIGHT+ Y_MOVE+BORDER_WIDTH, observer);
+                g.drawImage(stringToPieceImage.get(pieceInitials), y*SQUARE_WIDTH+ X_MOVE+BORDER_WIDTH, x*SQUARE_HEIGHT+ Y_MOVE+BORDER_WIDTH, observer);
             }
         }
     }
@@ -268,18 +268,18 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     }
 
     private void mapImages(Image[] images){
-        stringToImage.put("wK", images[0]);
-        stringToImage.put("wQ", images[1]);
-        stringToImage.put("wB", images[2]);
-        stringToImage.put("wN", images[3]);
-        stringToImage.put("wR", images[4]);
-        stringToImage.put("wp", images[5]);
-        stringToImage.put("bK", images[6]);
-        stringToImage.put("bQ", images[7]);
-        stringToImage.put("bB", images[8]);
-        stringToImage.put("bN", images[9]);
-        stringToImage.put("bR", images[10]);
-        stringToImage.put("bp", images[11]);
+        stringToPieceImage.put("wK", images[0]);
+        stringToPieceImage.put("wQ", images[1]);
+        stringToPieceImage.put("wB", images[2]);
+        stringToPieceImage.put("wN", images[3]);
+        stringToPieceImage.put("wR", images[4]);
+        stringToPieceImage.put("wp", images[5]);
+        stringToPieceImage.put("bK", images[6]);
+        stringToPieceImage.put("bQ", images[7]);
+        stringToPieceImage.put("bB", images[8]);
+        stringToPieceImage.put("bN", images[9]);
+        stringToPieceImage.put("bR", images[10]);
+        stringToPieceImage.put("bp", images[11]);
     }
 
     private void saveGame(){
