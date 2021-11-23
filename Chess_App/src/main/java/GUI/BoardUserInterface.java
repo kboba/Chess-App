@@ -375,7 +375,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
 
     private void loadGame(){
         try{
-            String path = "C:\\ChessGame\\SavedGame.csv)";
+            String path = "C:\\ChessGame\\SavedGame.csv";
             BufferedReader fileReader = new BufferedReader(new FileReader(path));
             for (int yPosition = 0; yPosition < COLUMNS_AMOUNT; yPosition++) {
                 String[] piecesInitials = fileReader.readLine().split(",");
@@ -385,7 +385,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
             }
             fileReader.close();
         } catch (Exception e){
-            return;
+            e.printStackTrace();
         }
     }
 
