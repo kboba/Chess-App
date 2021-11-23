@@ -29,7 +29,12 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     private final byte COLUMNS_AMOUNT = 8;
     private final byte SQUARE_WIDTH = 64;
     private final byte SQUARE_HEIGHT = 64;
-    private HashMap<String, Image> stringToImage;
+    private final byte BUTTON_HEIGHT = 30;
+    private final byte BUTTON_WIDTH = 120;
+    private final byte BUTTON_MARGIN_HEIGHT = 16;
+    private final short BUTTONS_Y_POSITION = Y_MOVE + SQUARE_HEIGHT * ROWS_AMOUNT + 2 * BORDER_WIDTH + BUTTON_MARGIN_HEIGHT;
+    private HashMap<String, Image> stringToPieceImage;
+    private HashMap<String, Image> stringToButtonImage;
     private ChessBoard chessBoard;
     private Square[][] boardSquares;
     private int xMousePosition = 0;
@@ -41,8 +46,10 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     public BoardUserInterface(ChessBoard chessBoard) {
         this.chessBoard = chessBoard;
         boardSquares = chessBoard.getBoardSquares();
-        stringToImage  = new HashMap<>();
-        readImages();
+        stringToPieceImage  = new HashMap<>();
+        stringToButtonImage = new HashMap<>();
+        readPiecesImages();
+        readButtonsImages();
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
     }
@@ -54,6 +61,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         drawAttackedKingSquare(g);
         drawSelectedSquare(g);
         drawPieces(g, this);
+        drawButtons(g, this);
     }
 
     /*
@@ -68,15 +76,9 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     public void mousePressed(MouseEvent e) {
         xMousePosition = e.getX()-X_MOVE;
         yMousePosition = e.getY()-Y_MOVE;
-        xSelectedSquare = xMousePosition/64;
-        ySelectedSquare = yMousePosition/64;
 
-        try{
-            Piece newSelectedPiece = boardSquares[xSelectedSquare][ySelectedSquare].getPiece();
-            moveOrSelectPiece(newSelectedPiece);
-        } catch (ArrayIndexOutOfBoundsException error) {
-            return;
-        }
+        callAppropriateMethodOnClick();
+
         repaint();
     }
 
@@ -169,9 +171,55 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
                 var pieceColor = pieceOnSquare.getPlayerColor();
                 var type = pieceOnSquare.getType();
                 pieceInitials = getPieceInitials(pieceColor, type);
-                g.drawImage(stringToImage.get(pieceInitials), y*SQUARE_WIDTH+ X_MOVE+BORDER_WIDTH, x*SQUARE_HEIGHT+ Y_MOVE+BORDER_WIDTH, observer);
+                g.drawImage(stringToPieceImage.get(pieceInitials), y*SQUARE_WIDTH+ X_MOVE+BORDER_WIDTH, x*SQUARE_HEIGHT+ Y_MOVE+BORDER_WIDTH, observer);
             }
         }
+    }
+
+    private void drawButtons(Graphics g, ImageObserver observer) {
+        g.drawImage(stringToButtonImage.get("newGame"), X_MOVE+BORDER_WIDTH, BUTTONS_Y_POSITION, this);
+        g.drawImage(stringToButtonImage.get("saveGame"), (X_MOVE+2*BORDER_WIDTH+SQUARE_WIDTH*COLUMNS_AMOUNT-BUTTON_WIDTH)/2, BUTTONS_Y_POSITION, observer);
+        g.drawImage(stringToButtonImage.get("loadGame"), X_MOVE+2*BORDER_WIDTH+SQUARE_WIDTH*COLUMNS_AMOUNT-BUTTON_WIDTH, BUTTONS_Y_POSITION, observer);
+    }
+
+    private void callAppropriateMethodOnClick() {
+        if(isOnNewButton())
+            newGame();
+        else if(isOnSaveButton())
+            saveGame();
+        else if(isOnLoadButton())
+            loadGame();
+        else
+            checkIfItIsPieceAndDoSomethingWithIt();
+    }
+
+    private void checkIfItIsPieceAndDoSomethingWithIt() {
+        xSelectedSquare = xMousePosition/SQUARE_WIDTH;
+        ySelectedSquare = yMousePosition/SQUARE_HEIGHT;
+
+        try{
+            Piece newSelectedPiece = boardSquares[xSelectedSquare][ySelectedSquare].getPiece();
+            moveOrSelectPiece(newSelectedPiece);
+        } catch (ArrayIndexOutOfBoundsException error) {
+        }
+    }
+
+    private boolean isOnNewButton() {
+        return xMousePosition >= X_MOVE + BORDER_WIDTH
+                && xMousePosition <= X_MOVE + BORDER_WIDTH + BUTTON_WIDTH
+                && yMousePosition >= BUTTONS_Y_POSITION && yMousePosition <= BUTTONS_Y_POSITION + BUTTON_HEIGHT;
+    }
+
+    private boolean isOnSaveButton() {
+        return xMousePosition >= (X_MOVE+2*BORDER_WIDTH+SQUARE_WIDTH*COLUMNS_AMOUNT-BUTTON_WIDTH)/2
+                && xMousePosition <= (X_MOVE+2*BORDER_WIDTH+SQUARE_WIDTH*COLUMNS_AMOUNT-BUTTON_WIDTH)/2 + BUTTON_WIDTH
+                && yMousePosition >= BUTTONS_Y_POSITION && yMousePosition <= BUTTONS_Y_POSITION + BUTTON_HEIGHT;
+    }
+
+    private boolean isOnLoadButton() {
+        return xMousePosition >= X_MOVE + X_MOVE+2*BORDER_WIDTH+SQUARE_WIDTH*COLUMNS_AMOUNT-BUTTON_WIDTH
+                && xMousePosition <= X_MOVE+2*BORDER_WIDTH+SQUARE_WIDTH*COLUMNS_AMOUNT
+                && yMousePosition >= BUTTONS_Y_POSITION && yMousePosition <= BUTTONS_Y_POSITION + BUTTON_HEIGHT;
     }
 
     /*
@@ -194,7 +242,6 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
                 else if(selectedPiece.isMoveValid(new Position(xSelectedSquare, ySelectedSquare), chessBoard) && selectedPiece.getPlayerColor() != newSelectedPiece.getPlayerColor()){
                     selectedPiece.move(new Position(xSelectedSquare, ySelectedSquare), chessBoard);
                     selectedPiece = null;
-                    saveGame();
                 }
                 // Conditions for castle
                 else if(selectedPiece instanceof King && newSelectedPiece instanceof Rock && selectedPiece.getPlayerColor() == newSelectedPiece.getPlayerColor()) {
@@ -202,7 +249,6 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
                     if (((King) selectedPiece).isCastlePossible(new Position(xSelectedSquare, ySelectedSquare), chessBoard)) {
                         ((King) selectedPiece).castle(new Position(xSelectedSquare, ySelectedSquare), chessBoard);
                         selectedPiece = null;
-                        saveGame();
                     }
                 }
             }
@@ -213,7 +259,6 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
             if(selectedPiece.isMoveValid(new Position(xSelectedSquare, ySelectedSquare), chessBoard)){
                 selectedPiece.move(new Position(xSelectedSquare, ySelectedSquare), chessBoard);
                 selectedPiece = null;
-                saveGame();
             }
         }
     }
@@ -241,7 +286,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         return pieceInitials;
     }
 
-    private void readImages() {
+    private void readPiecesImages() {
         BufferedImage img= null;
         String pathName = "C:\\ChessGame\\Pieces.png";
         try {
@@ -251,6 +296,23 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         }
         Image[] images = getCutImages(img);
         mapImages(images);
+    }
+
+    private void readButtonsImages() {
+        String pathName = "C:\\ChessGame\\";
+        readAndMapImage(pathName+"NewGame.png", "newGame");
+        readAndMapImage(pathName+"SaveGame.png", "saveGame");
+        readAndMapImage(pathName+"LoadGame.png", "loadGame");
+    }
+
+    private void readAndMapImage(String pathName, String key){
+        BufferedImage img = null;
+        try{
+            img = ImageIO.read(new File(pathName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stringToButtonImage.put(key, img);
     }
 
     private Image[] getCutImages(BufferedImage img) {
@@ -269,18 +331,18 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     }
 
     private void mapImages(Image[] images){
-        stringToImage.put("wK", images[0]);
-        stringToImage.put("wQ", images[1]);
-        stringToImage.put("wB", images[2]);
-        stringToImage.put("wN", images[3]);
-        stringToImage.put("wR", images[4]);
-        stringToImage.put("wp", images[5]);
-        stringToImage.put("bK", images[6]);
-        stringToImage.put("bQ", images[7]);
-        stringToImage.put("bB", images[8]);
-        stringToImage.put("bN", images[9]);
-        stringToImage.put("bR", images[10]);
-        stringToImage.put("bp", images[11]);
+        stringToPieceImage.put("wK", images[0]);
+        stringToPieceImage.put("wQ", images[1]);
+        stringToPieceImage.put("wB", images[2]);
+        stringToPieceImage.put("wN", images[3]);
+        stringToPieceImage.put("wR", images[4]);
+        stringToPieceImage.put("wp", images[5]);
+        stringToPieceImage.put("bK", images[6]);
+        stringToPieceImage.put("bQ", images[7]);
+        stringToPieceImage.put("bB", images[8]);
+        stringToPieceImage.put("bN", images[9]);
+        stringToPieceImage.put("bR", images[10]);
+        stringToPieceImage.put("bp", images[11]);
     }
 
     private void saveGame(){
@@ -313,7 +375,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
 
     private void loadGame(){
         try{
-            String path = "C:\\ChessGame\\SavedGame.csv)";
+            String path = "C:\\ChessGame\\SavedGame.csv";
             BufferedReader fileReader = new BufferedReader(new FileReader(path));
             for (int yPosition = 0; yPosition < COLUMNS_AMOUNT; yPosition++) {
                 String[] piecesInitials = fileReader.readLine().split(",");
@@ -323,7 +385,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
             }
             fileReader.close();
         } catch (Exception e){
-            return;
+            e.printStackTrace();
         }
     }
 
@@ -364,6 +426,6 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     }
 
     public int getBoardHeight(){
-        return ROWS_AMOUNT*SQUARE_HEIGHT + 54;
+        return ROWS_AMOUNT*SQUARE_HEIGHT + BUTTON_HEIGHT + BUTTON_MARGIN_HEIGHT*2 + 42;
     }
 }
