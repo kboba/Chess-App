@@ -85,6 +85,15 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         } catch (ArrayIndexOutOfBoundsException error) {
             return;
         }
+        if(isOnNewButton())
+            newGame();
+        else if(isOnSaveButton())
+            saveGame();
+        else if(isOnLoadButton())
+            loadGame();
+        else
+            checkIfItIsPieceAndDoSomething();
+
         repaint();
     }
 
