@@ -30,6 +30,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     private final byte SQUARE_WIDTH = 64;
     private final byte SQUARE_HEIGHT = 64;
     private final byte BUTTON_HEIGHT = 30;
+    private final byte BUTTON_WIDTH = 120;
     private final byte BUTTON_MARGIN_HEIGHT = 16;
     private HashMap<String, Image> stringToPieceImage;
     private HashMap<String, Image> stringToButtonImage;
@@ -59,6 +60,7 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         drawAttackedKingSquare(g);
         drawSelectedSquare(g);
         drawPieces(g, this);
+        drawButtons(g, this);
     }
 
     /*
@@ -177,6 +179,13 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
                 g.drawImage(stringToPieceImage.get(pieceInitials), y*SQUARE_WIDTH+ X_MOVE+BORDER_WIDTH, x*SQUARE_HEIGHT+ Y_MOVE+BORDER_WIDTH, observer);
             }
         }
+    }
+
+    private void drawButtons(Graphics g, ImageObserver observer) {
+        int buttonsYPosition = Y_MOVE + SQUARE_HEIGHT * ROWS_AMOUNT + 2 * BORDER_WIDTH + BUTTON_MARGIN_HEIGHT;
+        g.drawImage(stringToButtonImage.get("newGame"), X_MOVE+BORDER_WIDTH, buttonsYPosition, this);
+        g.drawImage(stringToButtonImage.get("saveGame"), (X_MOVE+2*BORDER_WIDTH+SQUARE_WIDTH*COLUMNS_AMOUNT-BUTTON_WIDTH)/2, buttonsYPosition, observer);
+        g.drawImage(stringToButtonImage.get("loadGame"), X_MOVE+2*BORDER_WIDTH+SQUARE_WIDTH*COLUMNS_AMOUNT-BUTTON_WIDTH, buttonsYPosition, observer);
     }
 
     /*
@@ -383,6 +392,6 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     }
 
     public int getBoardHeight(){
-        return ROWS_AMOUNT*SQUARE_HEIGHT + BUTTON_HEIGHT + BUTTON_MARGIN_HEIGHT + 54;
+        return ROWS_AMOUNT*SQUARE_HEIGHT + BUTTON_HEIGHT + BUTTON_MARGIN_HEIGHT*2 + 42;
     }
 }
