@@ -188,6 +188,24 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         g.drawImage(stringToButtonImage.get("loadGame"), X_MOVE+2*BORDER_WIDTH+SQUARE_WIDTH*COLUMNS_AMOUNT-BUTTON_WIDTH, BUTTONS_Y_POSITION, observer);
     }
 
+    private boolean isOnNewButton() {
+        return xMousePosition >= X_MOVE + BORDER_WIDTH
+                && xMousePosition <= X_MOVE + BORDER_WIDTH + BUTTON_WIDTH
+                && yMousePosition >= BUTTONS_Y_POSITION && yMousePosition <= BUTTONS_Y_POSITION + BUTTON_HEIGHT;
+    }
+
+    private boolean isOnSaveButton() {
+        return xMousePosition >= (X_MOVE+2*BORDER_WIDTH+SQUARE_WIDTH*COLUMNS_AMOUNT-BUTTON_WIDTH)/2
+                && xMousePosition <= (X_MOVE+2*BORDER_WIDTH+SQUARE_WIDTH*COLUMNS_AMOUNT-BUTTON_WIDTH)/2 + BUTTON_WIDTH
+                && yMousePosition >= BUTTONS_Y_POSITION && yMousePosition <= BUTTONS_Y_POSITION + BUTTON_HEIGHT;
+    }
+
+    private boolean isOnLoadButton() {
+        return xMousePosition >= X_MOVE + X_MOVE+2*BORDER_WIDTH+SQUARE_WIDTH*COLUMNS_AMOUNT-BUTTON_WIDTH
+                && xMousePosition <= X_MOVE+2*BORDER_WIDTH+SQUARE_WIDTH*COLUMNS_AMOUNT
+                && yMousePosition >= BUTTONS_Y_POSITION && yMousePosition <= BUTTONS_Y_POSITION + BUTTON_HEIGHT;
+    }
+
     /*
      * Method which:
      * 1. Select or unselect selected piece
