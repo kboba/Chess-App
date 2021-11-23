@@ -76,23 +76,8 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
     public void mousePressed(MouseEvent e) {
         xMousePosition = e.getX()-X_MOVE;
         yMousePosition = e.getY()-Y_MOVE;
-        xSelectedSquare = xMousePosition/SQUARE_WIDTH;
-        ySelectedSquare = yMousePosition/SQUARE_HEIGHT;
 
-        try{
-            Piece newSelectedPiece = boardSquares[xSelectedSquare][ySelectedSquare].getPiece();
-            moveOrSelectPiece(newSelectedPiece);
-        } catch (ArrayIndexOutOfBoundsException error) {
-            return;
-        }
-        if(isOnNewButton())
-            newGame();
-        else if(isOnSaveButton())
-            saveGame();
-        else if(isOnLoadButton())
-            loadGame();
-        else
-            checkIfItIsPieceAndDoSomething();
+        callAppropriateMethodOnClick();
 
         repaint();
     }
@@ -195,6 +180,28 @@ public class BoardUserInterface extends JPanel implements MouseListener, MouseMo
         g.drawImage(stringToButtonImage.get("newGame"), X_MOVE+BORDER_WIDTH, BUTTONS_Y_POSITION, this);
         g.drawImage(stringToButtonImage.get("saveGame"), (X_MOVE+2*BORDER_WIDTH+SQUARE_WIDTH*COLUMNS_AMOUNT-BUTTON_WIDTH)/2, BUTTONS_Y_POSITION, observer);
         g.drawImage(stringToButtonImage.get("loadGame"), X_MOVE+2*BORDER_WIDTH+SQUARE_WIDTH*COLUMNS_AMOUNT-BUTTON_WIDTH, BUTTONS_Y_POSITION, observer);
+    }
+
+    private void callAppropriateMethodOnClick() {
+        if(isOnNewButton())
+            newGame();
+        else if(isOnSaveButton())
+            saveGame();
+        else if(isOnLoadButton())
+            loadGame();
+        else
+            checkIfItIsPieceAndDoSomethingWithIt();
+    }
+
+    private void checkIfItIsPieceAndDoSomethingWithIt() {
+        xSelectedSquare = xMousePosition/SQUARE_WIDTH;
+        ySelectedSquare = yMousePosition/SQUARE_HEIGHT;
+
+        try{
+            Piece newSelectedPiece = boardSquares[xSelectedSquare][ySelectedSquare].getPiece();
+            moveOrSelectPiece(newSelectedPiece);
+        } catch (ArrayIndexOutOfBoundsException error) {
+        }
     }
 
     private boolean isOnNewButton() {
