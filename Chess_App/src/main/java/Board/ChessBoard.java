@@ -18,6 +18,7 @@ public class ChessBoard {
         initialize();
         blackKingPosition = new Position (3, 7);
         whiteKingPosition = new Position (3, 0);
+
     }
 
     public void initialize() {
@@ -141,5 +142,9 @@ public class ChessBoard {
         }
 
         return true;
+    }
+
+    public void setWhiteMove() {
+        Piece.setWhiteMove(true);
     }
 }
