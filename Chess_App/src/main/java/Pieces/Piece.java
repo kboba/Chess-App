@@ -8,6 +8,7 @@ abstract public class Piece implements Movable {
     private final PieceType type;
     private Position position;
     private boolean firstMoveDone;
+    private static boolean whiteMove = true;
 
     public Piece(PlayerColor playerColor, PieceType type, Position position) {
         this.playerColor = playerColor;
