@@ -70,7 +70,7 @@ abstract public class Piece implements Movable {
             }
         }
         chessBoard.setBoardSquares(boardSquares);
-
+        setWhiteMove(!whiteMove);
 
 
         if (allyKingAreNotSafe(chessBoard)) {
@@ -85,6 +85,7 @@ abstract public class Piece implements Movable {
                 }
             }
             chessBoard.setBoardSquares(boardSquares);
+            setWhiteMove(!whiteMove);
         }
         else
             firstMoveDone = true;
@@ -98,10 +99,11 @@ abstract public class Piece implements Movable {
             else
                 ((Pawn) this).setEnPassantPossible(false);
 
-
             if (pawnOnLastSquare(chessBoard, yNewPosition)) {
                 boardSquares[xNewPosition][yNewPosition].setPiece(new Queen(playerColor, position));
             }
+
+
         }
     }
 
@@ -122,5 +124,13 @@ abstract public class Piece implements Movable {
 
     public boolean isFirstMoveDone() {
         return firstMoveDone;
+    }
+
+    public static boolean isWhiteMove() {
+        return whiteMove;
+    }
+
+    public static void setWhiteMove(boolean whiteMove) {
+        Piece.whiteMove = whiteMove;
     }
 }
