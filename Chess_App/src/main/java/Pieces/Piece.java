@@ -45,13 +45,19 @@ abstract public class Piece implements Movable {
     @Override
     public void move(Position newPosition, ChessBoard chessBoard) {
         var boardSquares = chessBoard.getBoardSquares();
-        int xPositionBeforeMove = getPosition().getX();
-        int yPositionBeforeMove = getPosition().getY();
         int xNewPosition = newPosition.getX();
         int yNewPosition = newPosition.getY();
+        Piece pieceOnNewPosition = boardSquares[xNewPosition][yNewPosition].getPiece();
+
+        if(playerColor == PlayerColor.WHITE && !isWhiteMove())
+            return;
+        if(playerColor == PlayerColor.BLACK && isWhiteMove())
+            return;
+
+        int xPositionBeforeMove = getPosition().getX();
+        int yPositionBeforeMove = getPosition().getY();
         Position oldWhiteKingPosition = chessBoard.getWhiteKingPosition();
         Position oldBlackKingPosition = chessBoard.getBlackKingPosition();
-        Piece pieceOnNewPosition = boardSquares[xNewPosition][yNewPosition].getPiece();
 
         boardSquares[xPositionBeforeMove][yPositionBeforeMove].setPiece(null);
         setPosition(newPosition);
