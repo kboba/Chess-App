@@ -8,6 +8,7 @@ abstract public class Piece implements Movable {
     private final PieceType type;
     private Position position;
     private boolean firstMoveDone;
+    private static boolean whiteMove = true;
 
     public Piece(PlayerColor playerColor, PieceType type, Position position) {
         this.playerColor = playerColor;
@@ -44,13 +45,19 @@ abstract public class Piece implements Movable {
     @Override
     public void move(Position newPosition, ChessBoard chessBoard) {
         var boardSquares = chessBoard.getBoardSquares();
-        int xPositionBeforeMove = getPosition().getX();
-        int yPositionBeforeMove = getPosition().getY();
         int xNewPosition = newPosition.getX();
         int yNewPosition = newPosition.getY();
+        Piece pieceOnNewPosition = boardSquares[xNewPosition][yNewPosition].getPiece();
+
+        if(playerColor == PlayerColor.WHITE && !isWhiteMove())
+            return;
+        if(playerColor == PlayerColor.BLACK && isWhiteMove())
+            return;
+
+        int xPositionBeforeMove = getPosition().getX();
+        int yPositionBeforeMove = getPosition().getY();
         Position oldWhiteKingPosition = chessBoard.getWhiteKingPosition();
         Position oldBlackKingPosition = chessBoard.getBlackKingPosition();
-        Piece pieceOnNewPosition = boardSquares[xNewPosition][yNewPosition].getPiece();
 
         boardSquares[xPositionBeforeMove][yPositionBeforeMove].setPiece(null);
         setPosition(newPosition);
@@ -63,7 +70,7 @@ abstract public class Piece implements Movable {
             }
         }
         chessBoard.setBoardSquares(boardSquares);
-
+        setWhiteMove(!whiteMove);
 
 
         if (allyKingAreNotSafe(chessBoard)) {
@@ -78,6 +85,7 @@ abstract public class Piece implements Movable {
                 }
             }
             chessBoard.setBoardSquares(boardSquares);
+            setWhiteMove(!whiteMove);
         }
         else
             firstMoveDone = true;
@@ -91,10 +99,11 @@ abstract public class Piece implements Movable {
             else
                 ((Pawn) this).setEnPassantPossible(false);
 
-
             if (pawnOnLastSquare(chessBoard, yNewPosition)) {
                 boardSquares[xNewPosition][yNewPosition].setPiece(new Queen(playerColor, position));
             }
+
+
         }
     }
 
@@ -115,5 +124,13 @@ abstract public class Piece implements Movable {
 
     public boolean isFirstMoveDone() {
         return firstMoveDone;
+    }
+
+    public static boolean isWhiteMove() {
+        return whiteMove;
+    }
+
+    public static void setWhiteMove(boolean whiteMove) {
+        Piece.whiteMove = whiteMove;
     }
 }
