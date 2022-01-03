@@ -9,10 +9,8 @@ public class UserInterface {
 
     private JFrame jFrame;
     private BoardUserInterface boardUserInterface; //private JPanel
-    private ChessBoard chessBoard;
 
     public UserInterface(ChessBoard chessBoard) {
-        this.chessBoard = chessBoard;
         boardUserInterface = new BoardUserInterface(chessBoard);
     }
 
