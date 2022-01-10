@@ -20,122 +20,82 @@ title Chess App
 
 package Game {
     class Game {
-        -board: Board
+
     }
-
-    enum PlayerColor {
-        WHITE,
-        BLACK;
-    }
-
-
-    class Position {
-        -x: short
-        -y: short
-
-        +Position(short x, short y)
-        
-        +void setPosition(short x, short y)
-        +Position getPosition()
-    }
-}
-
-
-
-package Board {
-    class Board {
-        -boardSquares: Square[][]
-
-        +Board()
-
-        -void initialize();
-    }
-
-    class Square {
-        -color: final SquareColor
-        -position: final Position
-        -occupied: bool
-        -piece: Piece
-
-        +Square(SquareColor, Position)
-
-        +void occupy()
-        +void unoccupy()
-
-        +bool isOccupied()
-        +Piece getPiece()
-        +void setPiece(Piece)
-    }
-
-
-    enum SquareColor{
-        LIGHT,
-        DARK
-    }
-}
-
-
-
-package GUI {
     
+
+    package Pieces {
+        enum PieceType {
+
+        }
+
+        enum PlayerColor {
+
+        }
+
+        abstract class Piece implements Movable {
+            
+        }
+
+        interface Movable {
+
+        }
+
+        class Pawn extends Piece {
+
+        }
+
+        class Knight extends Piece {
+
+        }
+
+        class Bishop extends Piece {
+            
+        }
+
+        class Rock extends Piece {
+
+        }
+
+        class Queen extends Piece {
+
+        }
+
+        class King extends Piece {
+            
+        }
+    }
+
+
+    package Board {
+        class ChessBoard {
+
+        }
+
+        class Square {
+
+        }
+
+        class Position {
+
+        }
+
+        enum SquareColor {
+
+        }
+    }
+
+
+    package GUI {
+        class UserInterface {
+            
+        }
+        
+        class BoardUserInterface extends JPanel implements MouseListener, mouseMotionListener {
+
+        }
+    }
 }
-
-
-
-package Pieces {
-    enum PieceType {
-        PAWN,
-        KNIGHT,
-        BISHOP,
-        ROCK,
-        QUEEN,
-        KING;
-    }
-
-    abstract class Piece implements Movable {
-        -m_player : final PlayerColor
-        -m_type : final PieceType
-        -m_position : Position
-        
-        +Piece()
-        
-        +abstract bool isMoveValid();
-        +abstract Position Move(Position newPosition);
-
-        +PieceType getType()
-        +PlayerColor getPlayer()
-    }
-
-    interface Movable {
-        void isMoveValid();
-        void Move(Position newPosition);
-    }
-
-    class Pawn extends Piece {
-
-    }
-
-    class Knight extends Piece {
-
-    }
-
-    class Bishop extends Piece {
-        
-    }
-
-    class Rock extends Piece {
-
-    }
-
-    class Queen extends Piece {
-
-    }
-
-    class King extends Piece {
-        
-    }
-}
-
 
 
 @enduml
