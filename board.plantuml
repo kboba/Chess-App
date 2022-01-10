@@ -1,0 +1,39 @@
+@startuml Chess App
+
+
+skinparam DefaultFontName Arial
+skinparam DefaultFontSize 16
+skinparam DefaultFontStyle bold
+skinparam ClassBorderColor black
+skinparam SequenceMessageAlignment center
+skinparam ArrowThickness 1
+skinparam ArrowColor #black
+hide empty members
+
+skinparam titleBorderRoundCorner 15
+skinparam titleBorderThickness 2
+skinparam TitleFontSize 24
+
+title Chess App
+
+
+    package Board {
+        class ChessBoard {
+
+        }
+
+        class Square {
+
+        }
+
+        class Position {
+
+        }
+
+        enum SquareColor {
+
+        }
+    }
+
+
+@enduml

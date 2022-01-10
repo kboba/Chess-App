@@ -1,0 +1,63 @@
+@startuml Chess App
+
+
+skinparam DefaultFontName Arial
+skinparam DefaultFontSize 16
+skinparam DefaultFontStyle bold
+skinparam ClassBorderColor black
+skinparam SequenceMessageAlignment center
+skinparam ArrowThickness 1
+skinparam ArrowColor #black
+hide empty members
+
+skinparam titleBorderRoundCorner 15
+skinparam titleBorderThickness 2
+skinparam TitleFontSize 24
+
+title Chess App
+
+
+    package Pieces {
+        enum PieceType {
+
+        }
+
+        enum PlayerColor {
+
+        }
+
+        abstract class Piece implements Movable {
+            
+        }
+
+        interface Movable {
+
+        }
+
+        class Pawn extends Piece {
+
+        }
+
+        class Knight extends Piece {
+
+        }
+
+        class Bishop extends Piece {
+            
+        }
+
+        class Rock extends Piece {
+
+        }
+
+        class Queen extends Piece {
+
+        }
+
+        class King extends Piece {
+            
+        }
+    }
+
+
+@enduml
