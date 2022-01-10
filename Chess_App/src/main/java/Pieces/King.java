@@ -15,14 +15,16 @@ public class King extends Piece {
 
     @Override
     public boolean isMoveValid(Position newPosition, ChessBoard chessBoard) {
-        if(isNewPositionSame(newPosition))
-            return false;
+        boolean result = false;
+        if (!isNewPositionSame(newPosition)) {
+            var newPositionX = newPosition.getX();
+            var newPositionY = newPosition.getY();
+            if (canMoveToNeighborSquare(newPositionX, newPositionY)) {
+                result = true;
+            }
+        }
 
-        var newPositionX = newPosition.getX();
-        var newPositionY = newPosition.getY();
-        if(canMoveToNeighborSquare(newPositionX, newPositionY))
-            return true;
-        return false;
+        return result;
     }
 
     @Override

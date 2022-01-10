@@ -17,13 +17,6 @@ skinparam TitleFontSize 24
 title Chess App
 
 
-
-package Game {
-    class Game {
-
-    }
-    
-
     package Pieces {
         enum PieceType {
 
@@ -65,37 +58,6 @@ package Game {
             
         }
     }
-
-
-    package Board {
-        class ChessBoard {
-
-        }
-
-        class Square {
-
-        }
-
-        class Position {
-
-        }
-
-        enum SquareColor {
-
-        }
-    }
-
-
-    package GUI {
-        class UserInterface {
-            
-        }
-        
-        class BoardUserInterface extends JPanel implements MouseListener, mouseMotionListener {
-
-        }
-    }
-}
 
 
 @enduml
